@@ -3,9 +3,9 @@ public class Evento {
     private int fecha;
     private int horainicio;
     private int horafinal;
-    private Dia_Especial tipo_evento;
+    private TipoDeDia tipo_evento;
 
-    public Evento(String nombre, int fecha, int horainicio, int horafinal, Dia_Especial tipo_evento) {
+    public Evento(String nombre, int fecha, int horainicio, int horafinal, TipoDeDia tipo_evento) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.horainicio = horainicio;
@@ -45,11 +45,11 @@ public class Evento {
         this.horafinal = horafinal;
     }
 
-    public Dia_Especial getTipo_evento() {
+    public TipoDeDia getTipo_evento() {
         return tipo_evento;
     }
 
-    public void setTipo_evento(Dia_Especial tipo_evento) {
+    public void setTipo_evento(TipoDeDia tipo_evento) {
         this.tipo_evento = tipo_evento;
     }
 

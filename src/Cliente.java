@@ -1,15 +1,20 @@
+import java.util.ArrayList;
 public class Cliente {
     private String nombre;
     private String correo;
-    private long telefono;
+    private long numero;
     private String contrasenia;
-    private Reserva reserva;
+    private ArrayList<Reserva> listaReservas;
 
-    public Cliente(String nombre, String correo, long telefono, String contrasenia) {
+    public Cliente(){
+        this.listaReservas = new ArrayList<Reserva>();
+    }
+    public Cliente(String nombre, String correo, long numero, String contrasenia, ArrayList<Reserva>listaReservas) {
         this.nombre = nombre;
         this.correo = correo;
-        this.telefono = telefono;
+        this.numero = numero;
         this.contrasenia = contrasenia;
+        this.listaReservas = listaReservas;
     }
 
     public String getNombre() {
@@ -28,12 +33,12 @@ public class Cliente {
         this.correo = correo;
     }
 
-    public long getTelefono() {
-        return telefono;
+    public long getNumero() {
+        return numero;
     }
 
-    public void setTelefono(long telefono) {
-        this.telefono = telefono;
+    public void setNumero(long numero) {
+        this.numero = numero;
     }
 
     public String getContrasenia() {
@@ -44,15 +49,70 @@ public class Cliente {
         this.contrasenia = contrasenia;
     }
 
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
+    public void setListaReservas(ArrayList<Reserva>listaReservas){
+        this.listaReservas = listaReservas;
+    }
+    public void agregarReserva(Reserva reserva){
+        this.listaReservas.add(reserva);
     }
 
 
     @Override
     public String toString() {
-        return "Cliente{" + "nombre=" + nombre + ", correo=" + correo + ", telefono=" + telefono + ", contrasenia=" + contrasenia + '}';
+        return "Cliente{" + "nombre=" + nombre + ", correo=" + correo + ", numero=" + numero + ", contrasenia=" + contrasenia + '}';
     }
 
+    /**
+     * registrarCliente: crea una cuenta de un cliente
+     * @param nombre: nombre del cliente
+     * @param correo: correo del cliente
+     * @param numero: numero del cliente
+     * @param contrasenia: contrasenña del cliente
+     */
 
+    public void registarCliente(String nombre, String correo, long numero, String contrasenia){
+
+    }
+    /**
+    *iniciarSesion: inicia sesion con una cuenta ya creada.
+     * @param correo: correo del usuario
+     * @param contrasenia: contraseña del usuario
+    */
+    public void iniciarSesion(String correo, String contrasenia){
+    }
+    /**
+     *actualizarInfo: cambia informacion de la cuenta del cliente.
+     * @param correo: correo del usuario.
+     * @param contrasenia: contraseña del usuario
+     */
+
+    public void actualizarInfo(String correo, String contrasenia){
+    }
+
+    /**
+     *recuperarContrasenia: se le enviá un mail al usuario con un enlace que le posibilite modificar su contraseña en caso de que se la olvide.
+     * @param correo: correo del usuario
+     */
+
+    public void recuperarContrasenia(String correo){
+    }
+
+    /**
+     * consultarHistorialReservas: el cliente consulta su historial de reservas
+     * @param correo: correo del usuario
+     * @param contrasenia: contraseña del usuario
+     * @return: retorna una lista de las reservas históricas
+     */
+    public ArrayList<Reserva> consultarHistorialReservas(String correo, String contrasenia){
+
+        return null;
+    }
+
+    /**
+     * pagarXInasistencia: realiza un pago en caso de que el cliente no se presente a la reserva
+     * @param estado: estado en el que se encuentra la reserva, define si el cliente asistió o no, si la reserva fue postergada o si está en curso.
+     */
+    public void pagarXInasistencia(Estado estado){
+
+    }
 }

@@ -1,9 +1,9 @@
-public class MailAuto {
+public class MailAutomatico {
     private String tipoaviso;
     private int fecha;
     private String contenido;
 
-    public MailAuto(String tipoaviso, int fecha, String contenido) {
+    public MailAutomatico(String tipoaviso, int fecha, String contenido) {
         this.tipoaviso = tipoaviso;
         this.fecha = fecha;
         this.contenido = contenido;

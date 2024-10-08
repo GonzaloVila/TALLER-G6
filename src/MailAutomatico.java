@@ -1,28 +1,30 @@
+import java.time.LocalDateTime;
+
 public class MailAutomatico {
-    private String tipoaviso;
-    private int fecha;
+    private String tipoAviso;
+    private LocalDateTime fechaEnvio;
     private String contenido;
 
-    public MailAutomatico(String tipoaviso, int fecha, String contenido) {
-        this.tipoaviso = tipoaviso;
-        this.fecha = fecha;
+    public MailAutomatico(String tipoAviso, LocalDateTime fechaEnvio, String contenido) {
+        this.tipoAviso = tipoAviso;
+        this.fechaEnvio = fechaEnvio;
         this.contenido = contenido;
     }
 
     public String getTipoaviso() {
-        return tipoaviso;
+        return tipoAviso;
     }
 
-    public void setTipoaviso(String tipoaviso) {
-        this.tipoaviso = tipoaviso;
+    public void setTipoaviso(String tipoAviso) {
+        this.tipoAviso = tipoAviso;
     }
 
-    public int getFecha() {
-        return fecha;
+    public LocalDateTime getFechaEnvio() {
+        return fechaEnvio;
     }
 
-    public void setFecha(int fecha) {
-        this.fecha = fecha;
+    public void setFecha(LocalDateTime fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
     }
 
     public String getContenido() {
@@ -35,7 +37,7 @@ public class MailAutomatico {
 
     @Override
     public String toString() {
-        return "MailAuto{" + "tipoaviso=" + tipoaviso + ", fecha=" + fecha + ", contenido=" + contenido + '}';
+        return "MailAuto{" + "tipoAviso=" + tipoAviso + ", fechaEnvio=" + fechaEnvio + ", contenido=" + contenido + '}';
     }
 
 

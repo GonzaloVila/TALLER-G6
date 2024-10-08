@@ -1,20 +1,23 @@
 public class MailAuto {
-    private String tipoaviso;
-    private int fecha;
+    // ATRIBUTOS
+    private String tipoAviso;
+    private Integer fecha;
     private String contenido;
 
-    public MailAuto(String tipoaviso, int fecha, String contenido) {
-        this.tipoaviso = tipoaviso;
+    // CONSTRUCTORES
+    public MailAuto(String tipoAviso, int fecha, String contenido) {
+        this.tipoAviso = tipoAviso;
         this.fecha = fecha;
         this.contenido = contenido;
     }
 
+    // SETTERS Y GETTERS
     public String getTipoaviso() {
-        return tipoaviso;
+        return tipoAviso;
     }
 
     public void setTipoaviso(String tipoaviso) {
-        this.tipoaviso = tipoaviso;
+        this.tipoAviso = tipoaviso;
     }
 
     public int getFecha() {
@@ -33,10 +36,26 @@ public class MailAuto {
         this.contenido = contenido;
     }
 
+
     @Override
     public String toString() {
-        return "MailAuto{" + "tipoaviso=" + tipoaviso + ", fecha=" + fecha + ", contenido=" + contenido + '}';
+        return "MailAuto{" + "tipoaviso=" + tipoAviso + ", fecha=" + fecha + ", contenido=" + contenido + '}';
     }
 
+    // METODOS
 
+    /**
+     * enviarMailConfirmacionReserva: envia un mail al usuario para confirmar su reserva
+     * */
+    public void enviarMailConfirmacionReserva(){}
+
+    /**
+     * enviarMailRecuperacion: envia un mail al usuario para recuperar sus datos
+     * */
+    public void enviarMailRecuperacion(){}
+
+    /**
+     * enviarMailRecuperacion: envia un mail al usuario para recordarle su reserva
+     * */
+    public void enviarMailRecordatorio(){}
 }

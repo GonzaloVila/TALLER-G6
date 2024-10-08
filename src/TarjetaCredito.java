@@ -1,14 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TarjetaCredito {
     private String nombre;
     private String emisor;
     private long numerotarje;
     private int codverificacion;
+    private ArrayList<Pago> pagos;
 
-    public TarjetaCredito(String nombre, String emisor, long numerotarje, int codverificacion) {
+    public TarjetaCredito(){
+        this.pagos = new ArrayList<Pago>();
+    }
+    public TarjetaCredito(String nombre, String emisor, long numerotarje, int codverificacion){
         this.nombre = nombre;
         this.emisor = emisor;
         this.numerotarje = numerotarje;
         this.codverificacion = codverificacion;
+    }
+    public TarjetaCredito(String nombre, String emisor, long numerotarje, int codverificacion, ArrayList<Pago> pagos) {
+        this.nombre = nombre;
+        this.emisor = emisor;
+        this.numerotarje = numerotarje;
+        this.codverificacion = codverificacion;
+        this.pagos = pagos;
     }
 
     public String getNombre() {
@@ -47,7 +61,4 @@ public class TarjetaCredito {
     public String toString() {
         return "TarjetaCredito{" + "nombre=" + nombre + ", emisor=" + emisor + ", numerotarje=" + numerotarje + ", codverificacion=" + codverificacion + '}';
     }
-
-
-
 }

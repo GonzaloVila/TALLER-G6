@@ -1,12 +1,14 @@
 public class Pago {
     private double monto;
     private int fecha;
-    private TarjetaCredi tarjeta;
+    private TarjetaCredito tarjeta;
+    private Reserva reserva;
 
-    public Pago(double monto, int fecha, TarjetaCredi tarjeta) {
+    public Pago(double monto, int fecha, TarjetaCredito tarjeta, Reserva reserva) {
         this.monto = monto;
         this.fecha = fecha;
         this.tarjeta = tarjeta;
+        this.reserva = reserva;
     }
 
     public double getMonto() {
@@ -25,18 +27,29 @@ public class Pago {
         this.fecha = fecha;
     }
 
-    public TarjetaCredi getTarjeta() {
+    public TarjetaCredito getTarjeta() {
         return tarjeta;
     }
 
-    public void setTarjeta(TarjetaCredi tarjeta) {
+    public void setTarjeta(TarjetaCredito tarjeta) {
         this.tarjeta = tarjeta;
+    }
+
+    public Reserva getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 
     @Override
     public String toString() {
-        return "Pago{" + "monto=" + monto + ", fecha=" + fecha + ", tarjeta=" + tarjeta + '}';
+        return "Pago{" +
+                "monto=" + monto +
+                ", fecha=" + fecha +
+                ", tarjeta=" + tarjeta +
+                ", reserva=" + reserva +
+                '}';
     }
-
-
 }

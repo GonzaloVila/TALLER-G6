@@ -4,6 +4,8 @@ public class Empleado {
     private Permiso permiso;
     private String rol;
 
+    public Empleado(){};
+
     public Empleado(int idempleado, String nombre, Permiso permiso, String rol) {
         this.idempleado = idempleado;
         this.nombre = nombre;

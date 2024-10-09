@@ -50,5 +50,58 @@ public class Empleado {
         return "Empleado{" + "idempleado=" + idempleado + ", nombre=" + nombre + ", permiso=" + permiso + ", rol=" + rol + '}';
     }
 
+    //Metodos(probar)
+    /*
+    public void crearCuentaEmpleado (int idEmpleado, String nombre, Permiso permiso, Rol rol){
+this.idEmpleado = idEmpleado;
+this.nombre = nombre;
+this.permiso = permiso;
+this.rol = rol;}
+System.out.println("Nueva cuenta creada para el empleado: " + nombre);
+    }
+
+
+public void accederAReservas(Reserva reserva) {
+//LOGICA
+}
+
+ public void modificarReserva(Reserva reserva, Mesa nuevaMesa, LocalTime nuevaHora, LocalDate nuevaFecha) {
+ //LOGICA
+ }
+
+
+    public void cancelarReserva(Reserva reserva, Cliente cliente){
+
+    //LOGICA
+    }
+
+
+     */
+
+
+    /**
+     * crearCuentaEmpleado: crea una nueva cuenta a un empleado.
+     */
+    public void crearCuentaEmpleado(){}
+
+
+    /**
+     * accederAReservas: accede a una reserva.
+     */
+    public void accederAReservas(){}
+
+
+
+    /**
+     * modificarReserva: permite al empleado modificar una reserva.
+     * */
+    public void modificarReserva(){}
+
+
+    /**
+     * cancelarReserva: cancela una reserva.
+     */
+    public void cancelarReserva(){}
+
 
 }

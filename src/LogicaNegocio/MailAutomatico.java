@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 import java.time.LocalDateTime;
 
 public class MailAutomatico {

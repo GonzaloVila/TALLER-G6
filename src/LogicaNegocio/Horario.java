@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -41,7 +43,7 @@ public class Horario {
 
     @Override
     public String toString() {
-        return "Horario{" +
+        return "LogicaNegocio.Horario{" +
                 "Dia=" + Dia +
                 ", HoraInicio=" + HoraInicio +
                 ", HoraFin=" + HoraFin +

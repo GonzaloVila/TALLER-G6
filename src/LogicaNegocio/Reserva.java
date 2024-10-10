@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 public class Reserva {
     private int idReserva;
     private int fecha;
@@ -6,11 +8,11 @@ public class Reserva {
     private String comentarios;
     private int cantcomensales;
     private int horafinal;
-    private String estado;
+    private Estado estado;
     private Cliente cliente;
     private Mesa mesa;
 
-    public Reserva(int idReserva, int fecha, int horainicio, boolean disponibilidad, String comentarios, int cantcomensales, int horafinal, String estado, Cliente cliente, Mesa mesa) {
+    public Reserva(int idReserva, int fecha, int horainicio, boolean disponibilidad, String comentarios, int cantcomensales, int horafinal, Estado estado, Cliente cliente, Mesa mesa) {
         this.idReserva = idReserva;
         this.fecha = fecha;
         this.horainicio = horainicio;
@@ -81,11 +83,11 @@ public class Reserva {
         this.horafinal = horafinal;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
@@ -108,7 +110,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "idReserva=" + idReserva + ", fecha=" + fecha + ", horainicio=" + horainicio + ", disponibilidad=" + disponibilidad + ", comentarios=" + comentarios + ", cantcomensales=" + cantcomensales + ", horafinal=" + horafinal + ", estado=" + estado + '}';
+        return "LogicaNegocio.Reserva{" + "idReserva=" + idReserva + ", fecha=" + fecha + ", horainicio=" + horainicio + ", disponibilidad=" + disponibilidad + ", comentarios=" + comentarios + ", cantcomensales=" + cantcomensales + ", horafinal=" + horafinal + ", estado=" + estado + '}';
     }
 
 

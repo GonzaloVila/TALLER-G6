@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,7 @@ public class Administrador extends  Empleado{
         this.eventos = new ArrayList<>();
     }
 
-    public  Administrador(List<Evento> eventos, int idempleado, String nombre, Permiso permiso, String rol, Calendario calendario){
+    public  Administrador(List<Evento> eventos, int idempleado, String nombre, Permiso permiso, Rol rol, Calendario calendario){
         super(idempleado, nombre, permiso, rol);
         this.calendario = calendario;
         this.eventos = eventos;
@@ -35,7 +37,7 @@ public class Administrador extends  Empleado{
 
     @Override
     public String toString() {
-        return "Administrador{" +
+        return "LogicaNegocio.Administrador{" +
                 "calendario=" + calendario +
                 '}';
     }

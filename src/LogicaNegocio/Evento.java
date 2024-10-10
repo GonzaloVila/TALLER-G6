@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 public class Evento {
     private String nombre;
     private int fecha;
@@ -55,7 +57,7 @@ public class Evento {
 
     @Override
     public String toString() {
-        return "Evento{" + "nombre=" + nombre + ", fecha=" + fecha + ", horainicio=" + horainicio + ", horafinal=" + horafinal + ", tipo_evento=" + tipo_evento + '}';
+        return "LogicaNegocio.Evento{" + "nombre=" + nombre + ", fecha=" + fecha + ", horainicio=" + horainicio + ", horafinal=" + horafinal + ", tipo_evento=" + tipo_evento + '}';
     }
 
 

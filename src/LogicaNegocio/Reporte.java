@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 import java.time.*;
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ public class Reporte {
 
     @Override
     public String toString() {
-        return "Reporte [repototal=" + repototal + "]";
+        return "LogicaNegocio.Reporte [repototal=" + repototal + "]";
     }
 
     /**
@@ -52,9 +54,9 @@ public class Reporte {
 
 
     /**
-     * max_Asistencia_Cliente: Cliente que ha realizado mayor cantidad de reservas y ha asistido a ellas
+     * max_Asistencia_Cliente: LogicaNegocio.Cliente que ha realizado mayor cantidad de reservas y ha asistido a ellas
      * @param c: Lista de clientes
-     * @return: Cliente
+     * @return: LogicaNegocio.Cliente
      */
     public Cliente max_Asistencia_Cliente(ArrayList<Cliente> c){
         return null;
@@ -73,8 +75,8 @@ public class Reporte {
      * reservaRealizadas: Reservas realizadas detallando mesa, fecha, hora de comienzo de la ocupación
      *                    y de finalización de la misma, cliente y cantidad de comensales que puede albergar
      *                    en un rango de fechas dado.
-     * @param c: Cliente
-     * @param m: Mesa
+     * @param c: LogicaNegocio.Cliente
+     * @param m: LogicaNegocio.Mesa
      * @param f: Fecha
      * @param can_comen: Cantidad de comensales
      * @param hi: Hora inicio

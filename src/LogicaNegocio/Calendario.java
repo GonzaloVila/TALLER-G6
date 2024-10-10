@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class Calendario {
 
     @Override
     public String toString() {
-        return "Calendario{" +
+        return "LogicaNegocio.Calendario{" +
                 "administradores=" + administradores +
                 ", Dias=" + Dias +
                 ", tipo_de_dia=" + tipo_de_dia +

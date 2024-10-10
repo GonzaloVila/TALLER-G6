@@ -1,17 +1,24 @@
+package LogicaNegocio;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 public class Mesa {
     private Integer numMesa;
-    private Integer ubicacion;
+    private String ubicacion;
     private Integer capacidad;
     private ArrayList<Reserva> listaReservas;
 
     public Mesa(){
         this.listaReservas =  new ArrayList<Reserva>();
     }
+    public Mesa(Integer numMesa, String Ubicacion, Integer capacidad){
+        this.numMesa = numMesa;
+        this.ubicacion = Ubicacion;
+        this.capacidad = capacidad;
+    }
 
-    public Mesa(Integer numMesa, Integer ubicacion, Integer capacidad, ArrayList<Reserva>listaReservas) {
+    public Mesa(Integer numMesa, String ubicacion, Integer capacidad, ArrayList<Reserva>listaReservas) {
         this.numMesa = numMesa;
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
@@ -26,11 +33,11 @@ public class Mesa {
         this.numMesa = numMesa;
     }
 
-    public int getUbicacion() {
+    public String getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(int ubicacion) {
+    public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -53,7 +60,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return "Mesa{" + "numMesa=" + numMesa + ", ubicacion=" + ubicacion + ", capacidad=" + capacidad + '}';
+        return "LogicaNegocio.Mesa{" + "numMesa=" + numMesa + ", ubicacion=" + ubicacion + ", capacidad=" + capacidad + '}';
     }
 
     /**

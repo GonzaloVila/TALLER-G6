@@ -1,21 +1,36 @@
+package LogicaNegocio;
+
 import java.util.ArrayList;
 public class Cliente {
     private String nombre;
     private String correo;
-    private long numero;
+    private String numero;
     private String contrasenia;
     private ArrayList<Reserva> listaReservas;
 
-    public Cliente(){
+
+    public Cliente() {
         this.listaReservas = new ArrayList<Reserva>();
     }
-    public Cliente(String nombre, String correo, long numero, String contrasenia, ArrayList<Reserva>listaReservas) {
+    public Cliente(String nombre, String correo, String numero, String contrasenia){
+        this.nombre = nombre;
+        this.correo = correo;
+        this.numero = numero;
+        this.contrasenia = contrasenia;
+    }
+    public Cliente(String nombre, String correo, String numero){
+        this.nombre = nombre;
+        this.correo = correo;
+        this.numero = numero;
+    }
+    public Cliente(String nombre, String correo, String numero, String contrasenia, ArrayList<Reserva>listaReservas) {
         this.nombre = nombre;
         this.correo = correo;
         this.numero = numero;
         this.contrasenia = contrasenia;
         this.listaReservas = listaReservas;
     }
+
 
     public String getNombre() {
         return nombre;
@@ -33,11 +48,11 @@ public class Cliente {
         this.correo = correo;
     }
 
-    public long getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(long numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -59,7 +74,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "nombre=" + nombre + ", correo=" + correo + ", numero=" + numero + ", contrasenia=" + contrasenia + '}';
+        return "LogicaNegocio.Cliente{" + "nombre=" + nombre + ", correo=" + correo + ", numero=" + numero + ", contrasenia=" + contrasenia + '}';
     }
 
     /**

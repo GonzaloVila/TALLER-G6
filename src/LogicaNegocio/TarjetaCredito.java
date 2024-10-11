@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 public class TarjetaCredito {
     private String nombre;
     private String emisor;
@@ -45,7 +47,7 @@ public class TarjetaCredito {
 
     @Override
     public String toString() {
-        return "TarjetaCredito{" + "nombre=" + nombre + ", emisor=" + emisor + ", numerotarje=" + numerotarje + ", codverificacion=" + codverificacion + '}';
+        return "LogicaNegocio.TarjetaCredito{" + "nombre=" + nombre + ", emisor=" + emisor + ", numerotarje=" + numerotarje + ", codverificacion=" + codverificacion + '}';
     }
 
 

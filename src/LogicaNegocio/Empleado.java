@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 public class Empleado {
     private int idempleado;
     private String nombre;
@@ -45,7 +47,7 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" + "idempleado=" + idempleado + ", nombre=" + nombre + ", permiso=" + permiso + ", rol=" + rol + '}';
+        return "LogicaNegocio.Empleado{" + "idempleado=" + idempleado + ", nombre=" + nombre + ", permiso=" + permiso + ", rol=" + rol + '}';
     }
 
 

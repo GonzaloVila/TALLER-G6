@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 public class Reporte {
     private String repototal;
     private Formato formato;
@@ -25,7 +27,7 @@ public class Reporte {
 
     @Override
     public String toString() {
-        return "Reporte{" + "repototal=" + repototal + ", formato=" + formato + '}';
+        return "LogicaNegocio.Reporte{" + "repototal=" + repototal + ", formato=" + formato + '}';
     }
 
 

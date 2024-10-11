@@ -1,6 +1,9 @@
+package LogicaNegocio;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
 public class Reserva {
     private Integer idReserva;
     private LocalDate fecha;
@@ -10,9 +13,12 @@ public class Reserva {
     private Estado estado;
     private Cliente cliente;
     private Mesa mesa;
+    private static ArrayList<Reserva> listaDeReservas = new ArrayList<>();
+    private static int contadorReservas = 0; // Contador estático para generar ID únicos
+
 
     public Reserva(Integer idReserva, LocalDate fecha, LocalTime horaInicio, String comentarios, LocalTime horaFinal, Estado estado, Cliente cliente, Mesa mesa) {
-        this.idReserva = idReserva;
+        this.idReserva = ++contadorReservas;
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.comentarios = comentarios;
@@ -88,10 +94,14 @@ public class Reserva {
         this.mesa = mesa;
     }
 
+    public ArrayList<Reserva> getListaDeReservas(){return listaDeReservas;}
+
+    public static int getContadorReservas() {   return contadorReservas;}
+
 
     @Override
     public String toString() {
-        return "Reserva{" +
+        return "LogicaNegocio.Reserva{" +
                 "cliente=" + cliente +
                 ", idReserva=" + idReserva +
                 ", fecha=" + fecha +
@@ -111,7 +121,22 @@ public class Reserva {
      * @param horaInicio: comienzo de la reserva
      * @param mesa: informacion de la mesa(número, ubicación y capacidad)
      */
-    public void realizarReserva(Cliente cliente, LocalDate dia, LocalTime horaInicio, Mesa mesa){
+    public void realizarReserva(Cliente cliente, LocalDate dia, LocalTime horaInicio, Mesa mesa, String comentarios){
+        if (cliente == null){
+            throw new IllegalArgumentException("El cliente no puede ser nulo");
+        }
+        if (!getMesa().consultarDisponibilidad(mesa, dia, horaInicio)){
+            System.out.println("La mesa"+ mesa.getNumMesa() + "no se encuentra disponible para el día "+ dia + " a las"+  horaInicio);
+            return; //EN REALIDAD VA UNA EXCEPCION
+        }
+        Reserva nuevaReserva = new Reserva(idReserva, dia, horaInicio, comentarios, null, Estado.RESERVADA, cliente, mesa);
+        listaDeReservas.add(nuevaReserva);
+        System.out.println("La reserva se realizó con éxito.");
+        System.out.println("Nombre: "+ cliente.getNombre());
+        System.out.println("Mesa: "+ mesa.getNumMesa());
+        System.out.println("Día: "+ dia);
+        System.out.println("Hora: "+ horaInicio);
+        System.out.println("Número de identificación de la reserva: "+ idReserva);
     }
 
     /**
@@ -129,8 +154,7 @@ public class Reserva {
      * @param idReserva: número de indentificación de la reserva
      * @param cliente: cliente que cancela
      */
-    public void cancelarReserva(Integer idReserva, Cliente cliente){
-    }
+    public void cancelarReserva(Integer idReserva, Cliente cliente, Mesa mesa){}
 
     /**
      * filtrarMesa: filtra las mesas basandose en su capacidad y ubicación
@@ -150,4 +174,11 @@ public class Reserva {
     public String realizarComentario(){
         return "";
     }
+
+    //Puede ser:
+    private boolean verificarHorario(LocalDate dia, LocalTime horaInicio) {
+     return true;
+    }
+    //IDEA DE LUCAS DE QUE PUEDE HABER UN MÉTODO QUE VERIFIQUE SI LOS HORARIOS QUE EL CLIENTE SELECCIONA PARA LA RESERVA
+    //ESTEN DENTRO DE LOS HORARIOS EN LOS QUE EL RESTAURANTE TRABAJA O SE HAGA LA RESERVA 24HS ANTES.
 }

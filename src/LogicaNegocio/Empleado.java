@@ -4,9 +4,7 @@ public class Empleado {
     private int idempleado;
     private String nombre;
     private Permiso permiso;
-    private String rol;
 
-    public Empleado(int idempleado, String nombre, Permiso permiso, String rol) {
         this.idempleado = idempleado;
         this.nombre = nombre;
         this.permiso = permiso;
@@ -37,11 +35,9 @@ public class Empleado {
         this.permiso = permiso;
     }
 
-    public String getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
         this.rol = rol;
     }
 

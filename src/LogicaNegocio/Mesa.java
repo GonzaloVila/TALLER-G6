@@ -12,6 +12,11 @@ public class Mesa {
     public Mesa(){
         this.listaReservas =  new ArrayList<Reserva>();
     }
+    public Mesa(Integer numMesa, String Ubicacion, Integer capacidad){
+        this.numMesa = numMesa;
+        this.ubicacion = Ubicacion;
+        this.capacidad = capacidad;
+    }
 
     public Mesa(Integer numMesa, String ubicacion, Integer capacidad, ArrayList<Reserva>listaReservas) {
         this.numMesa = numMesa;
@@ -20,11 +25,6 @@ public class Mesa {
         this.listaReservas = listaReservas;
     }
 
-    public Mesa(Integer numMesa, String ubicacion, Integer capacidad) {
-        this.numMesa = numMesa;
-        this.ubicacion = ubicacion;
-        this.capacidad = capacidad;
-    }
 
     public Integer getNumMesa() {
         return numMesa;

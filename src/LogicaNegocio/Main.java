@@ -10,6 +10,6 @@ public class Main {
         System.out.println("TALLER  GRUPO 6");
         Administrador admin = new Administrador();
         new AdministradorGUI(admin);
-
+        System.out.println("hola");
     }
 }

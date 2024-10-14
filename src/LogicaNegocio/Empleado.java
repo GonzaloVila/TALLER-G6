@@ -1,16 +1,24 @@
 package LogicaNegocio;
+<<<<<<< HEAD
 
+=======
+import java.util.ArrayList;
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
 public class Empleado {
     private int idempleado;
     private String nombre;
     private Permiso permiso;
-    private String rol;
+    private Rol rol;
+    private ArrayList<Reserva> listaReservas;
 
-    public Empleado(int idempleado, String nombre, Permiso permiso, String rol) {
+    public Empleado(int idempleado, String nombre, Permiso permiso, Rol rol ){
         this.idempleado = idempleado;
         this.nombre = nombre;
         this.permiso = permiso;
         this.rol = rol;
+        this.listaReservas = new ArrayList<>();
+    }
+    public Empleado(){
     }
 
     public int getIdempleado() {
@@ -37,17 +45,24 @@ public class Empleado {
         this.permiso = permiso;
     }
 
-    public String getRol() {
-        return rol;
-    }
+    public Rol getRol() {return rol;}
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
+    public void setRol(Rol rol) {this.rol = rol;}
+
+    public ArrayList<Reserva> getListaReservas() {return listaReservas;}
+
+    public void agregarReservas(Reserva reserva){listaReservas.add(reserva);}
 
     @Override
     public String toString() {
         return "LogicaNegocio.Empleado{" + "idempleado=" + idempleado + ", nombre=" + nombre + ", permiso=" + permiso + ", rol=" + rol + '}';
     }
 
+<<<<<<< HEAD
+=======
+    public void crearCuentaEmpleado(Integer idEmpleado, String nombre, Permiso permiso, Rol rol){
+
+    }
+
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
 }

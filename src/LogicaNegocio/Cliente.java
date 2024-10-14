@@ -7,6 +7,7 @@ public class Cliente {
     private String numero;
     private String contrasenia;
     private ArrayList<Reserva> listaReservas;
+<<<<<<< HEAD
     private ArrayList<Cliente> listaClientes;
 
     public Cliente(){
@@ -14,12 +15,27 @@ public class Cliente {
     }
 
     public Cliente(String nombre, String correo, String numero, String contrasenia) {
+=======
+
+    public Cliente() {
+        this.listaReservas = new ArrayList<Reserva>();
+    }
+    public Cliente(String nombre, String correo, String numero, String contrasenia){
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
         this.nombre = nombre;
         this.correo = correo;
         this.numero = numero;
         this.contrasenia = contrasenia;
     }
+<<<<<<< HEAD
 
+=======
+    public Cliente(String nombre, String correo, String numero){
+        this.nombre = nombre;
+        this.correo = correo;
+        this.numero = numero;
+    }
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
     public Cliente(String nombre, String correo, String numero, String contrasenia, ArrayList<Reserva>listaReservas) {
         this.nombre = nombre;
         this.correo = correo;
@@ -28,7 +44,10 @@ public class Cliente {
         this.listaReservas = listaReservas;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
     public String getNombre() {
         return nombre;
     }
@@ -76,6 +95,7 @@ public class Cliente {
 
     /**
      * registrarCliente: crea una cuenta de un cliente
+<<<<<<< HEAD
      * @param cliente: ingresa un cliente con todos sus datos
      * @throws Exception si el nombre contiene números o el correo es inválido o ya está registrado
      */
@@ -113,12 +133,23 @@ public class Cliente {
      * */
     public void registroClientes(){
         this.listaClientes = new ArrayList<>();
+=======
+     * @param nombre: nombre del cliente
+     * @param correo: correo del cliente
+     * @param numero: numero del cliente
+     * @param contrasenia: contrasenña del cliente
+     */
+
+    public void registarCliente(String nombre, String correo, String numero, String contrasenia){
+
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
     }
     /**
     *iniciarSesion: inicia sesion con una cuenta ya creada.
      * @param correo: correo del usuario
      * @param contrasenia: contraseña del usuario
     */
+<<<<<<< HEAD
     public boolean iniciarSesion(String correo, String contrasenia){
         for (Cliente cliente : listaClientes) {
             if (cliente.getCorreo().equals(correo) && cliente.getContrasenia().equals(contrasenia)) {
@@ -145,6 +176,17 @@ public class Cliente {
         if (nuevaContrasenia != null && !nuevaContrasenia.isEmpty()) {
             this.contrasenia = nuevaContrasenia;
         }
+=======
+    public void iniciarSesion(String correo, String contrasenia){
+    }
+    /**
+     *actualizarInfo: cambia informacion de la cuenta del cliente.
+     * @param correo: correo del usuario.
+     * @param contrasenia: contraseña del usuario
+     */
+
+    public void actualizarInfo(String correo, String contrasenia){
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
     }
 
     /**
@@ -153,7 +195,10 @@ public class Cliente {
      */
 
     public void recuperarContrasenia(String correo){
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
     }
 
     /**
@@ -163,6 +208,10 @@ public class Cliente {
      * @return: retorna una lista de las reservas históricas
      */
     public ArrayList<Reserva> consultarHistorialReservas(String correo, String contrasenia){
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
         return null;
     }
 

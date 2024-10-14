@@ -1,11 +1,16 @@
 package LogicaNegocio;
+<<<<<<< HEAD
 
+=======
+import java.util.ArrayList;
+>>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
 public class Evento {
     private String nombre;
     private int fecha;
     private int horainicio;
     private int horafinal;
     private TipoDeDia tipo_evento;
+    private ArrayList<Administrador> listaAdministradores;
 
     public Evento(String nombre, int fecha, int horainicio, int horafinal, TipoDeDia tipo_evento) {
         this.nombre = nombre;
@@ -13,6 +18,7 @@ public class Evento {
         this.horainicio = horainicio;
         this.horafinal = horafinal;
         this.tipo_evento = tipo_evento;
+        this.listaAdministradores = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -54,6 +60,13 @@ public class Evento {
     public void setTipo_evento(TipoDeDia tipo_evento) {
         this.tipo_evento = tipo_evento;
     }
+
+    public ArrayList<Administrador> getListaAdministradores(){return listaAdministradores;}
+
+    public void agregarAdministrador(Administrador administrador){
+        listaAdministradores.add(administrador);
+    }
+
 
     @Override
     public String toString() {

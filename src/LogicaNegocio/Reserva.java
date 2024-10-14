@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -91,7 +93,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" +
+        return "LogicaNegocio.Reserva{" +
                 "cliente=" + cliente +
                 ", idReserva=" + idReserva +
                 ", fecha=" + fecha +

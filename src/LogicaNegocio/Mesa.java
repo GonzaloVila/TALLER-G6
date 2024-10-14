@@ -1,3 +1,5 @@
+package LogicaNegocio;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return "Mesa{" + "numMesa=" + numMesa + ", ubicacion=" + ubicacion + ", capacidad=" + capacidad + '}';
+        return "LogicaNegocio.Mesa{" + "numMesa=" + numMesa + ", ubicacion=" + ubicacion + ", capacidad=" + capacidad + '}';
     }
 
     /**

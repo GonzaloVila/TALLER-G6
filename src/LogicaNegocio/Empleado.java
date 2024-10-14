@@ -1,24 +1,18 @@
 package LogicaNegocio;
 
-import java.util.ArrayList;
-
 public class Empleado {
     private int idempleado;
     private String nombre;
     private Permiso permiso;
     private Rol rol;
-    private ArrayList<Reserva> reservas;
 
-    public Empleado(){
-        this.reservas = new ArrayList<>();
-    };
+    public Empleado(){};
 
     public Empleado(int idempleado, String nombre, Permiso permiso, Rol rol) {
         this.idempleado = idempleado;
         this.nombre = nombre;
         this.permiso = permiso;
         this.rol = rol;
-        this.reservas = new ArrayList<>();
     }
 
     public int getIdempleado() {
@@ -51,12 +45,6 @@ public class Empleado {
 
     public void setRol(Rol rol) {
         this.rol = rol;
-    }
-
-    public ArrayList<Reserva> getReservas() {return reservas;}
-
-    public void agregarReserva(Reserva reserva) {
-        this.reservas.add(reserva);
     }
 
     @Override
@@ -96,7 +84,7 @@ public class Empleado {
             this.idempleado = idEmpleado;
             this.nombre = nombre;
             this.permiso = permiso;
-            this.rol = rol;
+            this.rol = rol; // Guardar el nombre del rol como String
 
             // Mostrar mensaje de éxito
             System.out.println("Nueva cuenta creada para el empleado: " + this.nombre);

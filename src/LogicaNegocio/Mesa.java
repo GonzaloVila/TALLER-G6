@@ -25,11 +25,12 @@ public class Mesa {
         this.listaReservas = listaReservas;
     }
 
-    public int getNumMesa() {
+
+    public Integer getNumMesa() {
         return numMesa;
     }
 
-    public void setNumMesa(int numMesa) {
+    public void setNumMesa(Integer numMesa) {
         this.numMesa = numMesa;
     }
 
@@ -41,11 +42,11 @@ public class Mesa {
         this.ubicacion = ubicacion;
     }
 
-    public int getCapacidad() {
+    public Integer getCapacidad() {
         return capacidad;
     }
 
-    public void setCapacidad(int capacidad) {
+    public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
 
@@ -69,7 +70,13 @@ public class Mesa {
      * @param hora: horario en el que se busca la mesa
      * @return: returna true en caso de que la mesa esté disponible y false en caso de que no
      */
-    public boolean consultarDisponibilidad(LocalDate dia, LocalTime hora){
+    public boolean consultarDisponibilidad(Mesa mesa, LocalDate dia, LocalTime hora){
+        //Consulta la disponibilidad de la mesa comparando 2 objetos de mesa, una fecha y una hora
+        for (Reserva reserva : listaReservas){
+            if(reserva.getMesa().equals(mesa) && reserva.getFecha().equals(dia) && reserva.getHoraInicio().equals(hora)){
+                return false;
+            }
+        }
         return true;
     }
 
@@ -77,6 +84,7 @@ public class Mesa {
      * actualizarDisponibilidad: cambio el valor de la disponibilidad de la mesa.
      */
     public void actualizarDisponibilidad(){
+        //FALTA
     }
 
     /**

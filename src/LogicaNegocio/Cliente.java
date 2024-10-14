@@ -8,7 +8,6 @@ public class Cliente {
     private String contrasenia;
     private ArrayList<Reserva> listaReservas;
 
-
     public Cliente() {
         this.listaReservas = new ArrayList<Reserva>();
     }
@@ -30,7 +29,6 @@ public class Cliente {
         this.contrasenia = contrasenia;
         this.listaReservas = listaReservas;
     }
-
 
     public String getNombre() {
         return nombre;
@@ -85,7 +83,7 @@ public class Cliente {
      * @param contrasenia: contrasenña del cliente
      */
 
-    public void registarCliente(String nombre, String correo, long numero, String contrasenia){
+    public void registarCliente(String nombre, String correo, String numero, String contrasenia){
 
     }
     /**

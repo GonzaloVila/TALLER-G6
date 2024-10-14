@@ -3,6 +3,7 @@ package LogicaNegocio;
 public class Reporte {
     private String repototal;
 
+    public Reporte(String repototal){
         this.repototal = repototal;
     }
 
@@ -14,12 +15,10 @@ public class Reporte {
         this.repototal = repototal;
     }
 
-    }
-
-    }
 
     @Override
     public String toString() {
+        return "";
     }
 
 

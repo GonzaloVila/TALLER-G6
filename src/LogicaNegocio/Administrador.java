@@ -6,17 +6,17 @@ import java.util.List;
 
 public class Administrador extends  Empleado{
     private Calendario calendario;
-    private List<Evento> eventos;
+    private List<Evento> listaEventos;
 
     public Administrador(){
-        super();
-        this.eventos = new ArrayList<>();
+        super ();
+        this.listaEventos = new ArrayList<>();
     }
 
-    public  Administrador(List<Evento> eventos, int idempleado, String nombre, Permiso permiso, Rol rol, Calendario calendario){
+    public  Administrador(List<Evento> listaEventos, int idempleado, String nombre, Permiso permiso, Rol rol, Calendario calendario){
         super(idempleado, nombre, permiso, rol);
         this.calendario = calendario;
-        this.eventos = eventos;
+        this.listaEventos = listaEventos;
     }
 
     public Calendario getCalendario() {
@@ -27,13 +27,15 @@ public class Administrador extends  Empleado{
         this.calendario = calendario;
     }
 
-    public List<Evento> getEventos() {
-        return eventos;
+    public List<Evento> getListaEventos() {
+        return listaEventos;
     }
 
-    public void setEventos(List<Evento> eventos) {
-        this.eventos = eventos;
+    public void agregarEventos(Evento evento){
+        listaEventos.add(evento);
+        evento.agregarAdministrador(this);
     }
+
 
     @Override
     public String toString() {

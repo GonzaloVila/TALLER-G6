@@ -11,6 +11,7 @@ public class Reserva {
     private Estado estado;
     private Cliente cliente;
     private Mesa mesa;
+    private Empleado empleado;
 
     public Reserva(int idReserva, int fecha, int horainicio, boolean disponibilidad, String comentarios, int cantcomensales, int horafinal, Estado estado, Cliente cliente, Mesa mesa) {
         this.idReserva = idReserva;

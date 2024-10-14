@@ -67,20 +67,53 @@ public class Calendario {
      *
      * @param d: agrega un dia al calendario.
      */
-    public static void agregarDia(Horario d){};
+    public void agregarDia(Horario d){
+        try{
+            if(d == null){
+                throw new IllegalArgumentException("El dia no puede ser nulo");
+            }
+            if(!getDias().contains(d)){
+                Dias.add(d);
+            }else{
+                System.out.println("El dia ya esta agregado");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error al agregar el dia: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error inesperado al agregar el dia: " + e.getMessage());
+        }
+
+    };
+
 
     /**
      *
      * @param d: elimina un dia.
      */
-    public static void eliminarDia(Horario d){};
+    public  void eliminarDia(Horario d){
+        try {
+            if (d == null) {
+                throw new IllegalArgumentException("El día no puede ser nulo.");
+            }
+            if (Dias.contains(d)) {
+                Dias.remove(d);
+                System.out.println("Día eliminado: " + d);
+            } else {
+                System.out.println("El día no está en el calendario: " + d);
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error al eliminar día: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error inesperado al eliminar día: " + e.getMessage());
+        }
+    };
 
     /**
      *
      * @return: retorna una lista.
      */
     public ArrayList<Horario> obtenerDia(){
-        return null;
+        return new ArrayList<>(Dias);
     }
 
     /**
@@ -88,7 +121,25 @@ public class Calendario {
      * @param d: recibe un horario.
      * @return: retorna un boolean para saber si el horario esta disponible o no.
      */
-    public boolean estaDisponible( Horario d){
-        return true;
-    };
+    public boolean estaDisponible(Horario d){
+        try {
+            if (d == null) {
+                throw new IllegalArgumentException("El horario no puede ser nulo.");
+            }
+            for (Horario horario : Dias) {
+                if (horario.getDia().equals(d.getDia()) &&
+                        d.getHoraInicio().isBefore(horario.getHoraFin()) &&
+                        d.getHoraFin().isAfter(horario.getHoraInicio())) {
+                    return false;
+                }
+            }
+            return true; // Horario disponible
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error al verificar disponibilidad: " + e.getMessage());
+            return false; // Se devuelve false ante un error
+        } catch (Exception e) {
+            System.out.println("Error inesperado al verificar disponibilidad: " + e.getMessage());
+            return false; // Se devuelve false ante un error inesperado
+        }
+    }
 }

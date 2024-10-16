@@ -87,7 +87,7 @@ public class Administrador extends  Empleado{
             if (evento.getFecha() <= 0) {
                 throw new Exception("La fecha del evento debe ser valida");
             }
-            eventos.add(evento);
+            listaEventos.add(evento);
             System.out.println("Dia especial configurado" + evento.getNombre());
         } catch (Exception e) {
             System.out.println("Error al configurar dia especial: " + e.getMessage());

@@ -1,5 +1,9 @@
 package LogicaNegocio;
+
+
+
 import java.util.ArrayList;
+
 public class Evento {
     private String nombre;
     private int fecha;
@@ -68,6 +72,4 @@ public class Evento {
     public String toString() {
         return "LogicaNegocio.Evento{" + "nombre=" + nombre + ", fecha=" + fecha + ", horainicio=" + horainicio + ", horafinal=" + horafinal + ", tipo_evento=" + tipo_evento + '}';
     }
-
-
 }

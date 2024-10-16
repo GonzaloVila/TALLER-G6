@@ -1,4 +1,4 @@
-package Ventanas;
+package InterfacesGraficas;
 
 import LogicaNegocio.Administrador;
 import LogicaNegocio.Evento;
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class AdministradorGUI extends JFrame {
+public class VentanaAdministrador extends JFrame {
     private Administrador administrador;
     private JTextField txtDia;
     private JTextField txtHoraInicio;
@@ -21,7 +21,7 @@ public class AdministradorGUI extends JFrame {
     private JButton BotonDefinirHorario;
     private JButton BotonDefinirDiaEspecial;
 
-    public AdministradorGUI(Administrador administrador) {
+    public VentanaAdministrador(Administrador administrador) {
         this.administrador = administrador;
 
         setTitle("Interfaz Administrador");

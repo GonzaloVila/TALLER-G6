@@ -14,28 +14,13 @@ public class Cliente {
         this.listaReservas = new ArrayList<Reserva>();
     }
 
-    public Cliente(String nombre, String correo, String numero, String contrasenia) {
-
-
-    public Cliente() {
-        this.listaReservas = new ArrayList<Reserva>();
-    }
-    public Cliente(String nombre, String correo, String numero, String contrasenia){
-        this.nombre = nombre;
-        this.correo = correo;
-        this.numero = numero;
-        this.contrasenia = contrasenia;
-    }
-
-
-
     public Cliente(String nombre, String correo, String numero){
         this.nombre = nombre;
         this.correo = correo;
         this.numero = numero;
     }
 
-    public Cliente(String nombre, String correo, String numero, String contrasenia, ArrayList<Reserva>listaReservas) {
+    public Cliente(String nombre, String correo, String numero, String contrasenia) {
         this.nombre = nombre;
         this.correo = correo;
         this.numero = numero;
@@ -124,22 +109,7 @@ public class Cliente {
             System.out.println("Error al registrar cliente: " + e.getMessage());
         }
     }
-    /**
-     * registroClientes: metodo para crear una lista de clientes
-     * */
-    public void registroClientes(){
-        this.listaClientes = new ArrayList<>();
 
-     * @param nombre: nombre del cliente
-     * @param correo: correo del cliente
-     * @param numero: numero del cliente
-     * @param contrasenia: contrasenña del cliente
-     */
-
-    public void registarCliente(String nombre, String correo, String numero, String contrasenia){
-
-
-    }
     /**
     *iniciarSesion: inicia sesion con una cuenta ya creada.
      * @param correo: correo del usuario
@@ -172,18 +142,14 @@ public class Cliente {
         if (nuevaContrasenia != null && !nuevaContrasenia.isEmpty()) {
             this.contrasenia = nuevaContrasenia;
         }
-
-    public void iniciarSesion(String correo, String contrasenia){
     }
+
     /**
      *actualizarInfo: cambia informacion de la cuenta del cliente.
      * @param correo: correo del usuario.
      * @param contrasenia: contraseña del usuario
      */
 
-    public void actualizarInfo(String correo, String contrasenia){
-
-    }
 
     /**
      *recuperarContrasenia: se le enviá un mail al usuario con un enlace que le posibilite modificar su contraseña en caso de que se la olvide.

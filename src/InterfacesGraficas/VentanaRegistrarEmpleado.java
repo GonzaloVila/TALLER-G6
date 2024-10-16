@@ -1,4 +1,4 @@
-package Ventanas;
+package InterfacesGraficas;
 
 import LogicaNegocio.Empleado;
 import LogicaNegocio.Permiso;

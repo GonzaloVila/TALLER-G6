@@ -1,22 +1,17 @@
 package LogicaNegocio;
 
 import java.time.LocalDateTime;
-<<<<<<< HEAD
-=======
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
->>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
 
 public class MailAutomatico {
     private String tipoAviso;
     private LocalDateTime fechaEnvio;
     private String contenido;
 
-<<<<<<< HEAD
-=======
+
     // Constructor
->>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
     public MailAutomatico(String tipoAviso, LocalDateTime fechaEnvio, String contenido) {
         this.tipoAviso = tipoAviso;
         this.fechaEnvio = fechaEnvio;
@@ -52,9 +47,6 @@ public class MailAutomatico {
         return "MailAuto{" + "tipoAviso=" + tipoAviso + ", fechaEnvio=" + fechaEnvio + ", contenido=" + contenido + '}';
     }
 
-<<<<<<< HEAD
-
-=======
     // Método para enviar un correo de confirmación de reserva
     public void enviar_Mail_Confirmacion_Reserva(String emailCliente, String detallesReserva) {
         if (!esEmailValido(emailCliente) || detallesReserva == null || detallesReserva.isEmpty()) {
@@ -129,5 +121,6 @@ public class MailAutomatico {
     private boolean esEmailValido(String email) {
         return email != null && email.matches("^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,4}$");
     }
->>>>>>> 8d43a089b5a3a434da9e33bd4ca2a9e58f80ae1c
+
 }
+

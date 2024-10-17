@@ -35,7 +35,7 @@ public class Administrador extends  Empleado{
 
     public void agregarEventos(Evento evento){
         listaEventos.add(evento);
-        evento.agregarAdministrador(this);
+
     }
 
 
@@ -84,9 +84,7 @@ public class Administrador extends  Empleado{
                 throw new Exception("El evento no puede ser nulo");
 
             }
-            if (evento.getFecha() <= 0) {
-                throw new Exception("La fecha del evento debe ser valida");
-            }
+
             listaEventos.add(evento);
             System.out.println("Dia especial configurado" + evento.getNombre());
         } catch (Exception e) {

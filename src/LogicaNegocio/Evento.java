@@ -1,24 +1,22 @@
 package LogicaNegocio;
 
-
-
-import java.util.ArrayList;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 public class Evento {
     private String nombre;
-    private int fecha;
-    private int horainicio;
-    private int horafinal;
+    private LocalDate fecha;
+    private LocalTime horainicio;
+    private LocalTime horafinal;
     private TipoDeDia tipo_evento;
-    private ArrayList<Administrador> listaAdministradores;
 
-    public Evento(String nombre, int fecha, int horainicio, int horafinal, TipoDeDia tipo_evento) {
+
+    public Evento(String nombre, LocalDate fecha, LocalTime horainicio, LocalTime horafinal, TipoDeDia tipo_evento) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.horainicio = horainicio;
         this.horafinal = horafinal;
         this.tipo_evento = tipo_evento;
-        this.listaAdministradores = new ArrayList<>();
+
     }
 
     public String getNombre() {
@@ -29,27 +27,27 @@ public class Evento {
         this.nombre = nombre;
     }
 
-    public int getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(int fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public int getHorainicio() {
+    public LocalTime getHorainicio() {
         return horainicio;
     }
 
-    public void setHorainicio(int horainicio) {
+    public void setHorainicio(LocalTime horainicio) {
         this.horainicio = horainicio;
     }
 
-    public int getHorafinal() {
+    public LocalTime getHorafinal() {
         return horafinal;
     }
 
-    public void setHorafinal(int horafinal) {
+    public void setHorafinal(LocalTime horafinal) {
         this.horafinal = horafinal;
     }
 
@@ -61,15 +59,34 @@ public class Evento {
         this.tipo_evento = tipo_evento;
     }
 
-    public ArrayList<Administrador> getListaAdministradores(){return listaAdministradores;}
-
-    public void agregarAdministrador(Administrador administrador){
-        listaAdministradores.add(administrador);
-    }
-
 
     @Override
     public String toString() {
         return "LogicaNegocio.Evento{" + "nombre=" + nombre + ", fecha=" + fecha + ", horainicio=" + horainicio + ", horafinal=" + horafinal + ", tipo_evento=" + tipo_evento + '}';
     }
+
+
+    // Método para bloquear una mesa
+    public void bloquear_Mesa(Mesa mesa) {
+        LocalDate dia = this.fecha;  // El día del evento es cuando se quiere bloquear la mesa
+        LocalTime inicio = this.horainicio;  // Hora de inicio del evento
+        if (!mesa.consultarDisponibilidad(mesa, dia, inicio)) {
+            mesa.bloquearMesa(mesa, dia, inicio);
+            System.out.println("Mesa " + mesa.getNumMesa() + " bloqueada para el evento " + this.tipo_evento);
+        } else {
+            System.out.println("La mesa " + mesa.getNumMesa() + " está disponible, no es necesario bloquearla.");
+        }
+    }
+
+    // Método para bloquear una franja horaria
+    public void bloquear_Franja_Horaria(LocalTime inicio, LocalTime fin) {
+        if (inicio.isAfter(fin)) {
+            throw new IllegalArgumentException("La hora de inicio debe ser antes de la hora de fin.");
+        }
+        this.horainicio = inicio;
+        this.horafinal = fin;
+        System.out.println("Franja horaria bloqueada: desde " + inicio.toString() + " hasta " + fin.toString());
+    }
 }
+
+

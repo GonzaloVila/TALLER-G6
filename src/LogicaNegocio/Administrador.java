@@ -41,9 +41,8 @@ public class Administrador extends  Empleado {
         return listaEventos;
     }
 
-    public void agregarEventos(Evento evento) {
+    public void agregarEventos(Evento evento){
         listaEventos.add(evento);
-        evento.agregarAdministrador(this);
     }
 
     public Administrador(Calendario calendario) {

@@ -151,7 +151,7 @@ public class VentanaAdministrador extends JFrame {
                     LocalTime horafin = LocalTime.of(14, 0);     // Valores arbitrarios
                     TipoDeDia tipoDeDia = TipoDeDia.Normal;
 
-                    Evento evento = new Evento(nombre, fecha.getDayOfMonth(), horainicio.getHour(), horafin.getHour(), tipoDeDia);
+                    Evento evento = new Evento(nombre, fecha, horainicio, horafin, tipoDeDia);
                     administrador.configurarDiaEspecial(evento);
                     JOptionPane.showMessageDialog(null, "Día especial configurado correctamente.");
                 } catch (Exception ex) {

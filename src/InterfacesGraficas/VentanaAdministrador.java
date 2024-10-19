@@ -1,4 +1,4 @@
-package InterfacesGraficas;
+/**package InterfacesGraficas;
 
 import LogicaNegocio.Administrador;
 import LogicaNegocio.Evento;
@@ -164,3 +164,4 @@ public class VentanaAdministrador extends JFrame {
         setVisible(true);
     }
 }
+*/

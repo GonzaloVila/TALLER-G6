@@ -1,40 +1,45 @@
 package LogicaNegocio;
 
+import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
+import java.time.format.DateTimeParseException;
+
 
 public class Calendario {
-    private ArrayList<Horario> Dias;
-    private TipoDeDia tipo_de_dia;
+    private ArrayList<Horario> dias;
+    private TipoDeDia tipoDeDia;
     private List<Administrador> administradores;
     private List<Horario> horarios;
 
-    public Calendario(){
+    public Calendario() {
         this.administradores = new ArrayList<>();
         this.horarios = new ArrayList<>();
-    };
+    }
 
-    public Calendario(List<Administrador> administradores, ArrayList<Horario> dias, List<Horario> horarios, TipoDeDia tipo_de_dia) {
+    public Calendario(List<Administrador> administradores, ArrayList<Horario> dias, List<Horario> horarios, TipoDeDia tipoDeDia) {
         this.administradores = administradores;
-        Dias = dias;
+        this.dias = dias;
         this.horarios = horarios;
-        this.tipo_de_dia = tipo_de_dia;
+        this.tipoDeDia = tipoDeDia;
     }
 
     public ArrayList<Horario> getDias() {
-        return Dias;
+        return dias;
     }
 
     public void setDias(ArrayList<Horario> dias) {
-        Dias = dias;
+        this.dias = dias;
     }
 
-    public TipoDeDia getTipo_de_dia() {
-        return tipo_de_dia;
+    public TipoDeDia getTipoDeDia() {
+        return tipoDeDia;
     }
 
-    public void setTipo_de_dia(TipoDeDia tipo_de_dia) {
-        this.tipo_de_dia = tipo_de_dia;
+    public void setTipoDeDia(TipoDeDia tipoDeDia) {
+        this.tipoDeDia = tipoDeDia;
     }
 
     public List<Administrador> getAdministradores() {
@@ -57,89 +62,42 @@ public class Calendario {
     public String toString() {
         return "LogicaNegocio.Calendario{" +
                 "administradores=" + administradores +
-                ", Dias=" + Dias +
-                ", tipo_de_dia=" + tipo_de_dia +
+                ", dias=" + dias +
+                ", tipoDeDia=" + tipoDeDia +
                 ", horarios=" + horarios +
                 '}';
     }
 
-    /**
-     *
-     * @param d: agrega un dia al calendario.
-     */
-    public void agregarDia(Horario d){
-        try{
-            if(d == null){
-                throw new IllegalArgumentException("El dia no puede ser nulo");
+    public void guardarHorariosEnArchivo(String nombreArchivo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
+            for (Horario horario : horarios) {
+                // Escribe la fecha, la hora de inicio y la hora de fin en el formato correcto
+                writer.write(horario.getDia() + "," + horario.getHoraInicio() + "," + horario.getHoraFin());
+                writer.newLine(); // Nueva línea para cada horario
             }
-            if(!getDias().contains(d)){
-                Dias.add(d);
-            }else{
-                System.out.println("El dia ya esta agregado");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error al agregar el dia: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error inesperado al agregar el dia: " + e.getMessage());
+            System.out.println("Horarios guardados correctamente en " + nombreArchivo);
+        } catch (IOException e) {
+            System.out.println("Error al guardar horarios: " + e.getMessage());
         }
-
-    };
-
-
-    /**
-     *
-     * @param d: elimina un dia.
-     */
-    public  void eliminarDia(Horario d){
-        try {
-            if (d == null) {
-                throw new IllegalArgumentException("El día no puede ser nulo.");
-            }
-            if (Dias.contains(d)) {
-                Dias.remove(d);
-                System.out.println("Día eliminado: " + d);
-            } else {
-                System.out.println("El día no está en el calendario: " + d);
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error al eliminar día: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error inesperado al eliminar día: " + e.getMessage());
-        }
-    };
-
-    /**
-     *
-     * @return: retorna una lista.
-     */
-    public ArrayList<Horario> obtenerDia(){
-        return new ArrayList<>(Dias);
     }
 
-    /**
-     *
-     * @param d: recibe un horario.
-     * @return: retorna un boolean para saber si el horario esta disponible o no.
-     */
-    public boolean estaDisponible(Horario d){
-        try {
-            if (d == null) {
-                throw new IllegalArgumentException("El horario no puede ser nulo.");
+    public List<Horario> cargarHorariosDesdeArchivo(String nombreArchivo) {
+        List<Horario> horarios = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("horarios.txt"))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] partes = linea.split(",");
+                LocalDate dia = LocalDate.parse(partes[0]); // Asegúrate de que el primer elemento sea una fecha en el formato correcto
+                LocalTime horaInicio = LocalTime.parse(partes[1]); // Segundo elemento es hora de inicio
+                LocalTime horaFin = LocalTime.parse(partes[2]); // Tercer elemento es hora de fin
+                horarios.add(new Horario(dia, horaInicio, horaFin)); // Agregar el nuevo horario a la lista
             }
-            for (Horario horario : Dias) {
-                if (horario.getDia().equals(d.getDia()) &&
-                        d.getHoraInicio().isBefore(horario.getHoraFin()) &&
-                        d.getHoraFin().isAfter(horario.getHoraInicio())) {
-                    return false;
-                }
-            }
-            return true; // Horario disponible
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error al verificar disponibilidad: " + e.getMessage());
-            return false; // Se devuelve false ante un error
-        } catch (Exception e) {
-            System.out.println("Error inesperado al verificar disponibilidad: " + e.getMessage());
-            return false; // Se devuelve false ante un error inesperado
+            System.out.println("Horarios cargados correctamente desde " + nombreArchivo);
+        } catch (IOException e) {
+            System.out.println("Error al cargar horarios: " + e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("Error al parsear la fecha u hora: " + e.getMessage());
         }
+        return horarios;
     }
 }

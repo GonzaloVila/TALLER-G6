@@ -1,0 +1,3 @@
+Lista de Empleados
+ID: 77, Nombre: pablo, Permiso: BAJO, Rol: Mesero
+ID: 44, Nombre: asd, Permiso: BAJO, Rol: Mesero

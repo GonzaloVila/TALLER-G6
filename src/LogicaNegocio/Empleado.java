@@ -1,5 +1,8 @@
 package LogicaNegocio;
 import java.util.ArrayList;
+import Excepciones.EmpleadoException;
+
+
 public class Empleado {
     private int idempleado;
     private String nombre;
@@ -7,14 +10,15 @@ public class Empleado {
     private Rol rol;
     private ArrayList<Reserva> listaReservas;
 
-    public Empleado(int idempleado, String nombre, Permiso permiso, Rol rol ){
+    public Empleado(int idempleado, String nombre, Permiso permiso, Rol rol) {
         this.idempleado = idempleado;
         this.nombre = nombre;
         this.permiso = permiso;
         this.rol = rol;
         this.listaReservas = new ArrayList<>();
     }
-    public Empleado(){
+
+    public Empleado() {
     }
 
     public int getIdempleado() {
@@ -41,60 +45,26 @@ public class Empleado {
         this.permiso = permiso;
     }
 
-    public Rol getRol() {return rol;}
+    public Rol getRol() {
+        return rol;
+    }
 
-    public void setRol(Rol rol) {this.rol = rol;}
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 
-    public ArrayList<Reserva> getListaReservas() {return listaReservas;}
+    public ArrayList<Reserva> getListaReservas() {
+        return listaReservas;
+    }
 
-    public void agregarReservas(Reserva reserva){listaReservas.add(reserva);}
+    public void agregarReservas(Reserva reserva) {
+        listaReservas.add(reserva);
+    }
 
     @Override
     public String toString() {
         return "LogicaNegocio.Empleado{" + "idempleado=" + idempleado + ", nombre=" + nombre + ", permiso=" + permiso + ", rol=" + rol + '}';
     }
 
-    /**
-     * crearCuentaEmpleado: crea una nueva cuenta a un empleado.
-     */
-
-    public void crearCuentaEmpleado(int idEmpleado, String nombre, Permiso permiso, Rol rol) {
-        try {
-            // Validación del nombre
-            if (nombre == null || nombre.matches(".*\\d.*") || nombre.isEmpty()) {
-                throw new Exception("El nombre no puede contener valores numéricos ni estar vacío.");
-            }
-
-            // Validación del ID del empleado
-            if (idEmpleado <= 0) {
-                throw new Exception("El ID del empleado debe ser un número positivo.");
-            }
-
-            // Verificar si el permiso es nulo
-            if (permiso == null) {
-                throw new Exception("El permiso no puede ser nulo.");
-            }
-
-            // Verificar si el rol es nulo
-            if (rol == null) {
-                throw new Exception("El rol no puede ser nulo.");
-            }
-
-            // Asignar valores al nuevo empleado
-            this.idempleado = idEmpleado;
-            this.nombre = nombre;
-            this.permiso = permiso;
-            this.rol = rol; // Guardar el nombre del rol como String
-
-            // Mostrar mensaje de éxito
-            System.out.println("Nueva cuenta creada para el empleado: " + this.nombre);
-
-        } catch (Exception e) {
-            // Manejo de excepciones
-            System.out.println("Error al crear la cuenta del empleado: " + e.getMessage());
-        }
-    }
-
 }
-
 

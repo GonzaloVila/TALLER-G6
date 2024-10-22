@@ -1,5 +1,5 @@
 package LogicaNegocio;
-
+import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -26,7 +26,20 @@ public class Reserva {
         this.estado = estado;
         this.cliente = cliente;
         this.mesa = mesa;
+    }
+    public Reserva(Cliente cliente, Mesa mesa, LocalDate fecha, LocalTime horaInicio, String comentarios) {
+        this.idReserva = ++contadorReservas; // ID autogenerado
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.comentarios = comentarios;
+        this.horaFinal = null; // O puedes establecer un valor predeterminado
+        this.estado = Estado.EN_CURSO; // O el estado que consideres adecuado
+        this.cliente = cliente;
+        this.mesa = mesa;
+    }
 
+
+    public Reserva(){
     }
 
 
@@ -116,14 +129,19 @@ public class Reserva {
 
     /**
      * realizarReserva: realiza una reserva a nombre de un cliente
-     * @param cliente: nombre de quien realiza la reserva
-     * @param dia: dia en el que se realizó la reserva
-     * @param horaInicio: comienzo de la reserva
-     * @param mesa: informacion de la mesa(número, ubicación y capacidad)
+     *
+     * @param cliente    : nombre de quien realiza la reserva
+     * @param dia        : dia en el que se realizó la reserva
+     * @param horaInicio : comienzo de la reserva
+     * @param mesa       : informacion de la mesa(número, ubicación y capacidad)
      */
     public void realizarReserva(Cliente cliente, LocalDate dia, LocalTime horaInicio, Mesa mesa, String comentarios){
         if (cliente == null){
             throw new IllegalArgumentException("El cliente no puede ser nulo");
+        }
+        //VALIDAR TARJETA CREIDTO
+        if (horaFinal == null){
+            horaFinal = horaInicio.plusHours(3);
         }
         if (!getMesa().consultarDisponibilidad(mesa, dia, horaInicio)){
             System.out.println("La mesa"+ mesa.getNumMesa() + "no se encuentra disponible para el día "+ dia + " a las"+  horaInicio);
@@ -146,15 +164,87 @@ public class Reserva {
      * @param nuevaHora: nueva hora en caso de que sea modificada, sino se conserva la misma
      * @param nuevoDia: nuevo día en caso de que sea modifidicado, sino se conserva el mismo
      */
-    public void modificarReserva(Integer idReserva, Mesa nuevaMesa, LocalTime nuevaHora, LocalDate nuevoDia){
+    public void modificarReserva(Integer idReserva, Mesa nuevaMesa, LocalTime nuevaHora, LocalDate nuevoDia) {
+        // Buscar la reserva por ID
+        Reserva reservaAModificar = null;
+        for (Reserva reserva : listaDeReservas) {
+            if (reserva.getIdReserva().equals(idReserva)) {
+                reservaAModificar = reserva;
+            }
+        }
+        if (horaFinal == null){
+            horaFinal = horaInicio.plusHours(3);
+        }
+
+        if (reservaAModificar == null) {
+            System.out.println("No se encontró una reserva con el ID: " + idReserva);
+            return;
+        }
+
+        // Comprobar si se quiere cambiar la mesa
+        boolean cambiarMesa = nuevaMesa != null && !nuevaMesa.equals(reservaAModificar.getMesa());
+
+        // Actualizar la disponibilidad de la mesa (liberar y asignar nuevos valores)
+        reservaAModificar.getMesa().actualizarDisponibilidad(reservaAModificar, nuevoDia, nuevaHora, cambiarMesa);
+
+        // Actualizar los valores de la reserva
+        if (nuevaHora != null && !nuevaHora.equals(reservaAModificar.getHoraInicio())) {
+            reservaAModificar.setHoraInicio(nuevaHora); // Cambiar la hora
+        }
+
+        if (nuevoDia != null && !nuevoDia.equals(reservaAModificar.getFecha())) {
+            reservaAModificar.setFecha(nuevoDia); // Cambiar el día
+        }
+
+        if (cambiarMesa) {
+            reservaAModificar.setMesa(nuevaMesa); // Cambiar la mesa
+        }
+
+        System.out.println("Reserva modificada con éxito.");
     }
+
+
 
     /**
      * cancelarReserva
      * @param idReserva: número de indentificación de la reserva
      * @param cliente: cliente que cancela
      */
-    public void cancelarReserva(Integer idReserva, Cliente cliente, Mesa mesa){}
+
+    public void cancelarReserva(int idReserva, Cliente cliente, Mesa mesa) {
+        // Buscar la reserva por ID
+        Reserva reservaACancelar = null;
+        for (Reserva reserva : listaDeReservas) {
+            if (reserva.getIdReserva().equals(idReserva)) {
+                reservaACancelar = reserva;
+                break; // Salir del bucle una vez encontrada la reserva
+            }
+        }
+
+        if (reservaACancelar == null) {
+            System.out.println("No se encontró una reserva con el ID: " + idReserva);
+            return;
+        }
+
+        // Verificar que el cliente que cancela sea el que hizo la reserva
+        if (!reservaACancelar.getCliente().equals(cliente)) {
+            System.out.println("El cliente no coincide con la reserva. No se puede cancelar.");
+            return;
+        }
+
+        // Actualizar la disponibilidad de la mesa (liberar la reserva cancelada)
+        mesa.actualizarDisponibilidad(reservaACancelar, null, null, false);
+
+        // Eliminar la reserva de la lista
+        listaDeReservas.remove(reservaACancelar);
+
+        // Actualizar el contador de cancelaciones del cliente
+        cliente.incrementarContadorCancelaciones();
+
+        // Confirmar la cancelación
+        System.out.println("Reserva cancelada con éxito. ID Reserva: " + idReserva);
+    }
+
 
     /**
      * filtrarMesa: filtra las mesas basandose en su capacidad y ubicación
@@ -162,9 +252,20 @@ public class Reserva {
      * @param ubicacion: ubicación espacial en el restaurante
      * @return: lista de mesas que cumplan con los requerimientos pasados por parámetros
      */
-    public ArrayList<Mesa> filtrarMesa(Integer capacidad, String ubicacion){
-        return null;
+
+    public ArrayList<Mesa> filtrarMesa(Integer capacidad, Ubicacion ubicacion){
+        ArrayList<Mesa> mesasFiltradas = new ArrayList<>();
+
+        for (Mesa mesa : mesa.getListaMesasUbicaciones()) {
+            boolean cumpleCapacidad = (capacidad == null || mesa.getCapacidad() == capacidad);
+            boolean cumpleUbicacion = (ubicacion == null || mesa.getUbicacion() == ubicacion); //VA UN EQUALS O ==
+            if (cumpleCapacidad && cumpleUbicacion) {
+                mesasFiltradas.add(mesa);
+            }
+        }
+        return mesasFiltradas;
     }
+
 
     /**
      * realizarComentario: se le solicita al cliente que realice un comentario previo a la reserva con el objetivo
@@ -179,6 +280,6 @@ public class Reserva {
     private boolean verificarHorario(LocalDate dia, LocalTime horaInicio) {
         return true;
     }
-    //IDEA DE LUCAS DE QUE PUEDE HABER UN MÉTODO QUE VERIFIQUE SI LOS HORARIOS QUE EL CLIENTE SELECCIONA PARA LA RESERVA
+    //IDEA DE QUE PUEDE HABER UN MÉTODO QUE VERIFIQUE SI LOS HORARIOS QUE EL CLIENTE SELECCIONA PARA LA RESERVA
     //ESTEN DENTRO DE LOS HORARIOS EN LOS QUE EL RESTAURANTE TRABAJA O SE HAGA LA RESERVA 24HS ANTES.
 }

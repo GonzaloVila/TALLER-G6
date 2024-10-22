@@ -25,11 +25,11 @@ public class Main {
         */
 
 
-       //Interfaz crearCuentaEmpleado
+       /** //Interfaz crearCuentaEmpleado
         Calendario calendario = new Calendario(); // Asegúrate de que esto no sea null
         Administrador administrador = new Administrador(calendario);
         VentanaRegistrarEmpleado ventana = new VentanaRegistrarEmpleado(administrador);
-        ventana.setVisible(true);
+        ventana.setVisible(true);*/
 
        //interfaz AdministradorHorarios.
         /**Administrador administrador = new Administrador(new Calendario());

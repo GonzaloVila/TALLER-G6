@@ -87,6 +87,7 @@ public class Evento {
         this.horafinal = fin;
         System.out.println("Franja horaria bloqueada: desde " + inicio.toString() + " hasta " + fin.toString());
     }
+
 }
 
 

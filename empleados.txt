@@ -1,3 +1,4 @@
 Lista de Empleados
-ID: 77, Nombre: pablo, Permiso: BAJO, Rol: Mesero
 ID: 44, Nombre: asd, Permiso: BAJO, Rol: Mesero
+ID: 88, Nombre: pp, Permiso: ALTO, Rol: Recepcionista
+ID: 45, Nombre: asd, Permiso: BAJO, Rol: Mesero

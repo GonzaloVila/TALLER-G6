@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import LogicaNegocio.Reserva;
 import LogicaNegocio.Cliente;
 import LogicaNegocio.Mesa;
+import LogicaNegocio.Ubicacion;
 
 public class VentanaRegistrarReserva extends JFrame {
     private JTextField nombreClienteField, emailClienteField, telefonoClienteField, mesaField, idReservaField;
@@ -164,7 +165,7 @@ public class VentanaRegistrarReserva extends JFrame {
                 .atZone(java.time.ZoneId.systemDefault()).toLocalTime();
 
         Cliente cliente = new Cliente(nombreCliente, emailCliente, telefonoCliente);
-        Mesa mesa = new Mesa(numeroMesa, "Terraza", 5);
+        Mesa mesa = new Mesa(numeroMesa, Ubicacion.TERRAZA, 5);
 
         reserva.realizarReserva(cliente, dia, horaInicio, mesa, comentario);
 
@@ -218,7 +219,7 @@ public class VentanaRegistrarReserva extends JFrame {
             LocalTime nuevaHora = ((SpinnerDateModel) horaSpinner.getModel()).getDate().toInstant()
                     .atZone(java.time.ZoneId.systemDefault()).toLocalTime();
 
-            Mesa nuevaMesa = new Mesa(numeroMesaModificada, "Terraza", 5);
+            Mesa nuevaMesa = new Mesa(numeroMesaModificada, Ubicacion.TERRAZA, 5);
             reserva.modificarReserva(idReserva, nuevaMesa, nuevaHora, nuevoDia);
             JOptionPane.showMessageDialog(null, "Reserva modificada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
@@ -262,7 +263,7 @@ public class VentanaRegistrarReserva extends JFrame {
             int numeroMesaClienteMalo = Integer.parseInt(mesaClienteMalo.getText());
 
             Cliente cliente = new Cliente(nombreClienteQueCancela, "", "");
-            Mesa mesa = new Mesa(numeroMesaClienteMalo, "Terraza", 5);
+            Mesa mesa = new Mesa(numeroMesaClienteMalo, Ubicacion.TERRAZA, 5);
             reserva.cancelarReserva(idReservaCancel, cliente, mesa);
             JOptionPane.showMessageDialog(null, "Reserva cancelada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
@@ -316,8 +317,8 @@ public class VentanaRegistrarReserva extends JFrame {
 
     // Métodos auxiliares
     private boolean validarNombre(String nombre) {
-            nombre = nombre.trim(); //Elimina espacios
-            return nombre.matches("[\\p{L}\\s]+");
+        nombre = nombre.trim(); //Elimina espacios
+        return nombre.matches("[\\p{L}\\s]+");
     }
 
     private boolean validarEmail(String email) {

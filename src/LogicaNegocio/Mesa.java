@@ -5,21 +5,23 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 public class Mesa {
     private Integer numMesa;
-    private String ubicacion;
+    private Ubicacion ubicacion;
     private Integer capacidad;
     private ArrayList<Reserva> listaReservas;
-    private Estado estado;
+    private ArrayList<Mesa> listaMesasUbicaciones;
 
-    public Mesa(){
-        this.listaReservas =  new ArrayList<Reserva>();
+    public Mesa() {
+        this.listaReservas = new ArrayList<Reserva>();
+        this.listaMesasUbicaciones = new ArrayList<>();
     }
-    public Mesa(Integer numMesa, String Ubicacion, Integer capacidad){
+
+    public Mesa(Integer numMesa, Ubicacion Ubicacion, Integer capacidad) {
         this.numMesa = numMesa;
         this.ubicacion = Ubicacion;
         this.capacidad = capacidad;
     }
 
-    public Mesa(Integer numMesa, String ubicacion, Integer capacidad, ArrayList<Reserva>listaReservas) {
+    public Mesa(Integer numMesa, Ubicacion ubicacion, Integer capacidad, ArrayList<Reserva> listaReservas) {
         this.numMesa = numMesa;
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
@@ -35,11 +37,11 @@ public class Mesa {
         this.numMesa = numMesa;
     }
 
-    public String getUbicacion() {
+    public Ubicacion getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -51,11 +53,19 @@ public class Mesa {
         this.capacidad = capacidad;
     }
 
-    public void setListaReservas(ArrayList<Reserva>listaReservas){
+    public void setListaReservas(ArrayList<Reserva> listaReservas) {
         this.listaReservas = listaReservas;
     }
 
-    public void agregarReserva(Reserva reserva){
+    public ArrayList<Mesa> getListaMesasUbicaciones() {
+        return listaMesasUbicaciones;
+    }
+
+    public void agregarListaMesasUbicaciones(Mesa mesa) {
+        listaMesasUbicaciones.add(mesa);
+    }
+
+    public void agregarReserva(Reserva reserva) {
         this.listaReservas.add(reserva);
     }
 
@@ -67,64 +77,62 @@ public class Mesa {
 
     /**
      * consultarDisponibilidad: te informa si la mesa está disponible en caso de que no se encuentre bloqueada o reservada.
-     * @param dia: dia en el que se consulta la mesa
+     *
+     * @param dia:  dia en el que se consulta la mesa
      * @param hora: horario en el que se busca la mesa
      * @return: returna true en caso de que la mesa esté disponible y false en caso de que no
      */
-
-
-
     public boolean consultarDisponibilidad(Mesa mesa, LocalDate dia, LocalTime hora) {
-        //definir limites de hora
-        LocalTime inicioLimite = LocalTime.of(20, 0); // 8 PM
-        LocalTime finLimite = LocalTime.of(2, 0); // 2 AM
-
-        // Validar si la hora está fuera de los límites
-        if ((hora.isBefore(inicioLimite) && !hora.isAfter(finLimite))) {
-            throw new IllegalArgumentException("La hora debe estar entre las 20:00 y las 02:00.");
-        }
-
-        // Consulta la disponibilidad de la mesa comparando 2 objetos de mesa, una fecha y una hora
+        //Consulta la disponibilidad de la mesa comparando 2 objetos de mesa, una fecha y una hora
         for (Reserva reserva : listaReservas) {
             if (reserva.getMesa().equals(mesa) && reserva.getFecha().equals(dia) && reserva.getHoraInicio().equals(hora)) {
-                return false; // La mesa no está disponible
+                return false;
             }
         }
-        return true; // La mesa está disponible
+        return true;
     }
-
 
     /**
      * actualizarDisponibilidad: cambio el valor de la disponibilidad de la mesa.
      */
-
-    /*
-        public void actualizarDisponibilidad(Mesa mesa ,LocalDate dia, LocalTime horaInicio) {
-        // Usa 'this' para referenciar la mesa actual
-        if (consultarDisponibilidad(this, dia, horaInicio)) {
-            // Si la mesa está disponible, puedes cambiar el estado o realizar alguna acción adicional
-            estado = Estado.RESERVADA; // O el estado que corresponda
-            System.out.println("La mesa " + numMesa + " ha sido reservada.");
-        } else {
-            // Si no está disponible
-            System.out.println("La mesa " + numMesa + " no está disponible para el día " + dia + " a las " + horaInicio);
+    // Método para actualizar la disponibilidad
+    public void actualizarDisponibilidad(Reserva reservaOriginal, LocalDate nuevoDia, LocalTime nuevaHora, boolean cambiarMesa) {
+        // Liberar la disponibilidad anterior
+        if (reservaOriginal != null) {
+            listaReservas.removeIf(reserva -> reserva.getFecha().equals(reservaOriginal.getFecha()) &&
+                    reserva.getHoraInicio().equals(reservaOriginal.getHoraInicio()));
+            System.out.println("Se liberó la disponibilidad de la reserva original.");
         }
+
+        if (cambiarMesa) {
+            // Variables intermedias para fecha y hora
+            LocalDate fechaReserva = (nuevoDia != null) ? nuevoDia : reservaOriginal.getFecha();
+            LocalTime horaReserva = (nuevaHora != null) ? nuevaHora : reservaOriginal.getHoraInicio();
+
+            // Crear la nueva reserva
+            //Integer idReserva, LocalDate fecha, LocalTime horaInicio, String comentarios,
+            // LocalTime horaFinal, Estado estado, Cliente cliente, Mesa mesa.... reservaOriginal.getCliente()
+            Reserva nuevaReserva = new Reserva(reservaOriginal.getCliente(), this, fechaReserva, horaReserva, reservaOriginal.getComentarios());
+
+            // Agregar la nueva reserva a la lista
+            listaReservas.add(nuevaReserva);
+
+            System.out.println("Se asignó la nueva disponibilidad para el día " + fechaReserva + " a las " + horaReserva);
+        }
+
     }
-
-    */
-
-
 
     /**
-     *bloquearMesa: bloquea las mesas que no estén disponibles.
+     * bloquearMesa: bloquea las mesas que no estén disponibles.
      */
 
-    public void bloquearMesa(Mesa mesa, LocalDate dia, LocalTime hora){
-if (!consultarDisponibilidad(mesa,dia,hora)){
-    throw new IllegalStateException("La mesa ha sido bloqueada.");
-        }else{
-    throw new IllegalStateException("No se puede bloquear.");
+    public void bloquearMesa(Mesa mesa, LocalDate dia, LocalTime hora) {
+        if (!consultarDisponibilidad(mesa, dia, hora)) {
+            throw new IllegalStateException("La mesa ha sido bloqueada.");
+        } else {
+            throw new IllegalStateException("No se puede bloquear.");
         }
-    }
 
+
+    }
 }

@@ -1,9 +1,6 @@
 package InterfacesGraficas;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -19,7 +16,7 @@ public class VentanaRegistrarReserva extends JFrame {
     private JTextField capacidadField, ubicacionField, comentarioField;
     private JTextField nombreClienteMalo, mesaClienteMalo, mesaClienteModifica, idReservaCancelada;
     private JSpinner fechaSpinner, horaSpinner;
-    private JButton realizarReservaButton, modificarReservaButton, cancelarReservaButton, filtrarMesasButton;
+    private JButton realizarReservaButton, modificarReservaButton, cancelarReservaButton, filtrarMesasButton, realizarEventoButton;
     private JTextArea resultadoFiltradoArea;
     private Reserva reserva;
 
@@ -36,6 +33,10 @@ public class VentanaRegistrarReserva extends JFrame {
         // Panel para realizar reserva
         JPanel panelRealizarReserva = crearPanelRealizarReserva();
         tabbedPane.addTab("Realizar Reserva", panelRealizarReserva);
+
+        // Panel para realizar evento
+        JPanel panelRealizarEvento = crearPanelRealizarEvento();
+        tabbedPane.addTab("Realizar Evento", panelRealizarEvento);
 
         // Panel para modificar reserva
         JPanel panelModificarReserva = crearPanelModificarReserva();
@@ -54,15 +55,11 @@ public class VentanaRegistrarReserva extends JFrame {
 
     // Crear panel para realizar la reserva
     private JPanel crearPanelRealizarReserva() {
-        JPanel panel = new JPanel(new GridLayout(8, 2));
+        JPanel panel = new JPanel(new GridLayout(9, 2)); // Aumentar a 9 filas para comentarios
 
-        // Campos del formulario
         panel.add(new JLabel("   Nombre:"));
-        nombreClienteField = new JTextField(); // Inicializa aquí
-        nombreClienteField.setVisible(true); // Esto asegura que el campo es visible
-        nombreClienteField.setEnabled(true); // Esto asegura que el campo es habilitado
-
-        panel.add(nombreClienteField); // Agregar el campo al panel
+        nombreClienteField = new JTextField();
+        panel.add(nombreClienteField);
 
         panel.add(new JLabel("   Email:"));
         emailClienteField = new JTextField();
@@ -99,10 +96,9 @@ public class VentanaRegistrarReserva extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     realizarReserva();
-                } catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, "Error al realizar la reserva: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    mostrarError("Error al realizar la reserva: " + ex.getMessage());
                 }
-
             }
         });
         panel.add(realizarReservaButton);
@@ -121,41 +117,32 @@ public class VentanaRegistrarReserva extends JFrame {
         // Validaciones
         if (nombreCliente.isEmpty()) {
             mostrarError("El campo de nombre no puede estar vacío");
-            return; // Detenemos el flujo si el nombre está vacío
+            return;
         }
         if (!validarNombre(nombreCliente)) {
             mostrarError("El nombre solo debe contener letras y espacios");
             return;
         }
-
         if (emailCliente.isEmpty()) {
             mostrarError("El campo de email no puede estar vacío");
-            return; // Detenemos el flujo si el correo está vacío
+            return;
         }
-
         if (!validarEmail(emailCliente)) {
             mostrarError("Correo electrónico no válido");
             return;
         }
         if (telefonoCliente.isEmpty()) {
             mostrarError("El campo de teléfono no puede estar vacío");
-            return; // Detenemos el flujo si el nombre está vacío
+            return;
         }
-
         if (!validarTelefono(telefonoCliente)) {
             mostrarError("El teléfono solo debe contener números");
             return;
         }
-
-        if (!validarNumeroMesa(numeroMesaTexto)) {
-            mostrarError("El número de la mesa debe ser un número entero válido");
+        if (numeroMesaTexto.isEmpty() || !validarNumeroMesa(numeroMesaTexto)) {
+            mostrarError("Por favor ingrese un número de mesa válido");
             return;
         }
-        if (numeroMesaTexto.isEmpty()) {
-            mostrarError("Por favor ingrese un número de mesa");
-            return; // Detenemos el flujo si la mesa está vacía
-        }
-
 
         // Realizar la reserva
         int numeroMesa = Integer.parseInt(numeroMesaTexto);
@@ -170,6 +157,58 @@ public class VentanaRegistrarReserva extends JFrame {
         reserva.realizarReserva(cliente, dia, horaInicio, mesa, comentario);
 
         JOptionPane.showMessageDialog(null, "Reserva realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // Crear panel para realizar el evento
+    private JPanel crearPanelRealizarEvento() {
+        JPanel panel = new JPanel(new GridLayout(6, 2));
+
+        panel.add(new JLabel("Nombre Evento:"));
+        JTextField nombreEventoField = new JTextField();
+        panel.add(nombreEventoField);
+
+        panel.add(new JLabel("Fecha:"));
+        JSpinner fechaEventoSpinner = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(fechaEventoSpinner, "yyyy-MM-dd");
+        fechaEventoSpinner.setEditor(dateEditor);
+        panel.add(fechaEventoSpinner);
+
+        panel.add(new JLabel("Hora:"));
+        JSpinner horaEventoSpinner = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(horaEventoSpinner, "HH:mm");
+        horaEventoSpinner.setEditor(timeEditor);
+        panel.add(horaEventoSpinner);
+
+        realizarEventoButton = new JButton("Realizar Evento");
+        realizarEventoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                realizarEvento(nombreEventoField.getText(), fechaEventoSpinner, horaEventoSpinner);
+            }
+        });
+        panel.add(realizarEventoButton);
+
+        return panel;
+    }
+
+    // Método para realizar el evento
+    public void realizarEvento(String nombreEvento, JSpinner fechaEventoSpinner, JSpinner horaEventoSpinner) {
+        if (nombreEvento.isEmpty()) {
+            mostrarError("El campo de nombre del evento no puede estar vacío");
+            return;
+        }
+
+        LocalDate fecha = ((SpinnerDateModel) fechaEventoSpinner.getModel()).getDate().toInstant()
+                .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        LocalTime hora = ((SpinnerDateModel) horaEventoSpinner.getModel()).getDate().toInstant()
+                .atZone(java.time.ZoneId.systemDefault()).toLocalTime();
+
+        // Aquí se podría añadir la lógica para guardar el evento
+        // Por ejemplo:
+        // Evento evento = new Evento(nombreEvento, fecha, hora);
+        // reserva.agregarEvento(evento);
+
+        JOptionPane.showMessageDialog(null, "Evento realizado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Panel para modificar la reserva
@@ -211,25 +250,29 @@ public class VentanaRegistrarReserva extends JFrame {
     // Método para modificar la reserva
     public void modificarReserva() {
         try {
-            Integer idReserva = Integer.parseInt(idReservaField.getText());
-            int numeroMesaModificada = Integer.parseInt(mesaClienteModifica.getText());
+            int idReserva = Integer.parseInt(idReservaField.getText());
+            int numeroMesa = Integer.parseInt(mesaClienteModifica.getText());
 
             LocalDate nuevoDia = ((SpinnerDateModel) fechaSpinner.getModel()).getDate().toInstant()
                     .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
             LocalTime nuevaHora = ((SpinnerDateModel) horaSpinner.getModel()).getDate().toInstant()
                     .atZone(java.time.ZoneId.systemDefault()).toLocalTime();
 
-            Mesa nuevaMesa = new Mesa(numeroMesaModificada, Ubicacion.TERRAZA, 5);
+            // Crear una nueva instancia de Mesa
+            Mesa nuevaMesa = new Mesa(numeroMesa, Ubicacion.TERRAZA, 5); // Asegúrate de que Ubicacion y la capacidad sean correctas
+
+            // Llamar al método modificarReserva de la clase Reserva
             reserva.modificarReserva(idReserva, nuevaMesa, nuevaHora, nuevoDia);
             JOptionPane.showMessageDialog(null, "Reserva modificada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            mostrarError("Error al modificar la reserva");
+            mostrarError("Error al modificar la reserva: " + e.getMessage());
         }
     }
 
-    // Panel para cancelar la reserva
+
+    // Panel para cancelar reserva
     private JPanel crearPanelCancelarReserva() {
-        JPanel panel = new JPanel(new GridLayout(4, 2));
+        JPanel panel = new JPanel(new GridLayout(5, 2)); // Aumentar filas si agregas más campos
 
         panel.add(new JLabel("ID Reserva:"));
         idReservaCancelada = new JTextField();
@@ -243,6 +286,10 @@ public class VentanaRegistrarReserva extends JFrame {
         mesaClienteMalo = new JTextField();
         panel.add(mesaClienteMalo);
 
+        // Espacio vacío para mejorar la distribución
+        panel.add(new JLabel("")); // Para mantener el diseño
+
+        // Botón para cancelar la reserva
         cancelarReservaButton = new JButton("Cancelar Reserva");
         cancelarReservaButton.addActionListener(new ActionListener() {
             @Override
@@ -256,37 +303,46 @@ public class VentanaRegistrarReserva extends JFrame {
     }
 
     // Método para cancelar la reserva
+    // Método para cancelar la reserva
     public void cancelarReserva() {
         try {
             Integer idReservaCancel = Integer.parseInt(idReservaCancelada.getText());
             String nombreClienteQueCancela = nombreClienteMalo.getText();
             int numeroMesaClienteMalo = Integer.parseInt(mesaClienteMalo.getText());
 
+            // Crea el cliente y mesa si son necesarios en la lógica de tu método
             Cliente cliente = new Cliente(nombreClienteQueCancela, "", "");
             Mesa mesa = new Mesa(numeroMesaClienteMalo, Ubicacion.TERRAZA, 5);
-            reserva.cancelarReserva(idReservaCancel, cliente, mesa);
+
+            // Ajusta aquí la llamada a cancelarReserva según la firma del método
+            reserva.cancelarReserva(idReservaCancel, cliente, mesa); // Asegúrate de que esto sea correcto según tu método
             JOptionPane.showMessageDialog(null, "Reserva cancelada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            mostrarError("Error al cancelar la reserva");
+            mostrarError("Error al cancelar la reserva: " + e.getMessage());
         }
     }
 
+
+
+    // Panel para filtrar mesas
+    // Panel para filtrar mesas
+    // Panel para filtrar mesas
+    // Panel para filtrar mesas
     // Panel para filtrar mesas
     private JPanel crearPanelFiltrarMesas() {
-        JPanel panel = new JPanel(new GridLayout(4, 2));
+        JPanel panel = new JPanel(new GridLayout(3, 2)); // Ajustamos el GridLayout a 3 filas y 2 columnas
 
+        // Campo de capacidad
         panel.add(new JLabel("Capacidad:"));
         capacidadField = new JTextField();
-        panel.add(capacidadField);
+        panel.add(capacidadField); // Mantener el campo de capacidad
 
+        // Etiqueta y campo de ubicación
         panel.add(new JLabel("Ubicación:"));
         ubicacionField = new JTextField();
-        panel.add(ubicacionField);
+        panel.add(ubicacionField); // Mantener el campo de ubicación
 
-        resultadoFiltradoArea = new JTextArea(5, 20);
-        JScrollPane scrollPane = new JScrollPane(resultadoFiltradoArea);
-        panel.add(scrollPane);
-
+        // Botón para filtrar mesas
         filtrarMesasButton = new JButton("Filtrar Mesas");
         filtrarMesasButton.addActionListener(new ActionListener() {
             @Override
@@ -294,7 +350,7 @@ public class VentanaRegistrarReserva extends JFrame {
                 filtrarMesas();
             }
         });
-        panel.add(filtrarMesasButton);
+        panel.add(filtrarMesasButton); // Botón para filtrar mesas
 
         return panel;
     }
@@ -305,7 +361,7 @@ public class VentanaRegistrarReserva extends JFrame {
             Integer capacidad = Integer.parseInt(capacidadField.getText());
             String ubicacion = ubicacionField.getText();
 
-            ArrayList<Mesa> mesasFiltradas = reserva.filtrarMesa(capacidad, ubicacion);
+            ArrayList<Mesa> mesasFiltradas = reserva.filtrarMesa(capacidad, null);
             resultadoFiltradoArea.setText("");
             for (Mesa mesa : mesasFiltradas) {
                 resultadoFiltradoArea.append(mesa.toString() + "\n");
@@ -317,7 +373,7 @@ public class VentanaRegistrarReserva extends JFrame {
 
     // Métodos auxiliares
     private boolean validarNombre(String nombre) {
-        nombre = nombre.trim(); //Elimina espacios
+        nombre = nombre.trim(); // Elimina espacios
         return nombre.matches("[\\p{L}\\s]+");
     }
 

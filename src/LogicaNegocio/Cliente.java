@@ -1,5 +1,10 @@
 package LogicaNegocio;
-
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 public class Cliente {
     private String nombre;
@@ -7,12 +12,15 @@ public class Cliente {
     private String numero;
     private String contrasenia;
     private ArrayList<Reserva> listaReservas;
+    private static ArrayList<Cliente> listaClientes = new ArrayList<>();
 
-    private ArrayList<Cliente> listaClientes;
+
 
     public Cliente(){
         this.listaReservas = new ArrayList<Reserva>();
+
     }
+
 
     public Cliente(String nombre, String correo, String numero){
         this.nombre = nombre;
@@ -27,6 +35,7 @@ public class Cliente {
         this.contrasenia = contrasenia;
         this.listaReservas = listaReservas;
     }
+
 
 
     public String getNombre() {
@@ -100,15 +109,34 @@ public class Cliente {
                     throw new Exception("El cliente ya está registrado .");
                 }
             }
-
-            // Si todo está bien, agregar el cliente a la lista
             listaClientes.add(cliente);
+            cliente.guardarClienteEnArchivo();
             System.out.println("LogicaNegocio.Cliente registrado exitosamente: " + cliente.getNombre());
-
         } catch (Exception e) {
             System.out.println("Error al registrar cliente: " + e.getMessage());
         }
     }
+
+    public void guardarClienteEnArchivo() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("clientes.txt", true))) {
+            // Escribir encabezados solo si el archivo está vacío
+            File file = new File("clientes.txt");
+            if (file.length() == 0) {
+                writer.write("Lista de Clientes");
+                writer.newLine();
+            }
+            writer.write("Nombre: " + nombre +
+                    ", Correo: " + correo +
+                    ", Número: " + numero +
+                    ", CONTRASEÑA: " + contrasenia);
+            writer.newLine();
+            System.out.println("Cliente guardado correctamente en el archivo.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar el cliente: " + e.getMessage());
+        }
+    }
+
+
 
     /**
     *iniciarSesion: inicia sesion con una cuenta ya creada.

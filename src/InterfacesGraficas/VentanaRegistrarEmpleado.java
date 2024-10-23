@@ -5,7 +5,7 @@ import LogicaNegocio.Permiso;
 import LogicaNegocio.Rol;
 import LogicaNegocio.Calendario;
 import Excepciones.EmpleadoException;
-
+import LogicaNegocio.Cliente;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +24,9 @@ public class VentanaRegistrarEmpleado extends JFrame {
     // Componentes para la pestaña de eliminar empleado
     private JTextField tfIdEliminar;
 
+    // Componentes para la pestaña de eliminar cliente
+    private JTextField tfEmailEliminar; // Campo para el correo del cliente a eliminar
+
     // Componentes para la pestaña de establecer horarios
     private JTextField tfInicioSemana;
     private JTextField tfFinSemana;
@@ -36,8 +39,8 @@ public class VentanaRegistrarEmpleado extends JFrame {
     public VentanaRegistrarEmpleado(Administrador admin) {
         this.administrador = admin;
 
-        setTitle("Administración de Empleados y Horarios");
-        setSize(500, 400);
+        setTitle("Administración de Empleados y Clientes");
+        setSize(500, 500); // Aumentar tamaño para acomodar más contenido
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -118,6 +121,33 @@ public class VentanaRegistrarEmpleado extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         panelEliminarEmpleado.add(btnEliminarEmpleado, gbc);
 
+        // Pestaña para eliminar cliente
+        JPanel panelEliminarCliente = new JPanel(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panelEliminarCliente.add(new JLabel("Correo del Cliente a Eliminar:"), gbc);
+        tfEmailEliminar = new JTextField(10); // Campo para el email del cliente
+        gbc.gridx = 1;
+        panelEliminarCliente.add(tfEmailEliminar, gbc);
+
+        JButton btnEliminarCliente = new JButton("Eliminar Cliente");
+        btnEliminarCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarCliente();
+            }
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panelEliminarCliente.add(btnEliminarCliente, gbc);
+
         // Pestaña para establecer horarios
         JPanel panelEstablecerHorarios = new JPanel(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -169,6 +199,7 @@ public class VentanaRegistrarEmpleado extends JFrame {
         // Agregar paneles a las pestañas
         tabbedPane.addTab("Crear Empleado", panelCrearEmpleado);
         tabbedPane.addTab("Eliminar Empleado", panelEliminarEmpleado);
+        tabbedPane.addTab("Eliminar Cliente", panelEliminarCliente); // Nueva pestaña para eliminar cliente
         tabbedPane.addTab("Establecer Horarios", panelEstablecerHorarios);
 
         // Agregar ChangeListener para verificar campos al cambiar de pestaña
@@ -219,6 +250,16 @@ public class VentanaRegistrarEmpleado extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al eliminar empleado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void eliminarCliente() {
+        String emailCliente = tfEmailEliminar.getText();
+        try {
+            administrador.eliminarCliente(emailCliente); // Asegúrate de tener este método en tu clase Administrador
+            JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar cliente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

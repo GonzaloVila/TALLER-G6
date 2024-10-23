@@ -13,9 +13,9 @@ public class VentanaRegistroCliente extends JFrame {
     private JButton btnRegistrar;
 
     public VentanaRegistroCliente() {
-        setTitle("Registro de LogicaNegocio.Cliente");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Registro de Cliente");
+        setSize(300, 220);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
 
         JPanel panel = new JPanel();
         add(panel);
@@ -63,24 +63,47 @@ public class VentanaRegistroCliente extends JFrame {
         btnRegistrar.setBounds(100, 140, 150, 25);
         panel.add(btnRegistrar);
 
-        // Acción al hacer clic en el botón
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombre = txtNombre.getText();
-                String correo = txtCorreo.getText();
-                String numero = txtNumero.getText();
-                String contrasenia = new String(txtContrasenia.getPassword());
-
-                try {
-                    Cliente cliente = new Cliente(nombre, correo, numero, contrasenia);
-                    cliente.registrarCliente(cliente);
-                    JOptionPane.showMessageDialog(null, "LogicaNegocio.Cliente registrado exitosamente");
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                registrarCliente();
             }
         });
+    }
+
+    private void registrarCliente() {
+        String nombre = txtNombre.getText().trim();
+        String correo = txtCorreo.getText().trim();
+        String numero = txtNumero.getText().trim();
+        String contrasenia = new String(txtContrasenia.getPassword()).trim();
+
+        // Validaciones
+        if (nombre.isEmpty() || correo.isEmpty() || numero.isEmpty() || contrasenia.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validación simple de correo
+        if (!correo.contains("@") || !correo.contains(".")) {
+            JOptionPane.showMessageDialog(this, "El correo debe contener '@' y un dominio.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Cliente cliente = new Cliente(nombre, correo, numero, contrasenia);
+            cliente.registrarCliente(cliente); // Llama al método para guardar el cliente
+            JOptionPane.showMessageDialog(this, "Cliente registrado exitosamente.");
+            clearFields(); // Limpia los campos después del registro
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al registrar cliente: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void clearFields() {
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtNumero.setText("");
+        txtContrasenia.setText("");
     }
 
     public static void main(String[] args) {

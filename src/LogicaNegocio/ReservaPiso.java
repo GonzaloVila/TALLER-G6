@@ -21,7 +21,7 @@ public class ReservaPiso {
      * @param horaInicio La hora de inicio del evento.
      * @param horaFin    La hora de finalización del evento.
      */
-    public void reservarEspacio(Cliente cliente, Piso piso, LocalDate dia, LocalTime horaInicio, LocalTime horaFin) {
+   public void reservarEspacio(Cliente cliente, Piso piso, LocalDate dia, LocalTime horaInicio, LocalTime horaFin) {
         // Validar que el cliente y el piso no sean nulos
         if (cliente == null) {
             throw new IllegalArgumentException("El cliente no puede ser nulo.");
@@ -32,8 +32,8 @@ public class ReservaPiso {
 
         // Verificar la disponibilidad del piso
         if (piso.bloquearMesas(dia, horaInicio, horaFin)) {
-            Reserva nuevaReserva = new Reserva(null, dia, horaInicio, null, horaFin, Estado.RESERVADA, cliente, null, piso);
-            reservasPiso.add(nuevaReserva);
+            //Reserva nuevaReserva = new Reserva(null, dia, horaInicio, null, horaFin, Estado.RESERVADA, cliente, null, piso);
+            //reservasPiso.add(nuevaReserva);
             System.out.println("La reserva del piso " + piso.getTipodepiso() + " se realizó con éxito para el evento.");
         } else {
             System.out.println("No se pudo reservar el piso " + piso.getTipodepiso() + ". Hay mesas ocupadas en el horario solicitado.");

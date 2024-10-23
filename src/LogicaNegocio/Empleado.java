@@ -1,4 +1,5 @@
 package LogicaNegocio;
+import java.io.*;
 import java.util.ArrayList;
 import Excepciones.EmpleadoException;
 
@@ -65,6 +66,7 @@ public class Empleado {
     public String toString() {
         return "LogicaNegocio.Empleado{" + "idempleado=" + idempleado + ", nombre=" + nombre + ", permiso=" + permiso + ", rol=" + rol + '}';
     }
+
 
 }
 

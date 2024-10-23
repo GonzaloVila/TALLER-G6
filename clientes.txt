@@ -1,0 +1,2 @@
+Lista de Clientes
+Nombre: asd, Correo: asd@gmail.com, Número: 465, CONTRASEÑA: asdasd

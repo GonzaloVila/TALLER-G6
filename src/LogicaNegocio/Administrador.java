@@ -223,6 +223,51 @@ public class Administrador extends  Empleado {
 
         System.out.println("Empleado con ID " + idEmpleado + " eliminado del archivo.");
     }
+
+
+
+
+
+
+    public static void eliminarCliente(String correo) throws Exception {
+        File file = new File("clientes.txt");
+        File tempFile = new File("clientes_temp.txt");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String linea;
+            boolean encontrado = false;
+
+            // Leer el archivo original línea por línea
+            while ((linea = reader.readLine()) != null) {
+                // Comprobar si la línea contiene el correo del cliente a eliminar
+                if (linea.contains("Correo: " + correo + ",")) {
+                    encontrado = true; // Marcamos que hemos encontrado el cliente
+                    continue; // No escribimos esta línea en el nuevo archivo
+                }
+
+                // Si no estamos en un registro a eliminar, escribir la línea en el archivo temporal
+                writer.write(linea);
+                writer.newLine(); // Nueva línea para el siguiente registro
+            }
+
+            if (!encontrado) {
+                throw new Exception("No se encontró un cliente con el correo proporcionado en el archivo.");
+            }
+
+        } catch (IOException e) {
+            throw new Exception("Error al eliminar el cliente: " + e.getMessage());
+        }
+
+        // Reemplazar el archivo original con el temporal
+        if (!file.delete() || !tempFile.renameTo(file)) {
+            throw new Exception("No se pudo actualizar el archivo de clientes.");
+        }
+
+        System.out.println("Cliente con correo " + correo + " eliminado del archivo.");
+    }
+
 }
 
 

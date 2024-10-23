@@ -14,6 +14,7 @@ public class Reserva {
     private Cliente cliente;
     private Mesa mesa;
     private static ArrayList<Reserva> listaDeReservas = new ArrayList<>();
+    public static ArrayList<Evento> listaEventos = new ArrayList<>();
     private static int contadorReservas = 0; // Contador estático para generar ID únicos
 
 
@@ -37,6 +38,7 @@ public class Reserva {
         this.cliente = cliente;
         this.mesa = mesa;
     }
+
 
 
     public Reserva(){
@@ -239,7 +241,7 @@ public class Reserva {
         listaDeReservas.remove(reservaACancelar);
 
         // Actualizar el contador de cancelaciones del cliente
-        cliente.incrementarContadorCancelaciones();
+        //cliente.incrementarContadorCancelaciones();
 
         // Confirmar la cancelación
         System.out.println("Reserva cancelada con éxito. ID Reserva: " + idReserva);
@@ -282,4 +284,31 @@ public class Reserva {
     }
     //IDEA DE QUE PUEDE HABER UN MÉTODO QUE VERIFIQUE SI LOS HORARIOS QUE EL CLIENTE SELECCIONA PARA LA RESERVA
     //ESTEN DENTRO DE LOS HORARIOS EN LOS QUE EL RESTAURANTE TRABAJA O SE HAGA LA RESERVA 24HS ANTES.
+
+
+
+    public void reservaEvento(Cliente cliente, String nombre, Piso piso, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal, String comentarios, TipoDeDia tipoDeDia) {
+        if (piso == null || cliente == null) {
+            throw new IllegalArgumentException("El cliente y el piso no pueden ser nulos");
+        }
+
+        // Validación de horarios
+        if (horaFinal.isBefore(horaInicio)) {
+            throw new IllegalArgumentException("La hora final debe ser después de la hora de inicio");
+        }
+
+        // Verificar si el piso ya está reservado
+        if (!piso.bloquearMesas(fecha, horaInicio, horaFinal)) {
+            throw new IllegalArgumentException("El piso " + piso.getTipodepiso() + " no está disponible para el evento en la fecha y hora solicitadas.");
+        }
+
+        // Crear y agregar nuevo evento
+        Evento nuevoEvento = new Evento(nombre, fecha, horaInicio, horaFinal, tipoDeDia);
+        listaEventos.add(nuevoEvento);
+
+        // Registro del evento
+        System.out.println("El evento se ha reservado con éxito. Detalles del evento: " + nuevoEvento);
+    }
+
 }
+

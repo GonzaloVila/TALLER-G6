@@ -5,30 +5,35 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+
 public class MailAutomatico {
-    private String tipoAviso;
-    private LocalDateTime fechaEnvio;
-    private String contenido;
+    private String tipoAviso; // Tipo de aviso del correo
+    private LocalDateTime fechaEnvio; // Fecha y hora de envío del correo
+    private String contenido; // Contenido del correo
 
 
-    // Constructor
+
     public MailAutomatico(String tipoAviso, LocalDateTime fechaEnvio, String contenido) {
         this.tipoAviso = tipoAviso;
         this.fechaEnvio = fechaEnvio;
         this.contenido = contenido;
     }
 
+
     public String getTipoaviso() {
         return tipoAviso;
     }
+
 
     public void setTipoaviso(String tipoAviso) {
         this.tipoAviso = tipoAviso;
     }
 
+
     public LocalDateTime getFechaEnvio() {
         return fechaEnvio;
     }
+
 
     public void setFecha(LocalDateTime fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
@@ -38,16 +43,24 @@ public class MailAutomatico {
         return contenido;
     }
 
+
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+
 
     @Override
     public String toString() {
         return "MailAuto{" + "tipoAviso=" + tipoAviso + ", fechaEnvio=" + fechaEnvio + ", contenido=" + contenido + '}';
     }
 
-    // Método para enviar un correo de confirmación de reserva
+    /**
+     * Método para enviar un correo de confirmación de reserva.
+     *
+     * @param emailCliente   Dirección de correo del cliente.
+     * @param detallesReserva Detalles de la reserva.
+     * @throws IllegalArgumentException Si el email o los detalles de la reserva no son válidos.
+     */
     public void enviar_Mail_Confirmacion_Reserva(String emailCliente, String detallesReserva) {
         if (!esEmailValido(emailCliente) || detallesReserva == null || detallesReserva.isEmpty()) {
             throw new IllegalArgumentException("El email o los detalles de la reserva no son válidos.");
@@ -60,7 +73,12 @@ public class MailAutomatico {
         enviarCorreo(emailCliente, asunto, mensaje);
     }
 
-    // Método para enviar un correo de recuperación de contraseña
+    /**
+     * Método para enviar un correo de recuperación de contraseña.
+     *
+     * @param emailCliente Dirección de correo del cliente.
+     * @throws IllegalArgumentException Si el email es inválido.
+     */
     public void enviar_Mail_Recuperacion(String emailCliente) {
         if (!esEmailValido(emailCliente)) {
             throw new IllegalArgumentException("Email inválido.");
@@ -72,7 +90,13 @@ public class MailAutomatico {
         enviarCorreo(emailCliente, asunto, mensaje);
     }
 
-    // Método para enviar recordatorios de reservas
+    /**
+     * Método para enviar recordatorios de reservas.
+     *
+     * @param emailCliente   Dirección de correo del cliente.
+     * @param detallesReserva Detalles de la reserva.
+     * @throws IllegalArgumentException Si el email o los detalles de la reserva no son válidos.
+     */
     public void enviar_Mail_Recordatorio(String emailCliente, String detallesReserva) {
         if (!esEmailValido(emailCliente) || detallesReserva == null || detallesReserva.isEmpty()) {
             throw new IllegalArgumentException("El email o los detalles de la reserva no son válidos.");
@@ -85,7 +109,15 @@ public class MailAutomatico {
         enviarCorreo(emailCliente, asunto, mensaje);
     }
 
-    // Método auxiliar que realiza el envío del correo
+
+    /**
+     * Método auxiliar que realiza el envío del correo.
+     *
+     * @param destinatario  Dirección de correo del destinatario.
+     * @param asunto        Asunto del correo.
+     * @param mensajeTexto  Contenido del mensaje a enviar.
+     * @throws RuntimeException Si ocurre un error al enviar el correo.
+     */
     private void enviarCorreo(String destinatario, String asunto, String mensajeTexto) {
         String remitente = "tucorreo@gmail.com"; // Cambia por tu correo
         String host = "smtp.gmail.com";
@@ -117,10 +149,14 @@ public class MailAutomatico {
         }
     }
 
-    //Método para validar el email
+    /**
+     * Método para validar el email.
+     *
+     * @param email Dirección de correo electrónico a validar.
+     * @return true si el email es válido, false en caso contrario.
+     */
     private boolean esEmailValido(String email) {
         return email != null && email.matches("^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,4}$");
     }
-
 }
 

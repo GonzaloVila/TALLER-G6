@@ -291,41 +291,5 @@ public class Administrador extends  Empleado {
  * @param fin: hora de cierre del restaurante.
  */
 
-    /**
-     *
-     * @param evento: Se establece un dia especial, que es un evento.
-     */
-    /**
-     * public void configurarDiaEspecial(Evento evento) {
-     * try {
-     * // Verificar que el evento no sea nulo
-     * if (evento == null) {
-     * throw new Exception("El evento no puede ser nulo");
-     * }
-     * <p>
-     * // Comprobar que la fecha y horas sean válidas
-     * if (evento.getFecha() == null || evento.getHoraInicio() == null || evento.getHoraFin() == null) {
-     * throw new Exception("La fecha y las horas del evento no pueden ser nulas");
-     * }
-     * <p>
-     * // Validar que la hora de inicio sea antes de la hora de fin
-     * if (evento.getHoraInicio().isAfter(evento.getHoraFin())) {
-     * throw new Exception("La hora de inicio no puede ser después de la hora de fin");
-     * }
-     * <p>
-     * // Comprobar si el horario del evento está disponible
-     * Horario nuevoHorario = new Horario(evento.getFecha(), evento.getHoraInicio(), evento.getHoraFin());
-     * if (!calendario.estaDisponible(nuevoHorario)) {
-     * throw new Exception("El horario para el evento ya está ocupado");
-     * }
-     * <p>
-     * // Si todo es válido, agregar el evento
-     * listaEventos.add(evento);
-     * System.out.println("Día especial configurado: " + evento.getNombre());
-     * <p>
-     * } catch (Exception e) {
-     * System.out.println("Error al configurar el día especial: " + e.getMessage());
-     * }
-     * }
-     */
+
 

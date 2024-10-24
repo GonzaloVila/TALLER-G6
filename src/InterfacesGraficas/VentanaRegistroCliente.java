@@ -1,6 +1,7 @@
 package InterfacesGraficas;
 
 import LogicaNegocio.Cliente;
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,10 @@ public class VentanaRegistroCliente extends JFrame {
     private JPasswordField txtContrasenia;
     private JButton btnRegistrar;
 
-    public VentanaRegistroCliente() {
+    private VentanaIniciarSesion ventanaIniciarSesion; // Referencia a la ventana de inicio de sesión
+
+    public VentanaRegistroCliente(VentanaIniciarSesion ventanaIniciarSesion) {
+        this.ventanaIniciarSesion = ventanaIniciarSesion; // Inicializa la referencia
         setTitle("Registro de Cliente");
         setSize(300, 220);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
@@ -92,21 +96,24 @@ public class VentanaRegistroCliente extends JFrame {
         try {
             Cliente cliente = new Cliente(nombre, correo, numero, contrasenia);
             cliente.registrarCliente(cliente); // Llama al método para guardar el cliente
+
+            // Actualiza la lista de clientes
+            Cliente.setListaClientes(new ArrayList<>()); // Limpiar la lista anterior
+            Cliente.setListaClientes(Cliente.cargarClientesDesdeArchivo()); // Cargar la lista actualizada
+
             JOptionPane.showMessageDialog(this, "Cliente registrado exitosamente.");
-            clearFields(); // Limpia los campos después del registro
+            dispose(); // Cierra la ventana de registro
+            ventanaIniciarSesion.setVisible(true); // Muestra nuevamente la ventana de inicio de sesión
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al registrar cliente: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     private void clearFields() {
         txtNombre.setText("");
         txtCorreo.setText("");
         txtNumero.setText("");
         txtContrasenia.setText("");
-    }
-
-    public static void main(String[] args) {
-        new VentanaRegistroCliente();
     }
 }

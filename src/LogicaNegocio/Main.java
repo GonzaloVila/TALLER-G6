@@ -11,9 +11,10 @@ import java.util.List;
 import InterfacesGraficas.RestauranteMapa;
 import javafx.application.Application;
 import InterfacesGraficas.VentanaRegistroCliente;
-
+import InterfacesGraficas.VentanaIniciarSesion;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,11 +28,11 @@ public class Main {
 
         //new VentanaRegistroCliente();
 
-        //Interfaz crearCuentaEmpleado
+       /** //Interfaz crearCuentaEmpleado
         Calendario calendario = new Calendario(); // Asegúrate de que esto no sea null
         Administrador administrador = new Administrador(calendario);
         VentanaRegistrarEmpleado ventana = new VentanaRegistrarEmpleado(administrador);
-        ventana.setVisible(true);
+        ventana.setVisible(true);*/
 
        //interfaz AdministradorHorarios.
         /**Administrador administrador = new Administrador(new Calendario());
@@ -41,5 +42,9 @@ public class Main {
         });*/
 
        // Application.launch(RestauranteMapa.class, args);
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        // Puedes añadir algunos clientes de prueba aquí si es necesario.
+
+
     }
 }

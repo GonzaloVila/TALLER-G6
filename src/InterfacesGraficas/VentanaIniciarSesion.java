@@ -1,6 +1,7 @@
 package InterfacesGraficas;
 
 import LogicaNegocio.Cliente;
+import LogicaNegocio.Reserva;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,11 +12,17 @@ public class VentanaIniciarSesion extends JFrame {
     private JTextField txtCorreo;
     private JPasswordField txtContrasenia;
     private JButton btnIniciarSesion;
+    private JButton btnRegistrar;
+    private ArrayList<Cliente> listaClientes;
 
-    public VentanaIniciarSesion(ArrayList<Cliente> listaClientes) {
+    public VentanaIniciarSesion() {
+        // Cargar clientes desde el archivo
+        listaClientes = Cliente.cargarClientesDesdeArchivo();
+        Cliente.setListaClientes(listaClientes); // Actualiza la lista estática de clientes
+
         setTitle("Iniciar Sesión");
-        setSize(300, 150);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         add(panel);
@@ -47,23 +54,45 @@ public class VentanaIniciarSesion extends JFrame {
         btnIniciarSesion.setBounds(100, 80, 150, 25);
         panel.add(btnIniciarSesion);
 
-        // Acción al hacer clic en el botón
         btnIniciarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String correo = txtCorreo.getText();
-                String contrasenia = new String(txtContrasenia.getPassword());
-
-                // Aquí debes crear una instancia de Cliente, o si tienes una lista de clientes, buscar el cliente correspondiente.
-                // Para simplificar, crearé un cliente de prueba.
-                Cliente cliente = new Cliente("Nombre", "correo@example.com", "123456789", "password");
-
-                if (cliente.iniciarSesion(correo, contrasenia)) {
-                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                iniciarSesion();
             }
         });
+
+        btnRegistrar = new JButton("Crear Cuenta");
+        btnRegistrar.setBounds(100, 110, 150, 25);
+        panel.add(btnRegistrar);
+
+        btnRegistrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaRegistroCliente(VentanaIniciarSesion.this);
+                dispose();
+            }
+        });
+    }
+
+    private void iniciarSesion() {
+        String correo = txtCorreo.getText().trim();
+        String contrasenia = new String(txtContrasenia.getPassword()).trim();
+
+        // Verificar las credenciales
+        Cliente cliente = new Cliente(); // Crear una instancia del cliente
+        if (cliente.iniciarSesion(correo, contrasenia)) {
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
+            this.dispose();
+
+            // Abrir la ventana de reservas
+            VentanaRegistrarReserva ventanaReserva = new VentanaRegistrarReserva(new Reserva()); // Ajusta según sea necesario
+            ventanaReserva.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void main(String[] args) {
+        new VentanaIniciarSesion();
     }
 }

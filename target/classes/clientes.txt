@@ -1,0 +1,8 @@
+Lista de Clientes
+
+Nombre: pablo, Correo: pablo@gmail.com, Número: 123, Contraseña: 777
+Nombre: lucas, Correo: lucas@gmail.com, Número: 123, Contraseña: 123
+Nombre: leo, Correo: leo@gmail.com, Número: 125, Contraseña: 125
+Nombre: palo, Correo: p@gmail.com, Número: 5, Contraseña: 11
+Nombre: juan martin, Correo: juan@gmail.com, Número: 88, Contraseña: juan123
+Nombre: lucas sanchez, Correo: l@gmail.com, Número: 546456, Contraseña: 1111

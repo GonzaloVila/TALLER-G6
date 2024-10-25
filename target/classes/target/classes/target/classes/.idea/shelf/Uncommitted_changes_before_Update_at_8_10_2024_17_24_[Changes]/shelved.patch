@@ -1,0 +1,213 @@
+Index: src/MailAutomatico.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class MailAutomatico {\r\n    private String tipoaviso;\r\n    private int fecha;\r\n    private String contenido;\r\n\r\n    public MailAutomatico(String tipoaviso, int fecha, String contenido) {\r\n        this.tipoaviso = tipoaviso;\r\n        this.fecha = fecha;\r\n        this.contenido = contenido;\r\n    }\r\n\r\n    public String getTipoaviso() {\r\n        return tipoaviso;\r\n    }\r\n\r\n    public void setTipoaviso(String tipoaviso) {\r\n        this.tipoaviso = tipoaviso;\r\n    }\r\n\r\n    public int getFecha() {\r\n        return fecha;\r\n    }\r\n\r\n    public void setFecha(int fecha) {\r\n        this.fecha = fecha;\r\n    }\r\n\r\n    public String getContenido() {\r\n        return contenido;\r\n    }\r\n\r\n    public void setContenido(String contenido) {\r\n        this.contenido = contenido;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"MailAuto{\" + \"tipoaviso=\" + tipoaviso + \", fecha=\" + fecha + \", contenido=\" + contenido + '}';\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/MailAutomatico.java b/src/MailAutomatico.java
+--- a/src/MailAutomatico.java	(revision ce7b3ff452285afe865741428002e5698f29ae92)
++++ b/src/MailAutomatico.java	(date 1728418963872)
+@@ -1,28 +1,30 @@
++import java.time.LocalDateTime;
++
+ public class MailAutomatico {
+-    private String tipoaviso;
+-    private int fecha;
++    private String tipoAviso;
++    private LocalDateTime fechaEnvio;
+     private String contenido;
+ 
+-    public MailAutomatico(String tipoaviso, int fecha, String contenido) {
+-        this.tipoaviso = tipoaviso;
+-        this.fecha = fecha;
++    public MailAutimatico(String tipoAviso, LocalDateTime fecha, String contenido) {
++        this.tipoAviso = tipoAviso;
++        this.fechaEnvio = fechaEnvio;
+         this.contenido = contenido;
+     }
+ 
+     public String getTipoaviso() {
+-        return tipoaviso;
++        return tipoAviso;
+     }
+ 
+-    public void setTipoaviso(String tipoaviso) {
+-        this.tipoaviso = tipoaviso;
++    public void setTipoaviso(String tipoAviso) {
++        this.tipoAviso = tipoAviso;
+     }
+ 
+-    public int getFecha() {
+-        return fecha;
++    public LocalDateTime getFecha() {
++        return fechaEnvio;
+     }
+ 
+-    public void setFecha(int fecha) {
+-        this.fecha = fecha;
++    public void setFecha(LocalDateTime fechaEnvio) {
++        this.fechaEnvio = fechaEnvio;
+     }
+ 
+     public String getContenido() {
+@@ -35,7 +37,7 @@
+ 
+     @Override
+     public String toString() {
+-        return "MailAuto{" + "tipoaviso=" + tipoaviso + ", fecha=" + fecha + ", contenido=" + contenido + '}';
++        return "MailAutimatico{" + "tipoAviso=" + tipoAviso + ", fechaEnvio=" + fechaEnvio + ", contenido=" + contenido + '}';
+     }
+ 
+ 
+Index: src/Pago.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class Pago {\r\n    private double monto;\r\n    private int fecha;\r\n    private TarjetaCredi tarjeta;\r\n\r\n    public Pago(double monto, int fecha, TarjetaCredi tarjeta) {\r\n        this.monto = monto;\r\n        this.fecha = fecha;\r\n        this.tarjeta = tarjeta;\r\n    }\r\n\r\n    public double getMonto() {\r\n        return monto;\r\n    }\r\n\r\n    public void setMonto(double monto) {\r\n        this.monto = monto;\r\n    }\r\n\r\n    public int getFecha() {\r\n        return fecha;\r\n    }\r\n\r\n    public void setFecha(int fecha) {\r\n        this.fecha = fecha;\r\n    }\r\n\r\n    public TarjetaCredi getTarjeta() {\r\n        return tarjeta;\r\n    }\r\n\r\n    public void setTarjeta(TarjetaCredi tarjeta) {\r\n        this.tarjeta = tarjeta;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Pago{\" + \"monto=\" + monto + \", fecha=\" + fecha + \", tarjeta=\" + tarjeta + '}';\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Pago.java b/src/Pago.java
+--- a/src/Pago.java	(revision ce7b3ff452285afe865741428002e5698f29ae92)
++++ b/src/Pago.java	(date 1728418472732)
+@@ -1,12 +1,14 @@
+ public class Pago {
+     private double monto;
+     private int fecha;
+-    private TarjetaCredi tarjeta;
++    private TarjetaCredito tarjeta;
++    private Reserva reserva;
+ 
+-    public Pago(double monto, int fecha, TarjetaCredi tarjeta) {
++    public Pago(double monto, int fecha, TarjetaCredito tarjeta, Reserva reserva) {
+         this.monto = monto;
+         this.fecha = fecha;
+         this.tarjeta = tarjeta;
++        this.reserva = reserva;
+     }
+ 
+     public double getMonto() {
+@@ -25,18 +27,29 @@
+         this.fecha = fecha;
+     }
+ 
+-    public TarjetaCredi getTarjeta() {
++    public TarjetaCredito getTarjeta() {
+         return tarjeta;
+     }
+ 
+-    public void setTarjeta(TarjetaCredi tarjeta) {
++    public void setTarjeta(TarjetaCredito tarjeta) {
+         this.tarjeta = tarjeta;
+     }
+ 
++    public Reserva getReserva() {
++        return reserva;
++    }
++
++    public void setReserva(Reserva reserva) {
++        this.reserva = reserva;
++    }
++
+     @Override
+     public String toString() {
+-        return "Pago{" + "monto=" + monto + ", fecha=" + fecha + ", tarjeta=" + tarjeta + '}';
++        return "Pago{" +
++                "monto=" + monto +
++                ", fecha=" + fecha +
++                ", tarjeta=" + tarjeta +
++                ", reserva=" + reserva +
++                '}';
+     }
+-
+-
+ }
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class Main {\r\n    public static void main(String[] args) {\r\n        System.out.println(\"TALLER  GRUPO 6\");\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision ce7b3ff452285afe865741428002e5698f29ae92)
++++ b/src/Main.java	(date 1728418472731)
+@@ -1,5 +1,6 @@
+ public class Main {
+     public static void main(String[] args) {
+-        System.out.println("TALLER  GRUPO 6");
++        System.out.println("TALLER  GRUPO 6666");
++        System.out.println("Hola");
+     }
+ }
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"17\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision ce7b3ff452285afe865741428002e5698f29ae92)
++++ b/.idea/misc.xml	(date 1728418594756)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="22" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/TarjetaCredito.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class TarjetaCredito {\r\n    private String nombre;\r\n    private String emisor;\r\n    private long numerotarje;\r\n    private int codverificacion;\r\n\r\n    public TarjetaCredito(String nombre, String emisor, long numerotarje, int codverificacion) {\r\n        this.nombre = nombre;\r\n        this.emisor = emisor;\r\n        this.numerotarje = numerotarje;\r\n        this.codverificacion = codverificacion;\r\n    }\r\n\r\n    public String getNombre() {\r\n        return nombre;\r\n    }\r\n\r\n    public void setNombre(String nombre) {\r\n        this.nombre = nombre;\r\n    }\r\n\r\n    public String getEmisor() {\r\n        return emisor;\r\n    }\r\n\r\n    public void setEmisor(String emisor) {\r\n        this.emisor = emisor;\r\n    }\r\n\r\n    public long getNumerotarje() {\r\n        return numerotarje;\r\n    }\r\n\r\n    public void setNumerotarje(long numerotarje) {\r\n        this.numerotarje = numerotarje;\r\n    }\r\n\r\n    public int getCodverificacion() {\r\n        return codverificacion;\r\n    }\r\n\r\n    public void setCodverificacion(int codverificacion) {\r\n        this.codverificacion = codverificacion;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"TarjetaCredito{\" + \"nombre=\" + nombre + \", emisor=\" + emisor + \", numerotarje=\" + numerotarje + \", codverificacion=\" + codverificacion + '}';\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/TarjetaCredito.java b/src/TarjetaCredito.java
+--- a/src/TarjetaCredito.java	(revision ce7b3ff452285afe865741428002e5698f29ae92)
++++ b/src/TarjetaCredito.java	(date 1728418472735)
+@@ -1,15 +1,29 @@
++import java.util.ArrayList;
++import java.util.List;
++
+ public class TarjetaCredito {
+     private String nombre;
+     private String emisor;
+     private long numerotarje;
+     private int codverificacion;
++    private ArrayList<Pago> pagos;
+ 
+-    public TarjetaCredito(String nombre, String emisor, long numerotarje, int codverificacion) {
++    public TarjetaCredito(){
++        this.pagos = new ArrayList<Pago>();
++    }
++    public TarjetaCredito(String nombre, String emisor, long numerotarje, int codverificacion){
+         this.nombre = nombre;
+         this.emisor = emisor;
+         this.numerotarje = numerotarje;
+         this.codverificacion = codverificacion;
+     }
++    public TarjetaCredito(String nombre, String emisor, long numerotarje, int codverificacion, ArrayList<Pago> pagos) {
++        this.nombre = nombre;
++        this.emisor = emisor;
++        this.numerotarje = numerotarje;
++        this.codverificacion = codverificacion;
++        this.pagos = pagos;
++    }
+ 
+     public String getNombre() {
+         return nombre;
+@@ -47,7 +61,4 @@
+     public String toString() {
+         return "TarjetaCredito{" + "nombre=" + nombre + ", emisor=" + emisor + ", numerotarje=" + numerotarje + ", codverificacion=" + codverificacion + '}';
+     }
+-
+-
+-
+ }
+diff --git a/nada.txt b/nada.txt
+new file mode 100644

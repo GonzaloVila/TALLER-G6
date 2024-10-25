@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="71fb307a-7caf-4f1b-af64-e1b5f9a4bbd4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TALLER-G6.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaRegistrarReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaRegistrarReserva.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Mesa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Mesa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Reserva.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/ReservaPiso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/ReservaPiso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Excepciones/EmpleadoException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Excepciones/EmpleadoException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Excepciones/ReservaException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Excepciones/ReservaException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaActualizarInfo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaActualizarInfo$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaActualizarInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaActualizarInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistroCliente$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistroCliente$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistroCliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistroCliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Administrador.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Administrador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Calendario.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Calendario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Cliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Empleado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Empleado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Estado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Estado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Evento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Evento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Formato.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Formato.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Horario.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Horario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/MailAutomatico$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/MailAutomatico$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/MailAutomatico.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/MailAutomatico.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Mesa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Mesa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Pago.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Pago.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Permiso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Permiso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Piso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Piso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Reporte.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Reporte.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Reserva.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Reserva.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/ReservaPiso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/ReservaPiso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Rol.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Rol.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/TarjetaCredito.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/TarjetaCredito.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/TipoDeDia.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/TipoDeDia.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2lGNH6LJJosPQu5lrcUL1aeKAT8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RestauranteMapa.executor&quot;: &quot;Run&quot;,
+    &quot;Application.src.LogicaNegocio.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Unknown [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.my-app [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.my-app [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.my-app [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.my-app [test].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ralu0/OneDrive/Escritorio/git/Taller_poo/TALLER-G6&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="LogicaNegocio.Main" />
+      <module name="TALLER-G6" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RestauranteMapa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="InterfacesGraficas.RestauranteMapa" />
+      <module name="TALLER-G6" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="InterfacesGraficas.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="src.LogicaNegocio.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="src.LogicaNegocio.Main" />
+      <module name="TALLER-G6" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="src.LogicaNegocio.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.src.LogicaNegocio.Main" />
+        <item itemvalue="Application.RestauranteMapa" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71fb307a-7caf-4f1b-af64-e1b5f9a4bbd4" name="Changes" comment="" />
+      <created>1724802365953</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1724802365953</updated>
+    </task>
+    <servers />
+  </component>
+</project>

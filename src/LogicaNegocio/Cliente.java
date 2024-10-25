@@ -13,11 +13,12 @@ public class Cliente {
     private String correo;
     private String numero;
     private String contrasenia;
-    private ArrayList<Reserva> listaReservas;
+    private ArrayList<Reserva> listaReservasClientes;
     private static ArrayList<Cliente> listaClientes = new ArrayList<>();
+    private static int contadorCancelaciones = 0;
 
     public Cliente() {
-        this.listaReservas = new ArrayList<>();
+        this.listaReservasClientes = new ArrayList<>();
         cargarClientesDesdeArchivo(); // Cargar clientes al iniciar
     }
 
@@ -25,7 +26,7 @@ public class Cliente {
         this.nombre = nombre;
         this.correo = correo;
         this.numero = numero;
-        this.listaReservas = new ArrayList<>();
+        this.listaReservasClientes = new ArrayList<>();
     }
 
     public Cliente(String nombre, String correo, String numero, String contrasenia) {
@@ -33,7 +34,7 @@ public class Cliente {
         this.correo = correo;
         this.numero = numero;
         this.contrasenia = contrasenia;
-        this.listaReservas = new ArrayList<>();
+        this.listaReservasClientes = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -68,12 +69,12 @@ public class Cliente {
         this.contrasenia = contrasenia;
     }
 
-    public void setListaReservas(ArrayList<Reserva> listaReservas) {
-        this.listaReservas = listaReservas;
+    public void setListaReservasClientes(ArrayList<Reserva> listaReservasClientes) {
+        this.listaReservasClientes = listaReservasClientes;
     }
 
     public void agregarReserva(Reserva reserva) {
-        this.listaReservas.add(reserva);
+        this.listaReservasClientes.add(reserva);
     }
     public static ArrayList<Cliente> getListaClientes() {
         return listaClientes;
@@ -81,6 +82,9 @@ public class Cliente {
 
     public static void setListaClientes(ArrayList<Cliente> lista) {
         listaClientes = lista;
+    }
+    public static void incrementarContadorCancelaciones(){
+        contadorCancelaciones++;
     }
 
     @Override
@@ -239,7 +243,7 @@ public class Cliente {
      * @return: retorna una lista de las reservas históricas
      */
     public ArrayList<Reserva> consultarHistorialReservas() {
-        return listaReservas; // Retorna el historial de reservas
+        return listaReservasClientes; // Retorna el historial de reservas
     }
 
     /**

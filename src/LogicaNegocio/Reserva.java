@@ -1,8 +1,18 @@
 package LogicaNegocio;
+import Excepciones.ReservaException;
+
+import java.io.File;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileReader;
 
 public class Reserva {
     private Integer idReserva;
@@ -14,43 +24,48 @@ public class Reserva {
     private Cliente cliente;
     private Mesa mesa;
     private static ArrayList<Reserva> listaDeReservas = new ArrayList<>();
-    public static ArrayList<Evento> listaEventos = new ArrayList<>();
-    private static int contadorReservas = 0; // Contador estático para generar ID únicos
+    private ArrayList<Evento> listaEventos;
+    private static int generadorIDReservas = 0;
 
-
-    public Reserva(Integer idReserva, LocalDate fecha, LocalTime horaInicio, String comentarios, LocalTime horaFinal, Estado estado, Cliente cliente, Mesa mesa) {
-        this.idReserva = ++contadorReservas;
-        this.fecha = fecha;
-        this.horaInicio = horaInicio;
-        this.comentarios = comentarios;
-        this.horaFinal = horaFinal;
-        this.estado = estado;
-        this.cliente = cliente;
-        this.mesa = mesa;
-    }
     public Reserva(Cliente cliente, Mesa mesa, LocalDate fecha, LocalTime horaInicio, String comentarios) {
-        this.idReserva = ++contadorReservas; // ID autogenerado
+        if (cliente == null) {
+            throw new IllegalArgumentException("El cliente no puede ser nulo.");
+        }
+        if (mesa == null) {
+            throw new IllegalArgumentException("La mesa no puede ser nula.");
+        }
+        if (fecha == null) {
+            throw new IllegalArgumentException("La fecha no puede ser nula.");
+        }
+        if (horaInicio == null) {
+            throw new IllegalArgumentException("La hora de inicio no puede ser nula.");
+        }
+        if (fecha.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha no puede ser anterior a la fecha actual.");
+        }
+        if (horaInicio.isBefore(LocalTime.of(20, 0)) || horaInicio.isAfter(LocalTime.of(23, 59))) {
+            throw new IllegalArgumentException("La hora de inicio debe estar entre las 20:00 y las 23:59.");
+        }
+        this.idReserva = generadorIDReservas++;
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.comentarios = comentarios;
-        this.horaFinal = null; // O puedes establecer un valor predeterminado
-        this.estado = Estado.EN_CURSO; // O el estado que consideres adecuado
+        this.horaFinal = null;
+        this.estado = Estado.EN_CURSO;
         this.cliente = cliente;
         this.mesa = mesa;
+        listaDeReservas.add(this);
+        this.listaEventos = new ArrayList<>();
     }
-
-
 
     public Reserva(){
+        this.idReserva = generadorIDReservas++;
+        this.listaEventos = new ArrayList<>();
     }
 
 
     public Integer getIdReserva() {
         return idReserva;
-    }
-
-    public void setIdReserva(Integer idReserva) {
-        this.idReserva = idReserva;
     }
 
     public LocalDate getFecha() {
@@ -73,9 +88,6 @@ public class Reserva {
         return comentarios;
     }
 
-    public void setComentarios(String comentarios) {
-        this.comentarios = comentarios;
-    }
 
     public LocalTime getHoraFinal() {
         return horaFinal;
@@ -111,7 +123,7 @@ public class Reserva {
 
     public ArrayList<Reserva> getListaDeReservas(){return listaDeReservas;}
 
-    public static int getContadorReservas() {   return contadorReservas;}
+    public static int getContadorReservas() {   return generadorIDReservas;}
 
 
     @Override
@@ -128,6 +140,24 @@ public class Reserva {
                 '}';
     }
 
+    public void exportarReservaATXT(Reserva reserva) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("reservas.txt", true))) {
+            File file = new File("reservas.txt");
+            if(file.length() == 0) {
+                writer.write("Lista de Reservas");
+                writer.newLine();
+            }
+            writer.write("ID Reserva: " + reserva.getIdReserva() +
+                    ", Nombre: " + reserva.cliente.getNombre() +
+                    ", Fecha: " + reserva.getFecha() +
+                    ", Hora " + reserva.getHoraInicio() +
+                    ", Mesa: " + reserva.mesa.getNumMesa());
+            writer.newLine();
+            System.out.println("La reserva se archivó correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al exportar la reserva: " + e.getMessage());
+        }
+    }
 
     /**
      * realizarReserva: realiza una reserva a nombre de un cliente
@@ -136,112 +166,172 @@ public class Reserva {
      * @param dia        : dia en el que se realizó la reserva
      * @param horaInicio : comienzo de la reserva
      * @param mesa       : informacion de la mesa(número, ubicación y capacidad)
+     * @throws IllegalArgumentException si alguno de los parámetros que se pasan es inválido
      */
-    public void realizarReserva(Cliente cliente, LocalDate dia, LocalTime horaInicio, Mesa mesa, String comentarios){
-        if (cliente == null){
-            throw new IllegalArgumentException("El cliente no puede ser nulo");
+    public void realizarReserva(Cliente cliente, LocalDate dia, LocalTime horaInicio, Mesa mesa, String comentarios) {
+        if (cliente == null) {
+            throw new IllegalArgumentException("El cliente no puede ser nulo.");
         }
-        //VALIDAR TARJETA CREIDTO
-        if (horaFinal == null){
+
+        if (mesa == null) {
+            throw new IllegalArgumentException("La mesa no puede ser nula.");
+        }
+
+        // Validación de 24 horas de anticipación
+        LocalDateTime hoyAhora = LocalDateTime.now();
+        LocalDateTime FechaHora = LocalDateTime.of(dia, horaInicio);
+        if (FechaHora.isBefore(hoyAhora.plusHours(24))) {
+            throw new IllegalArgumentException("La reserva debe realizarse con al menos 24 horas de anticipación.");
+        }
+
+
+        // Validar que la hora de inicio esté dentro del horario permitido del restaurante
+        if (horaInicio.isBefore(LocalTime.of(20, 0)) || horaInicio.isAfter(LocalTime.of(23, 59))) {
+            throw new IllegalArgumentException("La hora de la reserva debe estar entre las 20:00 y las 23:59.");
+        }
+
+        //si no se pasa hora final se le da por defecto 3 horas despues del comienzo.
+        if (horaFinal == null) {
             horaFinal = horaInicio.plusHours(3);
         }
-        if (!getMesa().consultarDisponibilidad(mesa, dia, horaInicio)){
-            System.out.println("La mesa"+ mesa.getNumMesa() + "no se encuentra disponible para el día "+ dia + " a las"+  horaInicio);
-            return; //EN REALIDAD VA UNA EXCEPCION
+
+        // Verifico si la mesa esta disponible
+        if (!mesa.consultarDisponibilidad(mesa, dia, horaInicio)) {
+            throw new IllegalArgumentException("La mesa " + mesa.getNumMesa() + " no está disponible para el día " + dia + " a las " + horaInicio);
         }
-        Reserva nuevaReserva = new Reserva(idReserva, dia, horaInicio, comentarios, null, Estado.RESERVADA, cliente, mesa);
+
+        // Crear la nueva reserva
+        Reserva nuevaReserva = new Reserva(cliente, mesa, dia, horaInicio, comentarios);
+
+        // Agregar la nueva reserva a la lista
         listaDeReservas.add(nuevaReserva);
+        mesa.agregarReserva(nuevaReserva);
+        exportarReservaATXT(nuevaReserva);
+
         System.out.println("La reserva se realizó con éxito.");
-        System.out.println("Nombre: "+ cliente.getNombre());
-        System.out.println("Mesa: "+ mesa.getNumMesa());
-        System.out.println("Día: "+ dia);
-        System.out.println("Hora: "+ horaInicio);
-        System.out.println("Número de identificación de la reserva: "+ idReserva);
+        System.out.println("Nombre: " + cliente.getNombre());
+        System.out.println("Mesa: " + mesa.getNumMesa());
+        System.out.println("Día: " + dia);
+        System.out.println("Hora: " + horaInicio);
+        System.out.println("Número de identificación de la reserva: " + nuevaReserva.getIdReserva());
     }
+
+
+
 
     /**
      * modificarReserva
-     * @param idReserva: numero de identificacion de la reserva
+     * @param idReserva: número de identificación de la reserva
      * @param nuevaMesa: nueva mesa en caso de que sea modificada, sino se conserva la misma
      * @param nuevaHora: nueva hora en caso de que sea modificada, sino se conserva la misma
-     * @param nuevoDia: nuevo día en caso de que sea modifidicado, sino se conserva el mismo
+     * @param nuevoDia: nuevo día en caso de que sea modificado, sino se conserva el mismo
+     * @throws IllegalArgumentException: por si ocurre algun error a la hora de encontrar algun dato
      */
     public void modificarReserva(Integer idReserva, Mesa nuevaMesa, LocalTime nuevaHora, LocalDate nuevoDia) {
-        // Buscar la reserva por ID
+        if (idReserva == null) {
+            throw new IllegalArgumentException("El ID de reserva no puede ser nulo.");
+        }
+
+        // Buscar la reserva mediante el id
         Reserva reservaAModificar = null;
         for (Reserva reserva : listaDeReservas) {
             if (reserva.getIdReserva().equals(idReserva)) {
                 reservaAModificar = reserva;
+                break;
             }
-        }
-        if (horaFinal == null){
-            horaFinal = horaInicio.plusHours(3);
         }
 
         if (reservaAModificar == null) {
-            System.out.println("No se encontró una reserva con el ID: " + idReserva);
-            return;
+            throw new IllegalArgumentException("No se encontró una reserva con el ID: " + idReserva);
         }
 
-        // Comprobar si se quiere cambiar la mesa
         boolean cambiarMesa = nuevaMesa != null && !nuevaMesa.equals(reservaAModificar.getMesa());
+        //validamos la hora nueva
+        if (nuevaHora != null) {
+            if (nuevaHora.isBefore(LocalTime.of(20, 0))) {
+                throw new IllegalArgumentException("La hora de la reserva debe ser después de las 20:00.");
+            }
+            if (nuevaHora.isAfter(LocalTime.of(23, 59))) {
+                throw new IllegalArgumentException("La hora de la reserva no puede ser después de las 00:00.");
+            }
+        }
 
-        // Actualizar la disponibilidad de la mesa (liberar y asignar nuevos valores)
+        if (nuevoDia != null && nuevoDia.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Fecha incorrecta, no ingrese fechas en el pasado");
+        }
+
+        // Validar 24 horas de anticipación para la nueva fecha
+        if (nuevoDia != null || nuevaHora != null) {
+            LocalDateTime hoyAhora = LocalDateTime.now();
+            LocalDateTime nuevaFechaHora = LocalDateTime.of(nuevoDia != null ? nuevoDia : reservaAModificar.getFecha(),
+                    nuevaHora != null ? nuevaHora : reservaAModificar.getHoraInicio());
+            if (nuevaFechaHora.isBefore(hoyAhora.plusHours(24))) {
+                throw new IllegalArgumentException("La modificación de la reserva debe realizarse con al menos 24 horas de anticipación.");
+            }
+        }
+
+        // Actualizar la disponibilidad de la mesa
         reservaAModificar.getMesa().actualizarDisponibilidad(reservaAModificar, nuevoDia, nuevaHora, cambiarMesa);
 
         // Actualizar los valores de la reserva
         if (nuevaHora != null && !nuevaHora.equals(reservaAModificar.getHoraInicio())) {
-            reservaAModificar.setHoraInicio(nuevaHora); // Cambiar la hora
+            reservaAModificar.setHoraInicio(nuevaHora); //se cambia la hora
         }
 
         if (nuevoDia != null && !nuevoDia.equals(reservaAModificar.getFecha())) {
-            reservaAModificar.setFecha(nuevoDia); // Cambiar el día
+            reservaAModificar.setFecha(nuevoDia); // se cambia el dia
         }
 
         if (cambiarMesa) {
-            reservaAModificar.setMesa(nuevaMesa); // Cambiar la mesa
+            reservaAModificar.setMesa(nuevaMesa); // se cambia la mesa
         }
 
         System.out.println("Reserva modificada con éxito.");
     }
 
 
-
     /**
      * cancelarReserva
-     * @param idReserva: número de indentificación de la reserva
+     * @param idReserva: número de identificación de la reserva
      * @param cliente: cliente que cancela
+     * @param mesa: mesa que deja de estar reservada
      */
-
     public void cancelarReserva(int idReserva, Cliente cliente, Mesa mesa) {
-        // Buscar la reserva por ID
+        if (cliente == null) {
+            throw new IllegalArgumentException("El cliente no puede ser nulo.");
+        }
+
+        if (mesa == null) {
+            throw new IllegalArgumentException("La mesa no puede ser nula.");
+        }
+
         Reserva reservaACancelar = null;
         for (Reserva reserva : listaDeReservas) {
             if (reserva.getIdReserva().equals(idReserva)) {
                 reservaACancelar = reserva;
-                break; // Salir del bucle una vez encontrada la reserva
+                break;
             }
         }
 
+        // compruebo si se encontró la reserva que se quiere cancelar
         if (reservaACancelar == null) {
-            System.out.println("No se encontró una reserva con el ID: " + idReserva);
-            return;
+            throw new IllegalArgumentException("No se encontró una reserva con el ID: " + idReserva);
         }
 
-        // Verificar que el cliente que cancela sea el que hizo la reserva
+        // compruebo que el cliente que cancela sea el que hizo la reserva
         if (!reservaACancelar.getCliente().equals(cliente)) {
-            System.out.println("El cliente no coincide con la reserva. No se puede cancelar.");
-            return;
+            throw new IllegalArgumentException("El cliente no coincide con la reserva. No se puede cancelar.");
         }
 
-        // Actualizar la disponibilidad de la mesa (liberar la reserva cancelada)
+        // Actualizar la disponibilidad de la mesa, es decir, libera la cancelada
         mesa.actualizarDisponibilidad(reservaACancelar, null, null, false);
 
-        // Eliminar la reserva de la lista
+        // elimina la reserva de la lista
         listaDeReservas.remove(reservaACancelar);
+        mesa.quitarReserva(reservaACancelar);
 
-        // Actualizar el contador de cancelaciones del cliente
-        //cliente.incrementarContadorCancelaciones();
+        // suma en uno el contador de cancelaciones del cliente
+        cliente.incrementarContadorCancelaciones();
 
         // Confirmar la cancelación
         System.out.println("Reserva cancelada con éxito. ID Reserva: " + idReserva);
@@ -249,24 +339,35 @@ public class Reserva {
 
 
     /**
-     * filtrarMesa: filtra las mesas basandose en su capacidad y ubicación
-     * @param capacidad: capacidad de comensales que soporta la mesa.
+     * filtrarMesa: filtra las mesas basándose en su capacidad y ubicación.
+     * @param capacidad: capacidad de comensales que soporta la mesa
      * @param ubicacion: ubicación espacial en el restaurante
-     * @return: lista de mesas que cumplan con los requerimientos pasados por parámetros
+     * @return: lista de mesas que cumplen con los requisitos especificados
      */
-
-    public ArrayList<Mesa> filtrarMesa(Integer capacidad, Ubicacion ubicacion){
+    public ArrayList<Mesa> filtrarMesa(Integer capacidad, Ubicacion ubicacion) {
+        // Crear una lista para almacenar las mesas filtradas
         ArrayList<Mesa> mesasFiltradas = new ArrayList<>();
 
-        for (Mesa mesa : mesa.getListaMesasUbicaciones()) {
-            boolean cumpleCapacidad = (capacidad == null || mesa.getCapacidad() == capacidad);
-            boolean cumpleUbicacion = (ubicacion == null || mesa.getUbicacion() == ubicacion); //VA UN EQUALS O ==
+        // Asegúrate de que la lista de mesas no sea nula
+        List<Mesa> listaMesas = Mesa.getListaMesasUbicaciones(); // Asegúrate de que este método sea estático o de instancia.
+
+        if (listaMesas == null) {
+            throw new IllegalStateException("La lista de mesas no puede ser nula.");
+        }
+
+        // Recorrer la lista de mesas para aplicar los filtros
+        for (Mesa mesa : listaMesas) {
+            boolean cumpleCapacidad = (capacidad == null || mesa.getCapacidad() >= capacidad);
+            boolean cumpleUbicacion = (ubicacion == null || mesa.getUbicacion().equals(ubicacion));
+
             if (cumpleCapacidad && cumpleUbicacion) {
                 mesasFiltradas.add(mesa);
             }
         }
+
         return mesasFiltradas;
     }
+
 
 
     /**
@@ -274,18 +375,9 @@ public class Reserva {
      * de conocer si cuenta con algunas alergias o enfermedades que no le permitan disfrutar de todos los alimentos
      * @return: comentario realizado por el cliente
      */
-    public String realizarComentario(){
+    public String realizarComentario() {
         return "";
     }
-
-    //Puede ser:
-    private boolean verificarHorario(LocalDate dia, LocalTime horaInicio) {
-        return true;
-    }
-    //IDEA DE QUE PUEDE HABER UN MÉTODO QUE VERIFIQUE SI LOS HORARIOS QUE EL CLIENTE SELECCIONA PARA LA RESERVA
-    //ESTEN DENTRO DE LOS HORARIOS EN LOS QUE EL RESTAURANTE TRABAJA O SE HAGA LA RESERVA 24HS ANTES.
-
-
 
     public void reservaEvento(Cliente cliente, String nombre, Piso piso, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal, String comentarios, TipoDeDia tipoDeDia) {
         if (piso == null || cliente == null) {
@@ -309,6 +401,4 @@ public class Reserva {
         // Registro del evento
         System.out.println("El evento se ha reservado con éxito. Detalles del evento: " + nuevoEvento);
     }
-
 }
-

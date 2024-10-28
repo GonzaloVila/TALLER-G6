@@ -1,4 +1,0 @@
-Lista de Reservas
-ID Reserva: 1, Nombre: Lucas Sanchez, Fecha: 2024-10-29, Hora 21:00, Mesa: 12
-ID Reserva: 2, Nombre: Pablo Ruiz Díaz, Fecha: 2024-10-29, Hora 23:00, Mesa: 34
-ID Reserva: 3, Nombre: Gonzalo Vila, Fecha: 2024-10-29, Hora 21:00, Mesa: 22

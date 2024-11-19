@@ -8,14 +8,14 @@ import java.time.LocalDate;
  * Clase que representa un piso del restaurante, que puede contener varias mesas.
  */
 public class Piso {
-    private Ubicacion tipodepiso; // Tipo de piso (ejemplo: salón principal, segundo piso, terraza)
-    private ArrayList<Mesa> mesasDelPiso; // Lista de mesas disponibles en este piso
+    private Ubicacion tipodepiso;
+    private ArrayList<Mesa> mesasDelPiso;
 
     /**
      * Constructor por defecto que inicializa la lista de mesas.
      */
     public Piso() {
-        this.mesasDelPiso = new ArrayList<>(); // Inicializar la lista de mesas
+        this.mesasDelPiso = new ArrayList<>();
     }
 
     /**
@@ -25,7 +25,7 @@ public class Piso {
      */
     public Piso(Ubicacion tipodepiso) {
         this.tipodepiso = tipodepiso;
-        this.mesasDelPiso = new ArrayList<>(); // Inicializar la lista de mesas
+        this.mesasDelPiso = new ArrayList<>();
     }
 
     /**
@@ -91,10 +91,10 @@ public class Piso {
             for (Mesa mesa : mesasDelPiso) {
                 mesa.bloquearMesa(mesa, dia, horaInicio);
             }
-            return true; // Todas las mesas se bloquearon con éxito
+            return true;
         }
 
-        return false; // No se pudo bloquear todas las mesas
+        return false;
     }
 
     /**

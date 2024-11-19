@@ -5,13 +5,94 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71fb307a-7caf-4f1b-af64-e1b5f9a4bbd4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clientes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/clientes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/empleados.txt" beforeDir="false" afterPath="$PROJECT_DIR$/empleados.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/RestauranteMapa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/RestauranteMapa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaActualizarInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaActualizarInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaCliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaCliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaIniciarSesion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaIniciarSesion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaRegistrarEmpleado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaRegistrarEmpleado.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaRegistrarReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaRegistrarReserva.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaRegistroCliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaRegistroCliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaReporte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaReporte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaReservasEmpleado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InterfacesGraficas/VentanaReservasEmpleado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Administrador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Administrador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Calendario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Calendario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Empleado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Empleado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Estado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Estado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Evento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Formato.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Formato.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Horario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Horario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/MailAutomatico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/MailAutomatico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Mesa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Mesa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Pago.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Pago.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Permiso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Permiso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Piso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Piso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Reporte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Reporte.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Reserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Reserva.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Rol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/TarjetaCredito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/TarjetaCredito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/TipoDeDia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/TipoDeDia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicaNegocio/Ubicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicaNegocio/Ubicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Excepciones/EmpleadoException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Excepciones/EmpleadoException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Excepciones/ReservaException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Excepciones/ReservaException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/RestauranteMapa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/RestauranteMapa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaActualizarInfo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaActualizarInfo$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaActualizarInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaActualizarInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaIniciarSesion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarEmpleado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistrarReserva.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistroCliente$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistroCliente$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistroCliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InterfacesGraficas/VentanaRegistroCliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Administrador.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Administrador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Calendario.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Calendario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Cliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Empleado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Empleado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Estado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Estado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Evento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Evento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Formato.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Formato.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Horario.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Horario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/MailAutomatico$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/MailAutomatico$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/MailAutomatico.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/MailAutomatico.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Mesa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Mesa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Pago.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Pago.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Permiso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Permiso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Piso.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Piso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Reporte.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Reporte.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Reserva.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Reserva.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/ReservaPiso.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Rol.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Rol.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/TarjetaCredito.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/TarjetaCredito.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/TipoDeDia.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/TipoDeDia.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LogicaNegocio/Ubicacion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LogicaNegocio/Ubicacion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/clientes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/clientes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/shelf/Uncommitted_changes_before_Update_at_8_10_2024_17_24_[Changes]/Untitled.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/shelf/Uncommitted_changes_before_Update_at_8_10_2024_17_24_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/shelf/Uncommitted_changes_before_Update_at_8_10_2024_17_24__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/shelf/Uncommitted_changes_before_Update_at_8_10_2024_17_24_[Changes]/Untitled.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/shelf/Uncommitted_changes_before_Update_at_8_10_2024_17_24_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.idea/shelf/Uncommitted_changes_before_Update_at_8_10_2024_17_24_[Changes]/Untitled.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.idea/shelf/Uncommitted_changes_before_Update_at_8_10_2024_17_24_[Changes]/shelved.patch" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +102,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -40,27 +121,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.RestauranteMapa.executor": "Run",
-    "Application.src.LogicaNegocio.Main.executor": "Run",
-    "Maven.Unknown [compile].executor": "Run",
-    "Maven.my-app [compile].executor": "Run",
-    "Maven.my-app [deploy].executor": "Run",
-    "Maven.my-app [package].executor": "Run",
-    "Maven.my-app [test].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ralu0/OneDrive/Escritorio/git/Taller_poo/TALLER-G6",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RestauranteMapa.executor&quot;: &quot;Run&quot;,
+    &quot;Application.src.LogicaNegocio.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Unknown [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.my-app [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.my-app [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.my-app [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.my-app [test].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ralu0/OneDrive/Escritorio/git/Taller_poo/TALLER-G6&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="22" />

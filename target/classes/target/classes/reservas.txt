@@ -1,0 +1,1 @@
+ID Reserva: 1, Nombre: pablo ruiz diaz, Correo: pablo@gmail.com, Número de celular: 4554432, Fecha: 2024-10-30, Hora: 22:00, Mesa: 1

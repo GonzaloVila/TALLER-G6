@@ -2,6 +2,7 @@ package LogicaNegocio;
 
 import java.time.LocalDateTime;
 import java.util.Properties;
+import java.util.UUID;
 import javax.mail.*;
 import javax.mail.internet.*;
 
@@ -11,8 +12,6 @@ public class MailAutomatico {
     private LocalDateTime fechaEnvio; // Fecha y hora de envío del correo
     private String contenido; // Contenido del correo
 
-
-
     public MailAutomatico(String tipoAviso, LocalDateTime fechaEnvio, String contenido) {
         this.tipoAviso = tipoAviso;
         this.fechaEnvio = fechaEnvio;
@@ -20,20 +19,19 @@ public class MailAutomatico {
     }
 
 
+    public MailAutomatico(){}
+
     public String getTipoaviso() {
         return tipoAviso;
     }
-
 
     public void setTipoaviso(String tipoAviso) {
         this.tipoAviso = tipoAviso;
     }
 
-
     public LocalDateTime getFechaEnvio() {
         return fechaEnvio;
     }
-
 
     public void setFecha(LocalDateTime fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
@@ -43,11 +41,9 @@ public class MailAutomatico {
         return contenido;
     }
 
-
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-
 
     @Override
     public String toString() {
@@ -55,11 +51,10 @@ public class MailAutomatico {
     }
 
     /**
-     * Método para enviar un correo de confirmación de reserva.
-     *
-     * @param emailCliente   Dirección de correo del cliente.
+     * enviar_Mail_Confirmacion_Reserva: Envía un correo de confirmación de reserva al cliente.
+     * @param emailCliente Correo del cliente.
      * @param detallesReserva Detalles de la reserva.
-     * @throws IllegalArgumentException Si el email o los detalles de la reserva no son válidos.
+     * @throws IllegalArgumentException si el correo o los detalles de la reserva no son válidos.
      */
     public void enviar_Mail_Confirmacion_Reserva(String emailCliente, String detallesReserva) {
         if (!esEmailValido(emailCliente) || detallesReserva == null || detallesReserva.isEmpty()) {
@@ -73,29 +68,40 @@ public class MailAutomatico {
         enviarCorreo(emailCliente, asunto, mensaje);
     }
 
+
+
     /**
-     * Método para enviar un correo de recuperación de contraseña.
-     *
-     * @param emailCliente Dirección de correo del cliente.
-     * @throws IllegalArgumentException Si el email es inválido.
+     * enviar_Mail_Recuperacion: Envía un correo de recuperación de contraseña al cliente.
+     * @param emailCliente Correo del cliente.
+     * @throws IllegalArgumentException si el correo no es válido.
      */
     public void enviar_Mail_Recuperacion(String emailCliente) {
         if (!esEmailValido(emailCliente)) {
             throw new IllegalArgumentException("Email inválido.");
         }
+        // Genera el enlace de recuperación de contraseña
+        String enlaceRecuperacion = "https://tuapp.com/recuperacion?token=" + generarTokenUnico();
 
         String asunto = "Recuperación de Contraseña";
-        String mensaje = "Estimado cliente,\n\nHemos recibido una solicitud de recuperación de contraseña. Si no fue usted quien hizo esta solicitud, ignore este mensaje. De lo contrario, puede restablecer su contraseña haciendo clic en el enlace a continuación.\n\nEnlace para restablecer la contraseña: [Enlace de recuperación].\n\nSaludos,\nDelicias Gourmet";
-
+        String mensaje = "Estimado cliente,\n\nHemos recibido una solicitud de recuperación de contraseña. Si no fue usted quien hizo esta solicitud, ignore este mensaje. De lo contrario, puede restablecer su contraseña haciendo clic en el enlace a continuación.\n\nEnlace para restablecer la contraseña: " + enlaceRecuperacion + "\n\nSaludos,\nDelicias Gourmet";
         enviarCorreo(emailCliente, asunto, mensaje);
     }
 
     /**
-     * Método para enviar recordatorios de reservas.
-     *
-     * @param emailCliente   Dirección de correo del cliente.
+     * generarTokenUnico: Genera un token único para la recuperación de contraseña.
+     * @return Un token único generado con UUID.
+     */
+    private String generarTokenUnico() {
+        return UUID.randomUUID().toString();
+    }
+
+
+
+    /**
+     * enviar_Mail_Recordatorio: Envía un correo de recordatorio de reserva próxima al cliente.
+     * @param emailCliente Correo del cliente.
      * @param detallesReserva Detalles de la reserva.
-     * @throws IllegalArgumentException Si el email o los detalles de la reserva no son válidos.
+     * @throws IllegalArgumentException si el correo o los detalles de la reserva no son válidos.
      */
     public void enviar_Mail_Recordatorio(String emailCliente, String detallesReserva) {
         if (!esEmailValido(emailCliente) || detallesReserva == null || detallesReserva.isEmpty()) {
@@ -110,24 +116,22 @@ public class MailAutomatico {
     }
 
 
+
     /**
-     * Método auxiliar que realiza el envío del correo.
-     *
-     * @param destinatario  Dirección de correo del destinatario.
-     * @param asunto        Asunto del correo.
-     * @param mensajeTexto  Contenido del mensaje a enviar.
-     * @throws RuntimeException Si ocurre un error al enviar el correo.
+     * enviarCorreo: Envía un correo electrónico al destinatario con el asunto y mensaje proporcionados.
+     * @param destinatario Correo del destinatario.
+     * @param asunto Asunto del correo.
+     * @param mensajeTexto Contenido del correo.
      */
     private void enviarCorreo(String destinatario, String asunto, String mensajeTexto) {
-        String remitente = "tucorreo@gmail.com"; // Cambia por tu correo
-        String host = "smtp.gmail.com";
-        String clave = "tucontraseña"; // Cambia por tu contraseña
+        String remitente = "grupete6poo@gmail.com"; // Cambia por tu correo
+        String clave = "f a w l c l d l c p b v u e x l"; // Cambia por tu contraseña
 
         Properties properties = System.getProperties();
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "587"); // Puerto para TLS
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587"); // Usa 587 para TLS
         properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.starttls.enable", "true"); // Habilita STARTTLS
 
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -145,18 +149,18 @@ public class MailAutomatico {
             Transport.send(mensaje);
             System.out.println("Correo enviado con éxito a " + destinatario);
         } catch (MessagingException ex) {
+            ex.printStackTrace(); // Imprime el stack trace del error
             throw new RuntimeException("Error al enviar el correo: " + ex.getMessage());
         }
     }
 
+
     /**
-     * Método para validar el email.
-     *
-     * @param email Dirección de correo electrónico a validar.
-     * @return true si el email es válido, false en caso contrario.
+     * esEmailValido: Valida el formato de un correo electrónico.
+     * @param email Correo electrónico a validar.
+     * @return true si el correo tiene un formato válido, false en caso contrario.
      */
     private boolean esEmailValido(String email) {
         return email != null && email.matches("^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,4}$");
     }
 }
-

@@ -1,6 +1,8 @@
 package LogicaNegocio;
-import Excepciones.ReservaException;
 
+import Excepciones.ReservaException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.io.File;
 import java.util.List;
 import java.time.LocalDate;
@@ -11,61 +13,77 @@ import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
 import java.io.FileReader;
 
+/**
+ * Clase que representa una reserva en el sistema de gestión de reservas de un restaurante.
+ *
+ * Esta clase permite crear reservas, gestionar su información y almacenar las reservas en un archivo de texto.
+ * Cada reserva está asociada a un cliente y una mesa, y contiene información como la fecha, la hora de inicio,
+ * los comentarios y el estado de la reserva.
+ */
 public class Reserva {
-    private Integer idReserva;
-    private LocalDate fecha;
-    private LocalTime horaInicio;
-    private String comentarios;
-    private LocalTime horaFinal;
-    private Estado estado;
-    private Cliente cliente;
-    private Mesa mesa;
-    private static ArrayList<Reserva> listaDeReservas = new ArrayList<>();
-    private ArrayList<Evento> listaEventos;
-    private static int generadorIDReservas = 0;
+    private Integer idReserva; // Identificador único de la reserva
+    private LocalDate fecha; // Fecha de la reserva
+    private LocalTime horaInicio; // Hora de inicio de la reserva
+    private String comentarios; // Comentarios adicionales de la reserva
+    private LocalTime horaFinal; // Hora final de la reserva
+    private Estado estado; // Estado actual de la reserva (por ejemplo, en curso, cancelada)
+    private Cliente cliente; // Cliente asociado a la reserva
+    private Mesa mesa; // Mesa asignada a la reserva
+    private static ArrayList<Reserva> listaDeReservas = new ArrayList<>(); // Lista estática de todas las reservas
+    private ArrayList<Evento> listaEventos; // Lista de eventos asociados a la reserva
+    private static int generadorIDReservas = 0; // Contador para generar ID únicos de reservas
 
-    public Reserva(Cliente cliente, Mesa mesa, LocalDate fecha, LocalTime horaInicio, String comentarios) {
-        if (cliente == null) {
-            throw new IllegalArgumentException("El cliente no puede ser nulo.");
-        }
-        if (mesa == null) {
-            throw new IllegalArgumentException("La mesa no puede ser nula.");
-        }
-        if (fecha == null) {
-            throw new IllegalArgumentException("La fecha no puede ser nula.");
-        }
-        if (horaInicio == null) {
-            throw new IllegalArgumentException("La hora de inicio no puede ser nula.");
+    /**
+     * Constructor de la clase Reserva que crea una nueva reserva con los parámetros proporcionados.
+     *
+     * @param cliente El cliente que realiza la reserva.
+     * @param mesa La mesa asignada a la reserva.
+     * @param fecha La fecha de la reserva.
+     * @param horaInicio La hora de inicio de la reserva.
+     * @param comentarios Comentarios adicionales sobre la reserva.
+     * @throws ReservaException Si alguno de los parámetros es nulo o si la fecha/hora no son válidas.
+     */
+    public Reserva(Cliente cliente, Mesa mesa, LocalDate fecha, LocalTime horaInicio, String comentarios) throws ReservaException {
+        // Validaciones de entrada
+        if (cliente == null || mesa == null || fecha == null || horaInicio == null) {
+            throw new ReservaException("Todos los campos de la reserva deben estar completos.");
         }
         if (fecha.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("La fecha no puede ser anterior a la fecha actual.");
         }
         if (horaInicio.isBefore(LocalTime.of(20, 0)) || horaInicio.isAfter(LocalTime.of(23, 59))) {
-            throw new IllegalArgumentException("La hora de inicio debe estar entre las 20:00 y las 23:59.");
+            throw new ReservaException("La hora de inicio debe estar entre las 20:00 y las 23:59.");
         }
+
         this.idReserva = generadorIDReservas++;
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.comentarios = comentarios;
-        this.horaFinal = null;
-        this.estado = Estado.EN_CURSO;
-        this.cliente = cliente;
-        this.mesa = mesa;
-        listaDeReservas.add(this);
-        this.listaEventos = new ArrayList<>();
+        this.horaFinal = null; // Inicialmente, no hay hora final
+        this.estado = Estado.EN_CURSO; // Estado inicial de la reserva
+        this.cliente = cliente; // Asignar cliente
+        this.mesa = mesa; // Asignar mesa
+        listaDeReservas.add(this); // Añadir reserva a la lista
+        this.listaEventos = new ArrayList<>(); // Inicializar lista de eventos
     }
 
+    // Constructor por defecto
     public Reserva(){
         this.idReserva = generadorIDReservas++;
         this.listaEventos = new ArrayList<>();
+        listaDeReservas.add(this);
     }
 
+    // Métodos getter y setter para los atributos de la clase
 
     public Integer getIdReserva() {
         return idReserva;
+    }
+
+    public void setIdReserva(Integer id) {
+        this.idReserva = id;
     }
 
     public LocalDate getFecha() {
@@ -87,7 +105,6 @@ public class Reserva {
     public String getComentarios() {
         return comentarios;
     }
-
 
     public LocalTime getHoraFinal() {
         return horaFinal;
@@ -121,10 +138,17 @@ public class Reserva {
         this.mesa = mesa;
     }
 
-    public ArrayList<Reserva> getListaDeReservas(){return listaDeReservas;}
+    public ArrayList<Reserva> getListaDeReservas() {
+        return listaDeReservas;
+    }
 
-    public static int getContadorReservas() {   return generadorIDReservas;}
+    public static void setListaDeReservas(ArrayList<Reserva> lista) {
+        listaDeReservas = lista;
+    }
 
+    public static int getContadorReservas() {
+        return generadorIDReservas;
+    }
 
     @Override
     public String toString() {
@@ -140,17 +164,19 @@ public class Reserva {
                 '}';
     }
 
+    /**
+     * Exporta la información de la reserva a un archivo de texto.
+     *
+     * @param reserva La reserva que se desea exportar.
+     */
     public void exportarReservaATXT(Reserva reserva) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("reservas.txt", true))) {
-            File file = new File("reservas.txt");
-            if(file.length() == 0) {
-                writer.write("Lista de Reservas");
-                writer.newLine();
-            }
             writer.write("ID Reserva: " + reserva.getIdReserva() +
                     ", Nombre: " + reserva.cliente.getNombre() +
+                    ", Correo: " + reserva.cliente.getCorreo() +
+                    ", Número de celular: " + reserva.cliente.getNumero() +
                     ", Fecha: " + reserva.getFecha() +
-                    ", Hora " + reserva.getHoraInicio() +
+                    ", Hora: " + reserva.getHoraInicio() +
                     ", Mesa: " + reserva.mesa.getNumMesa());
             writer.newLine();
             System.out.println("La reserva se archivó correctamente.");
@@ -160,54 +186,182 @@ public class Reserva {
     }
 
     /**
-     * realizarReserva: realiza una reserva a nombre de un cliente
+     * Carga reservas desde un archivo de texto y las devuelve en una lista.
      *
-     * @param cliente    : nombre de quien realiza la reserva
-     * @param dia        : dia en el que se realizó la reserva
-     * @param horaInicio : comienzo de la reserva
-     * @param mesa       : informacion de la mesa(número, ubicación y capacidad)
-     * @throws IllegalArgumentException si alguno de los parámetros que se pasan es inválido
+     * @return Lista de reservas cargadas.
      */
-    public void realizarReserva(Cliente cliente, LocalDate dia, LocalTime horaInicio, Mesa mesa, String comentarios) {
-        if (cliente == null) {
-            throw new IllegalArgumentException("El cliente no puede ser nulo.");
+    public static ArrayList<Reserva> cargarReservasDesdeArchivo() {
+        ArrayList<Reserva> reservasCargadas = new ArrayList<>();
+        int maxId = 0; // Variable para almacenar el máximo ID encontrado
+        try (BufferedReader reader = new BufferedReader(new FileReader("reservas.txt"))) {
+            String linea;
+            // Procesar el archivo línea por línea
+            while ((linea = reader.readLine()) != null) {
+                // Verificar que la línea no esté vacía
+                if (!linea.trim().isEmpty()) {
+                    try {
+                        // Separar los datos basados en el formato de exportación
+                        String[] datos = linea.split(", ");
+                        // Extraer los campos de la reserva
+                        int idReserva = Integer.parseInt(datos[0].split(": ")[1]);
+                        if (idReserva > maxId) {
+                            maxId = idReserva; // Actualizar el máximo ID si es necesario
+                        }
+                        String nombreCliente = datos[1].split(": ")[1];
+                        String correoCliente = datos[2].split(": ")[1];
+                        String numeroCliente = datos[3].split(": ")[1];
+                        LocalDate fechaReserva = LocalDate.parse(datos[4].split(": ")[1]);
+                        LocalTime horaInicioReserva = LocalTime.parse(datos[5].split(": ")[1]);
+                        int numMesa = Integer.parseInt(datos[6].split(": ")[1]);
+
+                        // Crear un nuevo cliente y mesa basados en los datos cargados
+                        Cliente cliente = new Cliente(nombreCliente, correoCliente, numeroCliente);
+                        Mesa mesa = new Mesa(numMesa);
+                        // Crear una nueva reserva usando el constructor con parámetros
+                        Reserva reservaCargada = new Reserva(cliente, mesa, fechaReserva, horaInicioReserva, "");
+
+                        // Agregar la reserva a la lista
+                        reservasCargadas.add(reservaCargada);
+                        reservaCargada.setIdReserva(idReserva); // Establecer ID a la reserva cargada
+
+                    } catch (ArrayIndexOutOfBoundsException | NumberFormatException | DateTimeParseException e) {
+                        System.err.println("Error al procesar la línea: " + linea);
+                    } catch (ReservaException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+            generadorIDReservas = maxId + 1; // Actualizar el generador de IDs
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo de reservas: " + e.getMessage());
+        }
+        return reservasCargadas; // Devolver la lista de reservas cargadas
+    }
+
+    /**
+     * Actualiza una reserva en el archivo de texto.
+     *
+     * @param reservaModificada La reserva con la información actualizada.
+     */
+    public static void actualizarReservaEnArchivo(Reserva reservaModificada) {
+        File archivo = new File("reservas.txt");
+        List<String> lineasArchivo = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            boolean reservaModificadaEncontrada = false;
+
+            while ((linea = reader.readLine()) != null) {
+                if (linea.contains("ID Reserva: " + reservaModificada.getIdReserva())) {
+                    // Modificar la línea correspondiente a la reserva
+                    lineasArchivo.add("ID Reserva: " + reservaModificada.getIdReserva() +
+                            ", Nombre: " + reservaModificada.getCliente().getNombre() +
+                            ", Correo: " + reservaModificada.getCliente().getCorreo() +
+                            ", Número de celular: " + reservaModificada.getCliente().getNumero() +
+                            ", Fecha: " + reservaModificada.getFecha() +
+                            ", Hora: " + reservaModificada.getHoraInicio() +
+                            ", Mesa: " + reservaModificada.getMesa().getNumMesa());
+                    reservaModificadaEncontrada = true;
+                } else {
+                    lineasArchivo.add(linea);
+                }
+            }
+            if (!reservaModificadaEncontrada) {
+                System.err.println("No se encontró la reserva con ID: " + reservaModificada.getIdReserva());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        if (mesa == null) {
-            throw new IllegalArgumentException("La mesa no puede ser nula.");
+        // Sobrescribir el archivo con las líneas actualizadas
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
+            for (String linea : lineasArchivo) {
+                writer.write(linea);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Elimina una reserva del archivo de texto.
+     *
+     * @param idReserva El ID de la reserva que se desea eliminar.
+     */
+    public static void eliminarReservaDelArchivo(int idReserva) {
+        File archivo = new File("reservas.txt");
+        List<String> lineasArchivo = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            boolean reservaEncontrada = false;
+
+            while ((linea = reader.readLine()) != null) {
+                // Verifica si la línea contiene la reserva que se desea cancelar
+                if (!linea.contains("ID Reserva: " + idReserva)) {
+                    lineasArchivo.add(linea); // Mantener la línea si no es la que se cancela
+                } else {
+                    reservaEncontrada = true; // Reserva encontrada y se omite en la escritura
+                }
+            }
+
+            if (!reservaEncontrada) {
+                System.err.println("No se encontró la reserva con ID: " + idReserva);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        // Validación de 24 horas de anticipación
+        // Sobrescribir el archivo con las líneas restantes
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
+            for (String linea : lineasArchivo) {
+                writer.write(linea);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Realiza una reserva a nombre de un cliente.
+     *
+     * @param cliente    El cliente que realiza la reserva.
+     * @param dia        El día en el que se realiza la reserva.
+     * @param horaInicio El inicio de la reserva.
+     * @param mesa       La mesa reservada (número, ubicación y capacidad).
+     * @param comentarios Comentarios adicionales sobre la reserva.
+     * @throws ReservaException si alguno de los parámetros es inválido o si la reserva no puede ser realizada.
+     */
+    public void realizarReserva(Cliente cliente, LocalDate dia, LocalTime horaInicio, Mesa mesa, String comentarios) throws ReservaException {
+        if (cliente == null || mesa == null || dia == null || horaInicio == null) {
+            throw new ReservaException("Todos los campos de la reserva deben estar completos.");
+        }
+
         LocalDateTime hoyAhora = LocalDateTime.now();
-        LocalDateTime FechaHora = LocalDateTime.of(dia, horaInicio);
-        if (FechaHora.isBefore(hoyAhora.plusHours(24))) {
-            throw new IllegalArgumentException("La reserva debe realizarse con al menos 24 horas de anticipación.");
+        LocalDateTime fechaHora = LocalDateTime.of(dia, horaInicio);
+
+        if (fechaHora.isBefore(hoyAhora.plusHours(24))) {
+            throw new ReservaException("La reserva debe realizarse con al menos 24 horas de anticipación.");
         }
 
-
-        // Validar que la hora de inicio esté dentro del horario permitido del restaurante
         if (horaInicio.isBefore(LocalTime.of(20, 0)) || horaInicio.isAfter(LocalTime.of(23, 59))) {
-            throw new IllegalArgumentException("La hora de la reserva debe estar entre las 20:00 y las 23:59.");
+            throw new ReservaException("La hora de la reserva debe estar entre las 20:00 y las 23:59.");
         }
 
-        //si no se pasa hora final se le da por defecto 3 horas despues del comienzo.
-        if (horaFinal == null) {
-            horaFinal = horaInicio.plusHours(3);
-        }
+        LocalTime horaFinal = horaInicio.plusHours(3); // Hora final por defecto
 
-        // Verifico si la mesa esta disponible
         if (!mesa.consultarDisponibilidad(mesa, dia, horaInicio)) {
-            throw new IllegalArgumentException("La mesa " + mesa.getNumMesa() + " no está disponible para el día " + dia + " a las " + horaInicio);
+            throw new ReservaException("La mesa " + mesa.getNumMesa() + " no está disponible para el día " + dia + " a las " + horaInicio);
         }
 
-        // Crear la nueva reserva
         Reserva nuevaReserva = new Reserva(cliente, mesa, dia, horaInicio, comentarios);
-
-        // Agregar la nueva reserva a la lista
         listaDeReservas.add(nuevaReserva);
         mesa.agregarReserva(nuevaReserva);
         exportarReservaATXT(nuevaReserva);
 
+        // Confirmación de la reserva
         System.out.println("La reserva se realizó con éxito.");
         System.out.println("Nombre: " + cliente.getNombre());
         System.out.println("Mesa: " + mesa.getNumMesa());
@@ -216,87 +370,87 @@ public class Reserva {
         System.out.println("Número de identificación de la reserva: " + nuevaReserva.getIdReserva());
     }
 
-
-
-
     /**
-     * modificarReserva
-     * @param idReserva: número de identificación de la reserva
-     * @param nuevaMesa: nueva mesa en caso de que sea modificada, sino se conserva la misma
-     * @param nuevaHora: nueva hora en caso de que sea modificada, sino se conserva la misma
-     * @param nuevoDia: nuevo día en caso de que sea modificado, sino se conserva el mismo
-     * @throws IllegalArgumentException: por si ocurre algun error a la hora de encontrar algun dato
+     * Modifica una reserva existente.
+     *
+     * @param idReservaModificada El ID de la reserva que se desea modificar.
+     * @param nuevaMesa           La nueva mesa (si se modifica).
+     * @param nuevaHora           La nueva hora (si se modifica).
+     * @param nuevoDia            El nuevo día (si se modifica).
+     * @throws ReservaException si ocurre un error al modificar la reserva.
      */
-    public void modificarReserva(Integer idReserva, Mesa nuevaMesa, LocalTime nuevaHora, LocalDate nuevoDia) {
-        if (idReserva == null) {
+    public void modificarReserva(Integer idReservaModificada, Mesa nuevaMesa, LocalTime nuevaHora, LocalDate nuevoDia) throws ReservaException {
+        if (idReservaModificada == null) {
             throw new IllegalArgumentException("El ID de reserva no puede ser nulo.");
         }
 
-        // Buscar la reserva mediante el id
-        Reserva reservaAModificar = null;
-        for (Reserva reserva : listaDeReservas) {
-            if (reserva.getIdReserva().equals(idReserva)) {
-                reservaAModificar = reserva;
-                break;
-            }
-        }
+        Reserva reservaAModificar = listaDeReservas.stream()
+                .filter(reserva -> reserva.getIdReserva().equals(idReservaModificada))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró una reserva con el ID: " + idReservaModificada));
 
-        if (reservaAModificar == null) {
-            throw new IllegalArgumentException("No se encontró una reserva con el ID: " + idReserva);
-        }
+        boolean cambiarMesa = nuevaMesa != null && !nuevaMesa.getNumMesa().equals(reservaAModificar.getMesa().getNumMesa());
 
-        boolean cambiarMesa = nuevaMesa != null && !nuevaMesa.equals(reservaAModificar.getMesa());
-        //validamos la hora nueva
+        // Validar nueva hora
         if (nuevaHora != null) {
-            if (nuevaHora.isBefore(LocalTime.of(20, 0))) {
-                throw new IllegalArgumentException("La hora de la reserva debe ser después de las 20:00.");
-            }
-            if (nuevaHora.isAfter(LocalTime.of(23, 59))) {
-                throw new IllegalArgumentException("La hora de la reserva no puede ser después de las 00:00.");
+            if (nuevaHora.isBefore(LocalTime.of(20, 0)) || nuevaHora.isAfter(LocalTime.of(23, 59))) {
+                throw new IllegalArgumentException("La hora de la reserva debe estar entre las 20:00 y las 23:59.");
             }
         }
 
+        // Validar nueva fecha
         if (nuevoDia != null && nuevoDia.isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("Fecha incorrecta, no ingrese fechas en el pasado");
+            throw new IllegalArgumentException("Fecha incorrecta, no ingrese fechas en el pasado.");
         }
 
-        // Validar 24 horas de anticipación para la nueva fecha
+        // Validar 24 horas de anticipación
         if (nuevoDia != null || nuevaHora != null) {
-            LocalDateTime hoyAhora = LocalDateTime.now();
             LocalDateTime nuevaFechaHora = LocalDateTime.of(nuevoDia != null ? nuevoDia : reservaAModificar.getFecha(),
                     nuevaHora != null ? nuevaHora : reservaAModificar.getHoraInicio());
-            if (nuevaFechaHora.isBefore(hoyAhora.plusHours(24))) {
+            if (nuevaFechaHora.isBefore(LocalDateTime.now().plusHours(24))) {
                 throw new IllegalArgumentException("La modificación de la reserva debe realizarse con al menos 24 horas de anticipación.");
             }
         }
 
-        // Actualizar la disponibilidad de la mesa
-        reservaAModificar.getMesa().actualizarDisponibilidad(reservaAModificar, nuevoDia, nuevaHora, cambiarMesa);
-
-        // Actualizar los valores de la reserva
-        if (nuevaHora != null && !nuevaHora.equals(reservaAModificar.getHoraInicio())) {
-            reservaAModificar.setHoraInicio(nuevaHora); //se cambia la hora
+        if (!reservaAModificar.getMesa().consultarDisponibilidad(nuevaMesa, nuevoDia, nuevaHora)) {
+            throw new ReservaException("La mesa " + nuevaMesa.getNumMesa() + " no está disponible para el día " + nuevoDia + " a las " + nuevaHora);
         }
 
-        if (nuevoDia != null && !nuevoDia.equals(reservaAModificar.getFecha())) {
-            reservaAModificar.setFecha(nuevoDia); // se cambia el dia
+        reservaAModificar.getMesa().actualizarDisponibilidad(reservaAModificar, nuevoDia, nuevaHora, cambiarMesa);
+
+        if (nuevaHora != null) {
+            reservaAModificar.setHoraInicio(nuevaHora);
+        }
+
+        if (nuevoDia != null) {
+            reservaAModificar.setFecha(nuevoDia);
         }
 
         if (cambiarMesa) {
-            reservaAModificar.setMesa(nuevaMesa); // se cambia la mesa
+            reservaAModificar.setMesa(nuevaMesa);
         }
 
-        System.out.println("Reserva modificada con éxito.");
+        actualizarReservaEnArchivo(reservaAModificar);
+        listaDeReservas = Reserva.cargarReservasDesdeArchivo();
+
+        // Confirmación de la modificación
+        System.out.println("La reserva se modificó con éxito.");
+        System.out.println("Nombre: " + reservaAModificar.getCliente().getNombre());
+        System.out.println("Mesa: " + reservaAModificar.getMesa().getNumMesa());
+        System.out.println("Día: " + nuevoDia);
+        System.out.println("Hora: " + nuevaHora);
+        System.out.println("Número de identificación de la reserva: " + reservaAModificar.getIdReserva());
     }
 
-
     /**
-     * cancelarReserva
-     * @param idReserva: número de identificación de la reserva
-     * @param cliente: cliente que cancela
-     * @param mesa: mesa que deja de estar reservada
+     * Cancela una reserva existente.
+     *
+     * @param idReservaCancelada El ID de la reserva que se desea cancelar.
+     * @param cliente            El cliente que cancela la reserva.
+     * @param mesa               La mesa que queda disponible tras la cancelación.
+     * @throws ReservaException si ocurre un error al cancelar la reserva.
      */
-    public void cancelarReserva(int idReserva, Cliente cliente, Mesa mesa) {
+    public void cancelarReserva(int idReservaCancelada, Cliente cliente, Mesa mesa) throws ReservaException {
         if (cliente == null) {
             throw new IllegalArgumentException("El cliente no puede ser nulo.");
         }
@@ -305,88 +459,86 @@ public class Reserva {
             throw new IllegalArgumentException("La mesa no puede ser nula.");
         }
 
-        Reserva reservaACancelar = null;
-        for (Reserva reserva : listaDeReservas) {
-            if (reserva.getIdReserva().equals(idReserva)) {
-                reservaACancelar = reserva;
-                break;
-            }
-        }
+        Reserva reservaACancelar = listaDeReservas.stream()
+                .filter(reserva -> reserva.getIdReserva().equals(idReservaCancelada))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró una reserva con el ID: " + idReservaCancelada));
 
-        // compruebo si se encontró la reserva que se quiere cancelar
-        if (reservaACancelar == null) {
-            throw new IllegalArgumentException("No se encontró una reserva con el ID: " + idReserva);
-        }
-
-        // compruebo que el cliente que cancela sea el que hizo la reserva
-        if (!reservaACancelar.getCliente().equals(cliente)) {
+        // Verificar que el cliente que cancela es el mismo que hizo la reserva
+        if (!reservaACancelar.getCliente().getNombre().equalsIgnoreCase(cliente.getNombre())) {
             throw new IllegalArgumentException("El cliente no coincide con la reserva. No se puede cancelar.");
         }
 
-        // Actualizar la disponibilidad de la mesa, es decir, libera la cancelada
+        // Actualizar la disponibilidad de la mesa
         mesa.actualizarDisponibilidad(reservaACancelar, null, null, false);
 
-        // elimina la reserva de la lista
+        // Eliminar la reserva de la lista
         listaDeReservas.remove(reservaACancelar);
         mesa.quitarReserva(reservaACancelar);
 
-        // suma en uno el contador de cancelaciones del cliente
-        cliente.incrementarContadorCancelaciones();
+        // Incrementar contador de cancelaciones del cliente
+        Cliente.incrementarContadorCancelaciones();
+        eliminarReservaDelArchivo(idReservaCancelada);
 
-        // Confirmar la cancelación
-        System.out.println("Reserva cancelada con éxito. ID Reserva: " + idReserva);
+        // Confirmación de la cancelación
+        System.out.println("Reserva cancelada con éxito. ID Reserva: " + idReservaCancelada);
     }
 
-
     /**
-     * filtrarMesa: filtra las mesas basándose en su capacidad y ubicación.
-     * @param capacidad: capacidad de comensales que soporta la mesa
-     * @param ubicacion: ubicación espacial en el restaurante
-     * @return: lista de mesas que cumplen con los requisitos especificados
+     * Filtra las mesas basándose en su capacidad y ubicación.
+     *
+     * @param capacidad La capacidad de comensales que soporta la mesa.
+     * @param ubicacion La ubicación espacial en el restaurante.
+     * @return Lista de mesas que cumplen con los requisitos especificados.
+     * @throws IllegalStateException si la lista de mesas es nula.
      */
     public ArrayList<Mesa> filtrarMesa(Integer capacidad, Ubicacion ubicacion) {
-        // Crear una lista para almacenar las mesas filtradas
         ArrayList<Mesa> mesasFiltradas = new ArrayList<>();
-
-        // Asegúrate de que la lista de mesas no sea nula
-        List<Mesa> listaMesas = Mesa.getListaMesasUbicaciones(); // Asegúrate de que este método sea estático o de instancia.
+        List<Mesa> listaMesas = Mesa.getListaMesasUbicaciones();
 
         if (listaMesas == null) {
             throw new IllegalStateException("La lista de mesas no puede ser nula.");
         }
 
-        // Recorrer la lista de mesas para aplicar los filtros
         for (Mesa mesa : listaMesas) {
-            boolean cumpleCapacidad = (capacidad == null || mesa.getCapacidad() >= capacidad);
-            boolean cumpleUbicacion = (ubicacion == null || mesa.getUbicacion().equals(ubicacion));
-
-            if (cumpleCapacidad && cumpleUbicacion) {
+            if (mesa.getCapacidad().equals(capacidad) && mesa.getUbicacion().equals(ubicacion)) {
                 mesasFiltradas.add(mesa);
             }
         }
-
         return mesasFiltradas;
     }
 
-
-
     /**
-     * realizarComentario: se le solicita al cliente que realice un comentario previo a la reserva con el objetivo
-     * de conocer si cuenta con algunas alergias o enfermedades que no le permitan disfrutar de todos los alimentos
-     * @return: comentario realizado por el cliente
+     * Solicita al cliente que realice un comentario previo a la reserva.
+     *
+     * @return Comentario realizado por el cliente.
      */
     public String realizarComentario() {
+        // Implementar lógica para solicitar comentario al cliente
         return "";
     }
 
+    /**
+     * Reserva un evento en el restaurante.
+     *
+     * @param cliente      El cliente que realiza la reserva del evento.
+     * @param nombre       El nombre del evento.
+     * @param piso         El piso donde se llevará a cabo el evento.
+     * @param fecha        La fecha del evento.
+     * @param horaInicio   La hora de inicio del evento.
+     * @param horaFinal    La hora final del evento.
+     * @param comentarios  Comentarios adicionales sobre el evento.
+     * @param tipoDeDia   El tipo de día (especial, regular, etc.).
+     * @throws IllegalArgumentException si alguno de los parámetros es inválido.
+     */
     public void reservaEvento(Cliente cliente, String nombre, Piso piso, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal, String comentarios, TipoDeDia tipoDeDia) {
         if (piso == null || cliente == null) {
-            throw new IllegalArgumentException("El cliente y el piso no pueden ser nulos");
+            throw new IllegalArgumentException("El cliente y el piso no pueden ser nulos.");
         }
 
         // Validación de horarios
         if (horaFinal.isBefore(horaInicio)) {
-            throw new IllegalArgumentException("La hora final debe ser después de la hora de inicio");
+            throw new IllegalArgumentException("La hora final debe ser después de la hora de inicio.");
         }
 
         // Verificar si el piso ya está reservado

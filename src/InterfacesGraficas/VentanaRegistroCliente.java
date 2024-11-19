@@ -6,6 +6,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * VentanaRegistroCliente es una clase que representa una interfaz gráfica
+ * para el registro de nuevos clientes en el sistema.
+ * Extiende la clase JFrame para crear una ventana personalizada.
+ */
 public class VentanaRegistroCliente extends JFrame {
     private JTextField txtNombre;
     private JTextField txtCorreo;
@@ -15,6 +20,11 @@ public class VentanaRegistroCliente extends JFrame {
 
     private VentanaIniciarSesion ventanaIniciarSesion; // Referencia a la ventana de inicio de sesión
 
+    /**
+     * Constructor de la clase VentanaRegistroCliente.
+     *
+     * @param ventanaIniciarSesion referencia a la ventana de inicio de sesión
+     */
     public VentanaRegistroCliente(VentanaIniciarSesion ventanaIniciarSesion) {
         this.ventanaIniciarSesion = ventanaIniciarSesion; // Inicializa la referencia
         setTitle("Registro de Cliente");
@@ -28,6 +38,11 @@ public class VentanaRegistroCliente extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Configura los componentes de la ventana de registro.
+     *
+     * @param panel el panel donde se colocan los componentes
+     */
     private void placeComponents(JPanel panel) {
         panel.setLayout(null);
 
@@ -67,6 +82,7 @@ public class VentanaRegistroCliente extends JFrame {
         btnRegistrar.setBounds(100, 140, 150, 25);
         panel.add(btnRegistrar);
 
+        // Agrega un listener al botón de registrar
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,6 +91,10 @@ public class VentanaRegistroCliente extends JFrame {
         });
     }
 
+    /**
+     * Método que se encarga de registrar un nuevo cliente.
+     * Valida los campos de entrada y crea un nuevo objeto Cliente.
+     */
     private void registrarCliente() {
         String nombre = txtNombre.getText().trim();
         String correo = txtCorreo.getText().trim();
@@ -99,7 +119,7 @@ public class VentanaRegistroCliente extends JFrame {
 
             // Actualiza la lista de clientes
             Cliente.setListaClientes(new ArrayList<>()); // Limpiar la lista anterior
-            Cliente.setListaClientes(Cliente.cargarClientesDesdeArchivo()); // Cargar la lista actualizada
+            //Cliente.setListaClientes(Cliente.cargarClientesDesdeArchivo()); // Cargar la lista actualizada
 
             JOptionPane.showMessageDialog(this, "Cliente registrado exitosamente.");
             dispose(); // Cierra la ventana de registro
@@ -109,7 +129,9 @@ public class VentanaRegistroCliente extends JFrame {
         }
     }
 
-
+    /**
+     * Limpia los campos de entrada de la ventana.
+     */
     private void clearFields() {
         txtNombre.setText("");
         txtCorreo.setText("");

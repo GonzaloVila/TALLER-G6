@@ -18,33 +18,13 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        //Integer idReserva, LocalDate fecha, LocalTime horaInicio, String comentarios, LocalTime horaFinal, Estado estado, Cliente cliente,
-        Cliente cliente = new Cliente(" Pablo Rd", "pablitoelmaskpito123@gmail.com", "123132", "lucasmireamor2");
+        //Panel de ingreso
+        VentanaIniciarSesion ventanaIniciarSesion = new VentanaIniciarSesion();
+        // Cargar reservas al inicio
+        ArrayList<Reserva> listaReservas = Reserva.cargarReservasDesdeArchivo();
         // Inicializa todas las mesas
         Mesa.inicializarMesas();
-        Reserva reserva = new Reserva();
-        System.out.println("TALLER  GRUPO 6");
-        VentanaRegistrarReserva ventana = new VentanaRegistrarReserva(reserva);
-        ventana.setVisible(true);
 
-        //new VentanaRegistroCliente();
-
-       /** //Interfaz crearCuentaEmpleado
-        Calendario calendario = new Calendario(); // Asegúrate de que esto no sea null
-        Administrador administrador = new Administrador(calendario);
-        VentanaRegistrarEmpleado ventana = new VentanaRegistrarEmpleado(administrador);
-        ventana.setVisible(true);*/
-
-       //interfaz AdministradorHorarios.
-        /**Administrador administrador = new Administrador(new Calendario());
-        SwingUtilities.invokeLater(() -> {
-            VentanaEstablecerHorario ventana = new VentanaEstablecerHorario(administrador);
-            ventana.setVisible(true);
-        });*/
-
-       // Application.launch(RestauranteMapa.class, args);
-        //ArrayList<Cliente> listaClientes = new ArrayList<>();
-        // Puedes añadir algunos clientes de prueba aquí si es necesario.
 
 
     }

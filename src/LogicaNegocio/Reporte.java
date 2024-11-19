@@ -2,22 +2,17 @@ package LogicaNegocio;
 
 import java.time.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public class Reporte {
-    private String repototal;
+    private static LocalDate fechaActual = LocalDate.now();
+
     private ArrayList<Cliente> clientes;
 
-    public Reporte(String repototal, ArrayList<Cliente> clientes) {
-        this.repototal = repototal;
+    public Reporte(ArrayList<Cliente> clientes) {
         this.clientes = clientes;
-    }
-
-    public String getRepototal() {
-        return repototal;
-    }
-
-    public void setRepototal(String repototal) {
-        this.repototal = repototal;
     }
 
     public ArrayList<Cliente> getClientes() {
@@ -28,78 +23,149 @@ public class Reporte {
         this.clientes = clientes;
     }
 
-    @Override
-    public String toString() {
-        return "Reporte [repototal=" + repototal + "]";
-    }
-
     /**
-     * detalleReservasFuturas: Detalla las futuras reservas de un determinado cliente
-     * @param c: Lista de clientes
+     * detalleReservasFuturas: Detalla las futuras reservas de un determinado cliente.
+     * @param c: Cliente determinado
      * @return: Lista de reservas futuras
      */
-    public ArrayList<Reserva> detalleReservasFuturas(ArrayList<Cliente> c){
-        return null;
+    public ArrayList<Reserva> detalleReservasFuturas(Cliente c){
+        ArrayList<Reserva> reservasFuturas = new ArrayList<>();
 
+        for(Cliente cl: this.clientes){
+            if(cl==c){
+                for(Reserva r: c.consultarHistorialReservas()){
+                    if(fechaActual.isBefore(r.getFecha())){
+                        reservasFuturas.add(r);
+                    }
+                }
+            }
+        }
+        return reservasFuturas;
     }
 
     /**
-     * historial_Reserva_PorCliente: Reservas realizadas por un cliente durante toda su vida
-     * @param c: Lista de clientes
+     * historialReservaPorCliente: Reservas realizadas por un cliente durante toda su vida.
+     * @param c: Cliente determinado
      * @return: Lista de reservas historial del cliente
      */
-    public ArrayList<Reserva> historial_Reserva_PorCliente(ArrayList<Cliente> c){
+    public ArrayList<Reserva> historialReservaPorCliente(Cliente c) {
+        for (Cliente cl : clientes) {
+            if (cl == c) {
+                return cl.consultarHistorialReservas();
+            }
+        }
         return null;
     }
 
 
     /**
-     * max_Asistencia_Cliente: Cliente que ha realizado mayor cantidad de reservas y ha asistido a ellas
-     * @param c: Lista de clientes
+     * maxAsistenciaCliente: Cliente que ha realizado mayor cantidad de reservas y ha asistido a ellas.
      * @return: Cliente
      */
-    public Cliente max_Asistencia_Cliente(ArrayList<Cliente> c){
-        return null;
+    public Cliente maxAsistenciaCliente() {
+        int cantMaxReservas = 0;
+        Cliente clienteMayorReservas = null;
+
+        for (Cliente c : this.clientes) {
+            int contador = 0;
+            for (Reserva r : c.consultarHistorialReservas()) {
+                if (r.getEstado().equals(Estado.FINALIZADA)) {
+                    contador++;
+                }
+            }
+            if (cantMaxReservas < contador) {
+                cantMaxReservas = contador;
+                clienteMayorReservas = c;
+            }
+        }
+
+        return clienteMayorReservas;
+
     }
 
     /**
-     * cliente_malo_inasistencia: Clientes que han realizado reservas pero no han asistido en el último año
-     * @param c: Lista de clientes
-     * @return: Lista de clientes que no han asistido
+     * clienteMaloInasistencia: Clientes que han realizado reservas pero no han asistido en el último año.
+     * @return: Lista de clientes que no han asistido a sus reservas en el último año
      */
-    public ArrayList<Cliente> cliente_malo_inasistencia(ArrayList<Cliente> c){
-        return null;
+    public ArrayList<Cliente> clienteMaloInasistencia(){
+
+        LocalDate haceUnAnio = fechaActual.minusYears(1); //   23/10/23
+        HashSet<Cliente> clientesNoAsistidos = new HashSet<Cliente>();
+
+        for(Cliente c: this.clientes){
+            for(Reserva r: c.consultarHistorialReservas()){
+                if(r.getEstado().equals(Estado.NO_ASISTIO) && r.getFecha().isAfter(haceUnAnio)){
+                    clientesNoAsistidos.add(c);
+                    break;
+                }
+            }
+        }
+        return new ArrayList<>(clientesNoAsistidos);
+
     }
 
     /**
      * reservaRealizadas: Reservas realizadas detallando mesa, fecha, hora de comienzo de la ocupación
      *                    y de finalización de la misma, cliente y cantidad de comensales que puede albergar
      *                    en un rango de fechas dado.
-     * @param c: Cliente
-     * @param m: Mesa
-     * @param f: Fecha
-     * @param can_comen: Cantidad de comensales
-     * @param hi: Hora inicio
-     * @param hf: Hora fin
-     * @return: Lista de reservas realizadas
+     * @param f1: Primer fecha del rango de fechas
+     * @param f2: Segunda fecha del rango de fechas
+     * @return: Lista de reservas detalladas
      */
-    public ArrayList<Reserva> reservaRealizadas(Cliente c, Mesa m, LocalDate f, int can_comen, LocalTime hi, LocalTime hf){
-        return null;
+    public ArrayList<Reserva> reservaRealizadas(LocalDate f1, LocalDate f2){
+        ArrayList<Reserva> reservasEnRango = new ArrayList<>();
 
+        for(Cliente c: clientes){
+            for(Reserva r: c.consultarHistorialReservas()){
+                if(r.getFecha().isAfter(f1) && r.getFecha().isBefore(f2)){
+                    reservasEnRango.add(r);
+                }
+            }
+        }
+
+        return reservasEnRango;
     }
 
     /**
-     * Periodo_de_tiempo_en_que_Mas_Comensales_hay: Análisis de períodos de tiempo en que existe mayor
-     *                                              concurrencia de comensales
-     * @return fecha del periodo
+     * analisisConcurrenciaPorEstacion: Análisis de períodos de tiempo en que existe mayor concurrencia de comensales.
+     * Recorre todas las reservas de los clientes y calcula el total de comensales por estacion.
+     *
+     * @return HashMap que contiene estación (clave) y total de comensales (valor)
      */
-    public String Periodo_de_tiempo_en_que_Mas_Comensales_hay(){
-        return null;
+    public Map<String, Integer> analisisConcurrenciaPorEstacion(){
+        Map<String, Integer> concurrenciaPorEstacion = new HashMap<>();
+
+        for(Cliente c: this.clientes){
+            for(Reserva r: c.consultarHistorialReservas()){
+                String estacion = getEstacion(r.getFecha());
+                int comensales = r.getMesa().getCapacidad();
+
+                concurrenciaPorEstacion.put(estacion, concurrenciaPorEstacion.getOrDefault(estacion, 0)+ comensales);
+            }
+        }
+        return concurrenciaPorEstacion;
     }
 
     /**
-     * exportar_Reporte: Metodo para exportar reporte
+     * getEstacion: Determinar la estación del año basada en la fecha de la reserva.
+     *
+     * @param fecha: fecha de la reserva
+     * @return El nombre de la estacion del año correspondiente (Verano, Otoño, invierno, Primavera)
      */
-    public void exportar_Reporte(){
+    private String getEstacion(LocalDate fecha){
+        Month mes= fecha.getMonth();
+
+        switch(mes){
+            case DECEMBER: case JANUARY: case FEBRUARY:
+                return "Verano";
+            case MARCH: case APRIL: case MAY:
+                return "Otoño";
+            case JUNE: case JULY: case AUGUST:
+                return "Invierno";
+            case SEPTEMBER: case OCTOBER: case NOVEMBER:
+                return "Primavera";
+            default:
+                return "Desconocida";
+        }
     }
 }

@@ -1,5 +1,21 @@
 package LogicaNegocio;
 
+/**
+ * Enumeración que representa las ubicaciones disponibles en el restaurante.
+ */
 public enum Ubicacion {
-    SALONPRINCIPAL, TERRAZA, SEGUNDOPISO;
+    /**
+     * Ubicación en el salón principal del restaurante.
+     */
+    SALONPRINCIPAL,
+
+    /**
+     * Ubicación en la terraza del restaurante.
+     */
+    TERRAZA,
+
+    /**
+     * Ubicación en el segundo piso del restaurante.
+     */
+    SEGUNDOPISO;
 }

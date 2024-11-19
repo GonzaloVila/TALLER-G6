@@ -1,6 +1,6 @@
 package LogicaNegocio;
-import InterfacesGraficas.VentanaRegistrarEmpleado;
-import InterfacesGraficas.VentanaRegistrarReserva;
+import InterfacesGraficas.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,10 +8,9 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import LogicaNegocio.Horario;
 import java.util.List;
-import InterfacesGraficas.RestauranteMapa;
+
 import javafx.application.Application;
-import InterfacesGraficas.VentanaRegistroCliente;
-import InterfacesGraficas.VentanaIniciarSesion;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;

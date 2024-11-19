@@ -176,7 +176,7 @@ public class VentanaRegistrarReserva extends JFrame {
         LocalTime horaInicio = ((java.util.Date) horaSpinner.getValue()).toInstant()
                 .atZone(java.time.ZoneId.systemDefault()).toLocalTime();
 
-        Estado estadoInicial = Estado.EN_CURSO;
+        Estado estadoInicial = Estado.RESERVADA;
 
         Cliente cliente = new Cliente(nombreCliente, emailCliente, telefonoCliente);
 

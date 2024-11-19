@@ -120,7 +120,13 @@ public class VentanaIniciarSesion extends JFrame {
 
         // Verificar las credenciales
         Cliente cliente = new Cliente(); // Crear una instancia del cliente
-        if (cliente.iniciarSesion(correo, contrasenia)) {
+
+        if(cliente.esAdministrador(correo, contrasenia)){
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso como administrador.");
+            this.dispose();
+            VentanaRegistrarEmpleado ventana = new VentanaRegistrarEmpleado(new Administrador(new Calendario()));
+            ventana.setVisible(true);
+        }else if (cliente.iniciarSesion(correo, contrasenia)) {
             JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
             for (Cliente c : listaClientes) {
                 if (c.getCorreo().equals(correo)) {

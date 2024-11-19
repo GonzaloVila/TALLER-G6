@@ -1,4 +1,4 @@
 Lista de Clientes
 
-Correo: pablo@gmail.com, Nombre: pablo, Número: 123, Contraseña: 777
 
+Correo: juan@gmail.com, Nombre: juan, Número: 8787, Contraseña: 111

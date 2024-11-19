@@ -24,7 +24,7 @@ public class Cliente {
     private String numero; // Número de contacto del cliente
     private String contrasenia; // Contraseña del cliente
     public static final String CORREOADMIN = "admin@gmail.com";
-    public static final String CONTRASEÑAADMIN = "AdminRest123";
+    public static final String CONTRASEÑAADMIN = "ad";
     private ArrayList<Reserva> listaReservasClientes; // Lista de reservas del cliente
     private static ArrayList<Cliente> listaClientes = new ArrayList<>(); // Lista estática de todos los clientes
     private static int contadorCancelaciones = 0; // Contador de cancelaciones
@@ -104,6 +104,9 @@ public class Cliente {
 
     public void setListaReservasClientes(ArrayList<Reserva> listaReservasClientes) {
         this.listaReservasClientes = listaReservasClientes;
+    }
+    public ArrayList<Reserva> getListaReservas(){
+        return listaReservasClientes;
     }
 
     /**
@@ -306,6 +309,9 @@ public class Cliente {
      * @return true si las credenciales son correctas, false en caso contrario.
      */
     public boolean iniciarSesion(String correo, String contrasenia) {
+        if(CORREOADMIN.equals(correo) && CONTRASEÑAADMIN.equals(contrasenia)){
+            esAdministrador(correo, contrasenia);
+        }
         for (Cliente cliente : listaClientes) {
             System.out.println("Verificando cliente: " + cliente.getCorreo()); // Para depuración
             if (cliente.getCorreo().equals(correo) && cliente.getContrasenia().equals(contrasenia)) {
@@ -465,16 +471,16 @@ public class Cliente {
             // Extraer y procesar cada campo, con validación de formato y mensajes de depuración
             int id = Integer.parseInt(obtenerValorCampo(partes[0], "ID Reserva"));
             String nombre = obtenerValorCampo(partes[1], "Nombre");
-            LocalDate fecha = LocalDate.parse(obtenerValorCampo(partes[2], "Fecha"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate fecha = LocalDate.parse(obtenerValorCampo(partes[4], "Fecha"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             // Ajuste en el procesamiento del campo Hora
-            String horaTexto = obtenerValorCampoHora(partes[3]);
+            String horaTexto = obtenerValorCampoHora(partes[5]);
             LocalTime hora = LocalTime.parse(horaTexto, DateTimeFormatter.ofPattern("HH:mm"));
 
-            int mesa = Integer.parseInt(obtenerValorCampo(partes[4], "Mesa"));
+            int mesa = Integer.parseInt(obtenerValorCampo(partes[6], "Mesa"));
 
             // Crear y retornar el objeto Reserva
-            return new Reserva(this, new Mesa(mesa), fecha, hora, null);
+            return new Reserva(this, new Mesa(mesa), fecha, null, hora);
 
         } catch (Exception e) {
             System.err.println("Error al procesar la línea: " + linea);
@@ -506,7 +512,7 @@ public class Cliente {
      */
     private String obtenerValorCampoHora(String campo) {
         // Buscar "Hora" y extraer el valor después del espacio
-        if (campo.startsWith("Hora ")) {
+        if (campo.startsWith("Hora: ")) {
             return campo.substring(5).trim(); // Extraer después de "Hora "
         } else {
             System.err.println("Error: Formato incorrecto para el campo 'Hora' en: " + campo);

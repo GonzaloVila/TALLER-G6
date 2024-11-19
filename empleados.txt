@@ -1,1 +1,3 @@
-ID: 1, Nombre: pablo, Email: pablord@gmail.com, Contraseña: pablord, Permiso: BAJO, Rol: Mesero
+Lista de Empleados
+ID: 2, Nombre: lucas, Email: lucas@gmail.com, Contraseña: 123, Permiso: BAJO, Rol: Mesero
+ID: 3, Nombre: juan, Email: juan@gmail.com, Contraseña: 123, Permiso: BAJO, Rol: Mesero

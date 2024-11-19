@@ -1,9 +1,6 @@
 package InterfacesGraficas;
 
-import LogicaNegocio.Administrador;
-import LogicaNegocio.Permiso;
-import LogicaNegocio.Rol;
-import LogicaNegocio.Calendario;
+import LogicaNegocio.*;
 import Excepciones.EmpleadoException;
 import javax.swing.*;
 import java.awt.*;
@@ -227,6 +224,21 @@ public class VentanaRegistrarEmpleado extends JFrame {
         tabbedPane.addTab("Eliminar Empleado", panelEliminarEmpleado);
         tabbedPane.addTab("Eliminar Cliente", panelEliminarCliente);
         tabbedPane.addTab("Establecer Horarios", panelEstablecerHorarios);
+
+        JPanel panelReporte = new JPanel(new GridLayout(8, 2));
+        panelReporte.add(new JLabel("Presione en 'Reportes' para generar los reportes del restaurante "));
+        JButton boton_Reportes = new JButton("Reportes");
+        panelReporte.add(boton_Reportes, BorderLayout.SOUTH);
+        boton_Reportes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Reporte reporte = new Reporte(Cliente.getListaClientes());
+                VentanaReporte ventana = new VentanaReporte(reporte);
+                ventana.setVisible(true);
+            }
+        });
+
+        tabbedPane.addTab("Reporte restaurante", panelReporte);
 
 
         tabbedPane.addChangeListener(e -> {

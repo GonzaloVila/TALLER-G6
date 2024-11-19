@@ -45,7 +45,7 @@ public class Reserva {
      * @param comentarios Comentarios adicionales sobre la reserva.
      * @throws ReservaException Si alguno de los parámetros es nulo o si la fecha/hora no son válidas.
      */
-    public Reserva(Cliente cliente, Mesa mesa, LocalDate fecha, LocalTime horaInicio, String comentarios) throws ReservaException {
+    public Reserva(Cliente cliente, Mesa mesa, LocalDate fecha, LocalTime horaInicio,  String comentarios) throws ReservaException {
         // Validaciones de entrada
         if (cliente == null || mesa == null || fecha == null || horaInicio == null) {
             throw new ReservaException("Todos los campos de la reserva deben estar completos.");
@@ -61,8 +61,8 @@ public class Reserva {
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.comentarios = comentarios;
-        this.horaFinal = null; // Inicialmente, no hay hora final
-        this.estado = Estado.EN_CURSO; // Estado inicial de la reserva
+        this.horaFinal = horaInicio.plusHours(2); // Inicialmente, no hay hora final
+        this.estado = Estado.RESERVADA;
         this.cliente = cliente; // Asignar cliente
         this.mesa = mesa; // Asignar mesa
         listaDeReservas.add(this); // Añadir reserva a la lista
@@ -74,6 +74,29 @@ public class Reserva {
         this.idReserva = generadorIDReservas++;
         this.listaEventos = new ArrayList<>();
         listaDeReservas.add(this);
+    }
+
+    public Reserva(Cliente cliente, Mesa mesa, LocalDate fecha, String comentarios, LocalTime horaInicio) throws ReservaException{
+        // Validaciones de entrada
+        if (cliente == null || mesa == null || fecha == null || horaInicio == null) {
+            throw new ReservaException("Todos los campos de la reserva deben estar completos.");
+        }
+        if (fecha.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha no puede ser anterior a la fecha actual.");
+        }
+        if (horaInicio.isBefore(LocalTime.of(20, 0)) || horaInicio.isAfter(LocalTime.of(23, 59))) {
+            throw new ReservaException("La hora de inicio debe estar entre las 20:00 y las 23:59.");
+        }
+
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.comentarios = comentarios;
+        this.horaFinal = horaInicio.plusHours(2); // Inicialmente, no hay hora final
+        this.estado = Estado.RESERVADA;
+        this.cliente = cliente; // Asignar cliente
+        this.mesa = mesa; // Asignar mesa
+        listaDeReservas.add(this); // Añadir reserva a la lista
+        this.listaEventos = new ArrayList<>(); // Inicializar lista de eventos
     }
 
     // Métodos getter y setter para los atributos de la clase
@@ -152,16 +175,13 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "LogicaNegocio.Reserva{" +
-                "cliente=" + cliente +
-                ", idReserva=" + idReserva +
-                ", fecha=" + fecha +
-                ", horaInicio=" + horaInicio +
-                ", comentarios='" + comentarios + '\'' +
-                ", horaFinal=" + horaFinal +
-                ", estado=" + estado +
-                ", mesa=" + mesa +
-                '}';
+        return "ID Reserva= " + idReserva +
+                ", Fecha= " + fecha +
+                ", Hora de inicio= " + horaInicio +
+                ", comentarios= " + comentarios + '\'' +
+                ", Hora de fin= " + horaFinal +
+                ", Estado= " + estado +
+                ", Mesa= " + mesa.getNumMesa();
     }
 
     /**
@@ -350,7 +370,7 @@ public class Reserva {
             throw new ReservaException("La hora de la reserva debe estar entre las 20:00 y las 23:59.");
         }
 
-        LocalTime horaFinal = horaInicio.plusHours(3); // Hora final por defecto
+        LocalTime horaFinal = horaInicio.plusHours(2); // Hora final por defecto
 
         if (!mesa.consultarDisponibilidad(mesa, dia, horaInicio)) {
             throw new ReservaException("La mesa " + mesa.getNumMesa() + " no está disponible para el día " + dia + " a las " + horaInicio);

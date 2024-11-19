@@ -1,1 +1,6 @@
-ID Reserva: 1, Nombre: pablo ruiz diaz, Correo: pablo@gmail.com, Número de celular: 4554432, Fecha: 2024-10-30, Hora: 22:00, Mesa: 1
+ID Reserva: 2, Nombre: juan, Correo: juan@gmail.com, Número de celular: 8787, Fecha: 2024-11-30, Hora: 20:00, Mesa: 10
+ID Reserva: 3, Nombre: pablou, Correo: pablo@gmail.com, Número de celular: 333, Fecha: 2024-12-18, Hora: 20:00, Mesa: 1
+ID Reserva: 4, Nombre: pablou, Correo: pablo@gmail.com, Número de celular: 333, Fecha: 2024-12-18, Hora: 20:30, Mesa: 2
+ID Reserva: 6, Nombre: juan, Correo: juan@gmail.com, Número de celular: 8787, Fecha: 2024-12-15, Hora: 22:30, Mesa: 20
+ID Reserva: 7, Nombre: juan, Correo: juan@gmail.com, Número de celular: 8787, Fecha: 2024-11-23, Hora: 21:00, Mesa: 10
+ID Reserva: 8, Nombre: juan, Correo: juan@gmail.com, Número de celular: 8787, Fecha: 2024-11-23, Hora: 21:20, Mesa: 10
